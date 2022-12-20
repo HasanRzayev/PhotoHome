@@ -16,9 +16,29 @@ namespace Pinterest.Controllers
         public IActionResult Index()
         {
             return View();
+        } 
+        
+        public IActionResult About()
+        {
+            return View();
+        } 
+        
+        public IActionResult Contact()
+        {
+            return View();
+        } 
+        
+        public IActionResult Portfolio()
+        {
+            return View();
+        } 
+        
+        public IActionResult Services()
+        {
+            return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Create()
         {
             return View();
         }
