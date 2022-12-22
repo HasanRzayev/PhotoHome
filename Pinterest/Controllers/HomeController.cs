@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PhotoHome.Data;
+using PhotoHome.Models.Entity;
 using Pinterest.Models;
 using System.Diagnostics;
 
@@ -6,18 +10,21 @@ namespace Pinterest.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        private AppDbContext baza;
+        public HomeController(AppDbContext context)
         {
-            _logger = logger;
+            baza = context;
+
+        }
+  
+        public  IActionResult Index()
+        {
+            var list =  baza.Images.Include(p => p.catagory).ToList();
+            return View(list);
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        } 
-        
         public IActionResult About()
         {
             return View();

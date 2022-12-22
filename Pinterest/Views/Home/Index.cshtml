@@ -1,4 +1,10 @@
-﻿<main role="main" class="probootstrap-main js-probootstrap-main">
+﻿@using PhotoHome.Models.Entity
+
+
+@model List<Image> 
+
+
+<main role="main" class="probootstrap-main js-probootstrap-main">
 	<div class="probootstrap-bar">
 		<a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span><i class="fa-solid fa-bars"></i></span></a>
 		<div class="probootstrap-main-site-logo"><a href="index.html">Aside</a></div>
@@ -26,112 +32,16 @@
 	</div>
 
 	<div class="card-columns">
-		<div class="card">
-			<div class="card-div">
+		
+  @foreach (var item in Model)
+        {
+			<div class="card">
 				<a href="single.html">
-					<img class="card-img-top probootstrap-animate" src="~/images/user/jeans2.jpg" alt="card image cap">
+					<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="card image cap">
 				</a>
 			</div>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_2.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_3.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_4.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_5.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_6.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_7.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_8.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_9.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_10.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_11.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_12.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_13.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_14.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_15.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_16.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_17.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_18.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_19.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_20.jpg" alt="card image cap">
-			</a>
-		</div>
-		<div class="card">
-			<a href="single.html">
-				<img class="card-img-top probootstrap-animate" src="~/images/user/img_21.jpg" alt="card image cap">
-			</a>
-		</div>
+
+        }
+		
 	</div>
 </main>
