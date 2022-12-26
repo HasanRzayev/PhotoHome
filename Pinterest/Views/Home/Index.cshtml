@@ -1,47 +1,60 @@
 ﻿@using PhotoHome.Models.Entity
 
 
-@model List<Image> 
+@model List<Image>
 
 
 <main role="main" class="probootstrap-main js-probootstrap-main">
 	<div class="probootstrap-bar">
 		<a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span><i class="fa-solid fa-bars"></i></span></a>
-		<div class="probootstrap-main-site-logo"><a href="index.html">Aside</a></div>
+		<div class="probootstrap-main-site-logo"><a href="index.html">PhotoHome</a></div>
 	</div>
 
 	<div class="d-flex mb-4">
-		<div class="searchdiv d-flex align-items-center border w-75 mr-5">
-			<div class="pl-4 pr-3">
+		<div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
+			<div class="pl-3 pr-2">
 				<span class="text-primary">
-					<i class="searchicon fa fa-search"></i>
+					<i class="fa fa-search"></i>
 				</span>
 			</div>
 			<form action="" class="w-100">
-				<input type="search" class="h-75 form-control p-0 border-0" placeholder="Search">
+				<input type="search" class="form-control p-0 border-0" placeholder="Search">
 			</form>
 		</div>
 		<div class="d-flex justify-content-end align-items-center w-25">
-			<div class="signin rounded py-2 px-3 font-weight-bold text-uppercase text-primary">
+			<div class="signin py-1 px-3">
 				<a href="">login</a>
 			</div>
-			<div class="signin rounded py-2 px-3 font-weight-bold text-uppercase text-primary">
+			<div class="signin py-1 px-3">
 				<a href="">signup</a>
 			</div>
 		</div>
 	</div>
 
 	<div class="card-columns">
-		
-  @foreach (var item in Model)
-        {
+
+		@foreach (var item in Model)
+		{
 			<div class="card">
-				<a href="single.html">
-					<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="card image cap">
-				</a>
+				<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="Card image cap"
+				 style="border-radius: 20px;">
+				<div class="card-div d-flex flex-column justify-content-between align-items-end">
+					<div class="pt-3 pr-3">
+						<button class="card-div-btn like">
+							<span style="color: #252525;"><i class="fa-solid fa-heart"></i></span>
+						</button>
+						<button class="card-div-btn download">
+							<span style="color: #252525;"><i class="fa-solid fa-arrow-down"></i></span>
+						</button>
+					</div>
+					<div class="details pb-3 pr-3">
+						<button class="more">
+							<span class="py-2 px-3">More</span>
+						</button>
+					</div>
+				</div>
 			</div>
-			
 		}
-		
+
 	</div>
 </main>

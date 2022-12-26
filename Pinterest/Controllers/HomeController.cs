@@ -12,16 +12,15 @@ namespace Pinterest.Controllers
     {
 
 
-        private AppDbContext baza;
+        private AppDbContext _context;
         public HomeController(AppDbContext context)
         {
-            baza = context;
-
+            _context = context;
         }
   
         public  IActionResult Index()
         {
-            var list =  baza.Images.Include(p => p.catagory).ToList();
+            var list =  _context.Images.Include(p => p.catagory).ToList();
             return View(list);
         }
 

@@ -1,1 +1,72 @@
-﻿
+﻿<main role="main" class="probootstrap-main js-probootstrap-main">
+	<div class="probootstrap-bar">
+		<a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span class="oi oi-menu"></span></a>
+		<div class="probootstrap-main-site-logo"><a href="index.html">PhotoHome</a></div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="col-xl-10 p-0 mx-auto" id="dragger_wrapper">
+			<div class="col-xl-5 p-2">
+				<div id="dragger">
+					<div class="icon">
+						<i class="fa-solid fa-images"></i>
+					</div>
+					<h3 id="drag-text">Drag and drop file</h3>
+					<button class="py-1 px-3" id="browseFile" onclick="inputClick()">Browse</button>
+					<input type="file" hidden id="fileInputField" />
+				</div>
+			</div>
+			<div class="col-xl-7 py-2 px-4">
+				<form action="" class="w-100 pt-2">
+					<div class="create-image">
+						<label for="">Category</label>
+						<div class="dropdown">
+							<div class="select">
+								<span>Select Category</span>
+								<i class="fa fa-chevron-left"></i>
+							</div>
+							<input type="hidden" name="gender">
+							<ul class="dropdown-menu">
+								<li id="male">Male</li>
+								<li id="female">Female</li>
+							</ul>
+						</div>
+					</div>
+					<div class="create-image">
+						<label for="">Title</label>
+						<input type="text">
+					</div>
+					<div class="create-image">
+						<label for="">Description</label>
+						<textarea name="" id="" cols="30" rows="5"></textarea>
+					</div>
+					<div class="col-xl-6 mx-auto">
+						<input type="submit" value="Create">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+
+@section Scripts{
+	<script>
+		$().ready(function () {
+			$('.dropdown').click(function () {
+				$(this).attr('tabindex', 1).focus();
+				$(this).toggleClass('active');
+				$(this).find('.dropdown-menu').slideToggle(200);
+			});
+
+			$('.dropdown').focusout(function () {
+				$(this).removeClass('active');
+				$(this).find('.dropdown-menu').slideUp(200);
+			});
+
+			$('.dropdown .dropdown-menu li').click(function () {
+				$(this).parents('.dropdown').find('span').text($(this).text());
+				$(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+			});
+		})
+	</script>
+}

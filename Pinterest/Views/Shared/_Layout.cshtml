@@ -53,7 +53,7 @@
 					</li>
 					<li class="probootstrap-animate pl-3" data-animate-effect="fadeInLeft">
 						<a asp-action="Contact">Contact</a>
-						</li>
+					</li>
 					<li class="probootstrap-animate pl-3" data-animate-effect="fadeInLeft">
 						<a asp-action="Create">Create &plus;</a>
 					</li>
@@ -73,13 +73,18 @@
 
 	@RenderBody()
 
-	<script src="~/js/user/jquery-3.2.1.slim.min.js"></script>
+	@*<script src="~/js/user/jquery-3.2.1.slim.min.js"></script>*@
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script src="~/js/user/popper.min.js"></script>
 	<script src="~/js/user/bootstrap.min.js"></script>
 	<script src="~/js/user/owl.carousel.min.js"></script>
 	<script src="~/js/user/jquery.waypoints.min.js"></script>
 	<script src="~/js/user/imagesloaded.pkgd.min.js"></script>
 	<script src="~/js/user/main.js"></script>
+	<script src="~/js/user/index.js"></script>
+
+	@RenderSection("Scripts", required:false)
+
 </body>
 
 </html>
