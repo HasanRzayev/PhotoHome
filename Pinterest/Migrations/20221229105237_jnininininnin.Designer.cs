@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoHome.Data;
 
@@ -11,9 +12,11 @@ using PhotoHome.Data;
 namespace PhotoHome.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229105237_jnininininnin")]
+    partial class jnininininnin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,13 +230,13 @@ namespace PhotoHome.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c43e7123-a6d1-417b-880c-0d61775eb741",
+                            ConcurrencyStamp = "74a1f39b-d9a1-4cd7-99d4-f4056defcb95",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             MyProperty = 0,
                             PasswordHash = "boss",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a827a49d-b8ce-45c8-a367-a4774166880a",
+                            SecurityStamp = "9aa860cc-696f-4a81-98ce-aef67c4327fe",
                             TwoFactorEnabled = false,
                             UserName = "Boss"
                         });
@@ -308,6 +311,7 @@ namespace PhotoHome.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("user_id")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -324,7 +328,7 @@ namespace PhotoHome.Migrations
                             Id = 1,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=167",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=136",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -335,7 +339,7 @@ namespace PhotoHome.Migrations
                             Id = 2,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=508",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=125",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -346,7 +350,7 @@ namespace PhotoHome.Migrations
                             Id = 3,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=84",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=385",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -357,7 +361,7 @@ namespace PhotoHome.Migrations
                             Id = 4,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=192",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=130",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -368,7 +372,7 @@ namespace PhotoHome.Migrations
                             Id = 5,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=900",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=59",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -379,7 +383,7 @@ namespace PhotoHome.Migrations
                             Id = 6,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=843",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=307",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -390,7 +394,7 @@ namespace PhotoHome.Migrations
                             Id = 7,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=71",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=265",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -401,7 +405,7 @@ namespace PhotoHome.Migrations
                             Id = 8,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=587",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=462",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -412,7 +416,7 @@ namespace PhotoHome.Migrations
                             Id = 9,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=383",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=212",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -423,7 +427,7 @@ namespace PhotoHome.Migrations
                             Id = 10,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=334",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=517",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -492,7 +496,9 @@ namespace PhotoHome.Migrations
 
                     b.HasOne("PhotoHome.Models.Entity.AppUser", "user")
                         .WithMany("Images")
-                        .HasForeignKey("user_id");
+                        .HasForeignKey("user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("catagory");
 

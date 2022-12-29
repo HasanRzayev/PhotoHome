@@ -14,7 +14,7 @@ namespace PhotoHome.Data
         {
         }
 
-        public DbSet<Image> Images { get; set; }
+        public DbSet<Picture> Images { get; set; }
         public DbSet<Catagory> Catagories { get; set; }
   
 
@@ -22,11 +22,11 @@ namespace PhotoHome.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Image>()
+            modelBuilder.Entity<Picture>()
                 .HasOne(s => s.catagory)
                 .WithMany(g => g.Images)
                 .HasForeignKey(s => s.catagory_id);
-            modelBuilder.Entity<Image>()
+            modelBuilder.Entity<Picture>()
                .HasOne(s => s.user)
                .WithMany(g => g.Images)
                .HasForeignKey(s => s.user_id);

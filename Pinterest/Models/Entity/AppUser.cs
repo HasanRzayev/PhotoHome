@@ -4,7 +4,7 @@ namespace PhotoHome.Models.Entity
 {
     public class AppUser : IdentityUser
     {
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<Picture> Images { get; set; }
 
         public int MyProperty { get; set; }
 

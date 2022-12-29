@@ -1,4 +1,4 @@
-namespace Pinterest.Models
+namespace PhotoHome.Models
 {
     public class ErrorViewModel
     {
