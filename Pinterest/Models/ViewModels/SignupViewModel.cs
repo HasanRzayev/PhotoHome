@@ -2,8 +2,14 @@
 
 namespace PhotoHome.Models.ViewModels
 {
-    public class LoginViewModel
+    public class SignupViewModel
     {
+        [Required]
+        [RegularExpression(@"^[a-zA-Z]{3,15}$", ErrorMessage = "First name can contain only letters.")]
+        public string FirstName { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z]{3,20}$", ErrorMessage = "Last name can contain only letters.")]
+        public string LastName { get; set; }
         [Required]
         [RegularExpression(@"[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+", ErrorMessage = "Email can contain only letters, numbers, '@' and '.'.")]
         public string Email { get; set; }

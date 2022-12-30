@@ -1,0 +1,37 @@
+﻿@model AppUser
+
+<main role="main" class="probootstrap-main js-probootstrap-main">
+	<div class="probootstrap-bar">
+		<a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span><i class="fa-solid fa-bars"></i></span></a>
+		<div class="probootstrap-main-site-logo"><a href="index.html">PhotoHome</a></div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="registration col-xl-6 mx-auto">
+			<h1>Login</h1>
+
+			<form method="post">
+				<div class="registration-field">
+					@*<input asp-for="Email" type="text" required>*@
+					<input type="text" required>
+					<label>Email</label>
+				</div>
+				@*<span asp-validation-for="Email"></span>*@
+
+				<div class="registration-field">
+					@*<input asp-for="Password" type="password" required>*@
+					<input type="password" required>
+					<label>Password</label>
+				</div>
+				@*<span it="password_span" asp-validation-for="Password"></span>*@
+
+				<a href="#" id="forgot">Forgot Password?</a>
+
+				<input asp-action="Login" type="submit" value="Login">
+				<div id="link">
+					Don’t have an account? <a asp-action="Signup">Signup</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>

@@ -1054,6 +1054,177 @@ input[type=submit] {
             background-color: #1FAD9F
         }
 
+/**/
+
+.registration {
+    width: 380px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .5);
+}
+
+    .registration h1 {
+        color: #333;
+        padding: 15px 0;
+        text-align: center;
+        border-bottom: 1px solid silver;
+    }
+
+    .registration form {
+        padding: 0 25px;
+        box-sizing: border-box;
+    }
+
+.registration-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #adadad;
+    margin-top: 25px;
+}
+
+.registration input {
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.registration label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: .4s;
+}
+
+.registration-field:focus-within label,
+.registration-field input:valid + label {
+    top: -5px;
+    font-size: 0.9em;
+    color: #38d39f;
+}
+
+.registration-field:before,
+.registration-field:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: #38d39f;
+    transition: .4s;
+}
+
+.registration-field:before {
+    right: 50%;
+}
+
+.registration-field:after {
+    left: 50%;
+}
+
+.registration-field:focus-within:before,
+.registration-field:focus-within:after {
+    width: 50%;
+}
+
+.registration span {
+    font-size: 0.8em;
+    color: orangered;
+}
+
+#forgot {
+    display: block;
+    text-align: right;
+    color: #adadad;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 15px 0;
+}
+
+.registration input[type="submit"] {
+    width: 100%;
+    height: 40px;
+    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    background-size: 200%;
+    border-radius: 25px;
+    color: #e9f4fb;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: .4s;
+}
+
+    .registration input[type="submit"]:hover {
+        background-position: right;
+    }
+
+#link {
+    padding: 10px 0;
+    text-align: center;
+    color: #333;
+}
+
+    #link a {
+        color: #adadad;
+        text-decoration: none;
+    }
+
+.registration a:hover {
+    text-decoration: underline;
+}
+
+/**/
+
+#profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #profile-picture a {
+        font-size: 3em;
+        color: #1FAD9F;
+    }
+
+#profile-name h1 {
+    font-size: 36px;
+}
+
+#profile-options a {
+    background-color: #e6e6e6;
+    color: #000;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+    #profile-options a:hover {
+        background-color: #f2f2f2;
+    }
+
+#profile-info a {
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+.info-active {
+    border-bottom: 3px solid #252525;
+}
+
+/**/
+
 @-webkit-keyframes loader-rotate {
     100% {
         -webkit-transform: rotate(360deg);
