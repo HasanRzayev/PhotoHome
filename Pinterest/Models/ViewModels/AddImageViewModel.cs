@@ -11,7 +11,7 @@ namespace PhotoHome.Models.ViewModels
         public IFormFile ImageUrl { get; set; }
         public int LikeCount { get; set; }
         public int DownloadCount { get; set; }
-        public string user_id { get; set; }
+        public int user_id { get; set; }
         public int catagory_id { get; set; }
 
 

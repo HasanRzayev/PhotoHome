@@ -9,11 +9,11 @@
         public string Description { get; set; }
         public string Title { get; set; }
 
-        public AppUser user { get; set; }
-        public string? user_id { get; set; }
+        public User user { get; set; }
+        public int? user_id { get; set; }
 
         public Catagory catagory { get; set; }
-        public int catagory_id { get; set; }
+        public int? catagory_id { get; set; }
         public Picture()
         {
 

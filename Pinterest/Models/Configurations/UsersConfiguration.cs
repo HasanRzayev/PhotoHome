@@ -4,17 +4,15 @@ using PhotoHome.Models.Entity;
 
 namespace PhotoHome.Models.Configurations
 {
-    public class UsersConfiguration : IEntityTypeConfiguration<AppUser>
+    public class UsersConfiguration : IEntityTypeConfiguration<User>
     {
         public int index { get; set; }
 
 
-
-
-        public void Configure(EntityTypeBuilder<AppUser> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             index = 1;
-            builder.HasData(new AppUser { Id = (index++).ToString(),UserName="Boss",PasswordHash="boss"});
+            builder.HasData(new User { Id = (index++),FirstName="Boss",Password="boss",Email="hsnrz2002@gmail.com",LastName="aaaaaaaaaaaaa"});
           
         }
 

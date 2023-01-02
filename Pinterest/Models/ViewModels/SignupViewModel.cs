@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PhotoHome.Models.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PhotoHome.Models.ViewModels
 {
@@ -16,5 +17,14 @@ namespace PhotoHome.Models.ViewModels
         [Required]
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$", ErrorMessage = "Password must contain minimum eight characters, one upper case letter, one lower case letter, one number and one special character.")]
         public string Password { get; set; }
+
+
+
+
+
+        public static implicit operator User(SignupViewModel model)
+        {
+            return new User() { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Password = model.Password};
+        }
     }
 }

@@ -15,13 +15,13 @@ using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 
 
-namespace Pinterest.Controllers
+namespace PhotoHome.Controllers
 {
     public class HomeController : Controller
     {
 
 
-        private AppDbContext _context;
+        private AppDbContext _base;
 
 
         public static Cloudinary cloudinary;
@@ -33,12 +33,12 @@ namespace Pinterest.Controllers
 
         public HomeController(AppDbContext context)
         {
-            _context = context;
+            _base = context;
         }
 
         public IActionResult Index()
         {
-            var list = _context.Images.Include(p => p.catagory).ToList();
+            var list = _base.Images.Include(p => p.catagory).ToList();
             return View(list);
         }
 
@@ -61,12 +61,12 @@ namespace Pinterest.Controllers
         {
             return View();
         }
-
+      
         public IActionResult Create()
         {
 
-            ViewBag.Categories = new SelectList(_context.Catagories, "Id", "Name");
-            //ViewBag.Categories = _context.Catagories.ToList();
+            ViewBag.Categories = new SelectList(_base.Catagories, "Id", "Name");
+            //ViewBag.Categories = _base.Catagories.ToList();
             return View();
         }
 
@@ -89,8 +89,8 @@ namespace Pinterest.Controllers
                 _image.DownloadCount=image.DownloadCount;
 
                 _image.ImageUrl = uploadResult.SecureUri.ToString();
-                _context.Images.Add(_image);
-                _context.SaveChanges();
+                _base.Images.Add(_image);
+                _base.SaveChanges();
 
 
             }

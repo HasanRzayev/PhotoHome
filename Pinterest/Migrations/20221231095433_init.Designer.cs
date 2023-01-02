@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoHome.Data;
 
@@ -11,9 +12,11 @@ using PhotoHome.Data;
 namespace PhotoHome.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221231095433_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +110,7 @@ namespace PhotoHome.Migrations
                             Id = 1,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=538",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=519",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -118,7 +121,7 @@ namespace PhotoHome.Migrations
                             Id = 2,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=249",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=645",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -129,7 +132,7 @@ namespace PhotoHome.Migrations
                             Id = 3,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=67",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=872",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -140,7 +143,7 @@ namespace PhotoHome.Migrations
                             Id = 4,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=601",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=714",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -151,7 +154,7 @@ namespace PhotoHome.Migrations
                             Id = 5,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=124",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=876",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -162,7 +165,7 @@ namespace PhotoHome.Migrations
                             Id = 6,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=597",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=493",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -173,7 +176,7 @@ namespace PhotoHome.Migrations
                             Id = 7,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=379",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=453",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -184,7 +187,7 @@ namespace PhotoHome.Migrations
                             Id = 8,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=913",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=471",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -195,7 +198,7 @@ namespace PhotoHome.Migrations
                             Id = 9,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=101",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=917",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -206,7 +209,7 @@ namespace PhotoHome.Migrations
                             Id = 10,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=502",
+                            ImageUrl = "https://source.unsplash.com/random/200x200?sig=545",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1,
@@ -236,9 +239,6 @@ namespace PhotoHome.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

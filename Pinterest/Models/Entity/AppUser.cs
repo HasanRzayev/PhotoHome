@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
 
 namespace PhotoHome.Models.Entity
 {
-    public class AppUser : IdentityUser
+    public class User : Entity
     {
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string? Role { get; set; }
         public virtual ICollection<Picture> Images { get; set; }
 
-        public int MyProperty { get; set; }
+
 
     }
 }
