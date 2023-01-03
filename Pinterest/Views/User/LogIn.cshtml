@@ -1,38 +1,32 @@
-﻿@using PhotoHome.Models.ViewModels
-@model LoginViewModel
+﻿@model LoginViewModel
 
-<main role="main" class="probootstrap-main js-probootstrap-main">
-	<div class="probootstrap-bar">
-		<a href="#" class="probootstrap-toggle js-probootstrap-toggle"><span><i class="fa-solid fa-bars"></i></span></a>
-		<div class="probootstrap-main-site-logo"><a href="index.html">PhotoHome</a></div>
-	</div>
+<div class="container-fluid registration-page p-0" id="login-page">
+	<div class="container-fluid d-flex align-items-center justify-content-center registration-page-bg">
+		<div class="col-xl-6 mx-auto">
+			<div class="registration">
+				<h1>Login</h1>
 
-	<div class="container-fluid">
-		<div class="registration col-xl-6 mx-auto">
-			<h1>Login</h1>
+				<form method="post" asp-action="Authenticate" asp-controller="User">
+					<div class="registration-field">
+						<input asp-for="Email" type="text" required>
+						<label>Email</label>
+					</div>
+					<span asp-validation-for="Email"></span>
 
-			<form method="post"  asp-action="Authenticate"  asp-controller="User">
-				<div class="registration-field">,
-					@*<input asp-for="Email" type="text" required>*@
-					<input  asp-for="Email" type="text" required>
-					<label>Email</label>
-				</div>
-				@*<span asp-validation-for="Email"></span>*@
+					<div class="registration-field">
+						<input asp-for="Password" type="password" required>
+						<label>Password</label>
+					</div>
+					<span it="password_span" asp-validation-for="Password"></span>
 
-				<div class="registration-field">
-					@*<input asp-for="Password" type="password" required>*@
-					<input asp-for="Password" type="password" required>
-					<label>Password</label>
-				</div>
-				@*<span it="password_span" asp-validation-for="Password"></span>*@
+					<a href="#" id="forgot">Forgot Password?</a>
 
-				<a href="#" id="forgot">Forgot Password?</a>
-
-				<input  type="submit" value="Login">
-				<div id="link">
-					Don’t have an account? <a asp-action="Signup">Signup</a>
-				</div>
-			</form>
+					<input type="submit" value="Login">
+					<div id="link">
+						Don’t have an account? <a asp-action="Signup" asp-controller="User">Signup</a>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-</main>
+</div>

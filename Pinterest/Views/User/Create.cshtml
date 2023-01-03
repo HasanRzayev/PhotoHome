@@ -1,0 +1,65 @@
+﻿@model AddImageViewModel
+
+<div class="container-fluid">
+	<div class="col-xl-10 p-0 mx-auto" id="dragger_wrapper">
+		<form asp-action="AddImage" asp-controller="Home" class="w-100 h-100 d-flex flex-row" enctype="multipart/form-data">
+			@*<div class="col-xl-5 p-2">
+			<div id="dragger">
+			<div class="icon">
+			<i class="fa-solid fa-images"></i>
+			</div>
+			<h3 id="drag-text">Drag and drop file</h3>
+			<button class="py-1 px-3" id="browseFile" onclick="inputClick()">Browse</button>
+			<input type="file" asp-for=ImageUrl hidden id="fileInputField" />
+			</div>
+			</div>*@
+			<div class="col-xl-12 px-4">
+				<div class="create-image">
+					<label for="">Category</label>
+					<div class="dropdown">
+						<select asp-for=catagory_id asp-items=@ViewBag.Categories></select><br />
+					</div>
+
+				</div>
+				<div class="create-image">
+					<label id="labell">Title</label>
+					<input type="text" asp-for="Title" />
+				</div>
+				<div class="create-image">
+					<label>Description</label>
+					<textarea asp-for="Description" id="textt" cols="30" rows="5"></textarea>
+				</div>
+				<div class="create-image">
+					<label>Image</label>
+					<input type="file" asp-for="ImageUrl"></input>
+				</div>
+				<div class="col-xl-6 mx-auto">
+					<input type="submit" value="Create">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts{
+	<script>
+		$().ready(function () {
+			$('.dropdown').click(function () {
+				$(this).attr('tabindex', 1).focus();
+				$(this).toggleClass('active');
+				$(this).find('.dropdown-menu').slideToggle(200);
+			});
+
+			$('.dropdown').focusout(function () {
+				$(this).removeClass('active');
+				$(this).find('.dropdown-menu').slideUp(200);
+			});
+
+			$('.dropdown .dropdown-menu li').click(function () {
+				$(this).parents('.dropdown').find('span').text($(this).text());
+				$('.categoryName').val($(this).text());
+				$(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+			});
+		})
+	</script>
+}

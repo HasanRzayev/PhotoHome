@@ -39,15 +39,26 @@ const fileHandler = (file) => {
     const validExt = ["image/jpeg", "image/jpg", "image/png"]
     if (validExt.includes(file.type)) {
         const fileReader = new FileReader();
+
         fileReader.onload = () => {
             const fileURL = fileReader.result;
             let imgTag = `<img src=${fileURL} alt=""/><div id="fileDelete"><i class="fa-solid fa-trash-can" onclick={deleteHandler()}></i></div>`
             draggerArea.innerHTML = imgTag;
         }
+
         fileReader.readAsDataURL(file);
         draggerArea.classList.add('active')
-    } else {
+    }
+    else {
         draggerArea.classList.remove('active');
         dragText.textContent = "Drag drop file"
     }
 };
+
+const likeBtn = document.getElementById('like');
+const heart = document.getElementById('heart');
+
+const likeBtnClick = () => {
+    alert('a');
+    heart.style.color = 'red';
+}

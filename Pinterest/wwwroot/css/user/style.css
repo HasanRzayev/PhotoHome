@@ -816,7 +816,15 @@ textarea {
         background-color: #f2f2f2;
     }
 
-.more {
+    .card-div-btn span {
+        color: #252525;
+    }
+
+#delete span {
+    color: #ff3333;
+}
+
+#more {
     border: none;
     border-radius: 20px;
     color: #fff;
@@ -831,19 +839,19 @@ textarea {
     box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .7);
 }
 
-    .more:after {
-        content: '»';
+    #more:after {
+        content: '\00BB';
         position: absolute;
         opacity: 0;
         right: -20px;
         transition: 0.3s;
     }
 
-    .more:hover {
+    #more:hover {
         padding-right: 15px;
     }
 
-        .more:hover:after {
+        #more:hover:after {
             opacity: 1;
             right: 10px;
         }
@@ -973,7 +981,9 @@ input[type=submit] {
         color: #fff;
     }
 
-.dropdown {
+/**/
+
+/*.dropdown {
     width: 100%;
     display: inline-block;
     background-color: #fff;
@@ -1052,7 +1062,7 @@ input[type=submit] {
 
         .dropdown .dropdown-menu li:active {
             background-color: #1FAD9F
-        }
+        }*/
 
 /**/
 
@@ -1060,11 +1070,12 @@ input[type=submit] {
     width: 380px;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .5);
+    border: 1px solid #252525;
+    /*box-shadow: 0 0 5px 5px rgba(0, 0, 0, .5);*/
 }
 
     .registration h1 {
-        color: #333;
+        color: #252525;
         padding: 15px 0;
         text-align: center;
         border-bottom: 1px solid silver;
@@ -1106,7 +1117,7 @@ input[type=submit] {
 .registration-field input:valid + label {
     top: -5px;
     font-size: 0.9em;
-    color: #38d39f;
+    color: #1FAD9F;
 }
 
 .registration-field:before,
@@ -1116,7 +1127,7 @@ input[type=submit] {
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background-color: #38d39f;
+    background-color: #1FAD9F;
     transition: .4s;
 }
 
@@ -1150,10 +1161,10 @@ input[type=submit] {
 .registration input[type="submit"] {
     width: 100%;
     height: 40px;
-    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    background-image: linear-gradient(to right, #22c3b3, #1FAD9F, #22c3b3);
     background-size: 200%;
     border-radius: 25px;
-    color: #e9f4fb;
+    color: #fff;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -1221,6 +1232,144 @@ input[type=submit] {
 
 .info-active {
     border-bottom: 3px solid #252525;
+}
+
+/**/
+
+.registration-page {
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration-page-bg {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#login-page {
+    background-image: url("/images/user/landscape1.jpg");
+}
+
+#signup-page {
+    background-image: url("/images/user/landscape2.jpg");
+}
+
+/**/
+
+.details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/**/
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: darkcyan;
+    transition: all .2s;
+}
+
+    .user a {
+        color: #fff;
+    }
+
+.button {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: #252525;
+    font-size: 0.7em;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+    .button:active {
+        filter: brightness(100%);
+    }
+
+    .button:hover {
+        background: #fff;
+    }
+
+.user-dropdown summary:focus {
+    outline: none;
+}
+
+/* .dropdown summary:focus a.button {
+    background: #fff;
+} */
+
+.user-dropdown summary:focus {
+    outline: none;
+}
+
+.user-dropdown ul {
+    width: 300px;
+    background-color: #fff;
+    position: absolute;
+    z-index: 2;
+    border-radius: 5px;
+}
+
+    .user-dropdown ul li {
+        transition: all .2s;
+    }
+
+        .user-dropdown ul li a:link,
+        .user-dropdown ul li a:visited {
+            display: inline-block;
+            padding: 10px 0.8rem;
+            width: 100%;
+            color: #252525;
+        }
+
+        .user-dropdown ul li:first-child:hover a {
+            background-color: darkcyan;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .user-dropdown ul li:hover a {
+            background-color: darkcyan;
+            color: #fff;
+        }
+
+        .user-dropdown ul li:last-child:hover a {
+            background-color: darkcyan;
+            color: #fff;
+            border-radius: 0 0 5px 5px;
+        }
+
+.user-dropdown > summary::before {
+    display: none;
+}
+
+.user-dropdown[open] > summary::before {
+    content: ' ';
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 /**/
