@@ -1,4 +1,6 @@
 ﻿
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PhotoHome.Models.Configurations;
 using PhotoHome.Models.Entity;
@@ -8,15 +10,17 @@ using UltraWebsite.Models.Configurations;
 
 namespace PhotoHome.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
+        public AppDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<Picture> Images { get; set; }
         public DbSet<Catagory> Catagories { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
 
-      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,13 +33,10 @@ namespace PhotoHome.Data
                .WithMany(g => g.Images)
                .HasForeignKey(s => s.user_id);
             modelBuilder.ApplyConfiguration(new CatagoryConfigration());
-            modelBuilder.ApplyConfiguration(new UsersConfiguration());
+            //modelBuilder.ApplyConfiguration(new UsersConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
 
         }
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
     }
+
 }

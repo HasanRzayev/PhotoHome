@@ -21,10 +21,10 @@ namespace PhotoHome.Models.ViewModels
         }
 
 
-        public static implicit operator Picture(AddImageViewModel model)
-        {
-            return new Picture() { Title = model.Title, Description = model.Description, DownloadCount = model.DownloadCount, LikeCount = model.LikeCount, ImageUrl = model.ImageUrl.FileName, catagory_id = model.catagory_id, user_id = model.user_id };
-        }
+        //public static implicit operator Picture(AddImageViewModel model)
+        //{
+        //    return new Picture() { Title = model.Title, Description = model.Description, DownloadCount = model.DownloadCount, LikeCount = model.LikeCount, ImageUrl = model.ImageUrl.FileName, catagory_id = model.catagory_id, user_id = model.user_id };
+        //}
 
         //public static implicit operator AddImageViewModel(Image model)
         //{

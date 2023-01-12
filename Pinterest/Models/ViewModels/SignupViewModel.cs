@@ -20,11 +20,5 @@ namespace PhotoHome.Models.ViewModels
 
 
 
-
-
-        public static implicit operator User(SignupViewModel model)
-        {
-            return new User() { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Password = model.Password};
-        }
     }
 }

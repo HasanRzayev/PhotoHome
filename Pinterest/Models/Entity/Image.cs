@@ -10,7 +10,7 @@
         public string Title { get; set; }
 
         public User user { get; set; }
-        public int? user_id { get; set; }
+        public string? user_id { get; set; }
 
         public Catagory catagory { get; set; }
         public int? catagory_id { get; set; }

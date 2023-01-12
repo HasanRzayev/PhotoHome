@@ -1,49 +1,44 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using PhotoHome.Data;
-using PhotoHome.IRepository;
-using PhotoHome.Repository;
-using System.Text;
+using PhotoHome.Models.Entity;
+using System.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
-ConfigurationManager configuration = builder.Configuration;
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 
-
-
-// Adding Authentication
-builder.Services.AddAuthentication(options =>
+builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
 
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-
-
-// Adding Jwt Bearer
-.AddJwtBearer(options =>
-{
-    var Key = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = configuration["JWT:Issuer"],
-        ValidAudience = configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Key)
-    };
-  
 });
-builder.Services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    //// Cookie settings
+    //options.Cookie.HttpOnly = true;
+    //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    options.LoginPath = "/User/LogIn";
+    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    //options.SlidingExpiration = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,11 +53,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
 app.Run();
+
+
