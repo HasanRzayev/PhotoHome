@@ -804,21 +804,39 @@ textarea {
         }
 
 .card-div-btn {
-    border: none;
+    border: 1px;
     border-radius: 50%;
     background-color: #e6e6e6;
     height: 40px;
     width: 40px;
     cursor: pointer;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;*/
+    padding: 0;
 }
 
     .card-div-btn:hover {
         background-color: #f2f2f2;
     }
 
-    .card-div-btn span {
-        color: #252525;
+.like-span {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #252525;
+    border-radius: 50%;
+}
+
+    .like-span i {
+        pointer-events: none
     }
+
+.redHeart {
+    color: red;
+}
 
 #delete span {
     color: #ff3333;
@@ -1272,104 +1290,251 @@ input[type=submit] {
 
 /**/
 
-.user {
+#user-info {
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#user-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: darkcyan;
-    transition: all .2s;
 }
 
-    .user a {
+    #user-link a {
+        text-decoration: none;
+        font-size: 16px;
         color: #fff;
     }
 
-.button {
-    width: 20px;
-    height: 20px;
+    #user-link:hover {
+        border: 5px solid #e6e6e6;
+        transition: all .3s;
+    }
+
+#suggestions {
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+    /*z-index: 200;*/
+}
+
+    #suggestions [type="checkbox"]:checked,
+    #suggestions [type="checkbox"]:not(:checked) {
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /*#suggestions .dropdown:hover +label {
+        background-color: #e6e6e6;
+        transition: all .2s;
+    }*/
+
+    #suggestions .dropdown:checked + label,
+    #suggestions .dropdown:not(:checked) + label {
+        position: relative;
+        font-size: 0.7em;
+        height: 25px;
+        width: 25px;
+        transition: all .2s linear;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        margin: 0;
+        cursor: pointer;
+        color: #252525;
+    }
+
+        #suggestions .dropdown:checked + label:before,
+        #suggestions .dropdown:not(:checked) + label:before {
+            position: fixed;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+        #suggestions .dropdown:checked + label:before {
+            pointer-events: auto;
+        }
+
+        #suggestions .dropdown:not(:checked) + label i {
+            transition: transform .2s linear;
+        }
+
+        #suggestions .dropdown:checked + label i {
+            transform: rotate(180deg);
+            transition: transform .2s linear;
+        }
+
+    #suggestions .section-dropdown {
+        position: absolute;
+        padding: 10px;
+        background-color: #fff;
+        top: 50px;
+        right: 0;
+        width: 200px;
+        border: 1px solid #e6e6e6;
+        border-radius: 20px 0 0 20px;
+        display: block;
+        z-index: 2;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition: all .2s linear;
+    }
+
+    #suggestions .dropdown:checked ~ .section-dropdown {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    /*#suggestions .section-dropdown:before {
+        position: absolute;
+        right: 0;
+        width: 100%;
+        height: 20px;
+        content: '';
+        display: block;
+        z-index: 1;
+    }
+
+    #suggestions .section-dropdown:after {
+        position: absolute;
+        top: -8px;
+        right: 5px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #f2f2f2;
+        content: '';
+        display: block;
+        z-index: 2;
+        transition: all .2s linear;
+    }*/
+
+    #suggestions a {
+        position: relative;
+        color: #252525;
+        transition: all 200ms linear;
+        font-size: 16px;
+        border-radius: 5px;
+        padding: 5px 10px;
+        text-align: left;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        #suggestions a:hover {
+            background-color: #e6e6e6;
+        }
+
+/**/
+
+.bubbly-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50px;
-    color: #252525;
-    font-size: 0.7em;
-    cursor: pointer;
-    transition: all .2s;
+    font-size: 1em;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    position: relative;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    z-index: 100;
 }
 
-    .button:active {
-        filter: brightness(100%);
+    .bubbly-button:focus {
+        outline: 0;
     }
 
-    .button:hover {
-        background: #fff;
+    .bubbly-button:before, .bubbly-button:after {
+        position: absolute;
+        content: "";
+        display: block;
+        width: 140%;
+        height: 100%;
+        left: -20%;
+        z-index: -1000;
+        transition: all ease-in-out 0.3s;
+        background-repeat: no-repeat;
     }
 
-.user-dropdown summary:focus {
-    outline: none;
-}
-
-/* .dropdown summary:focus a.button {
-    background: #fff;
-} */
-
-.user-dropdown summary:focus {
-    outline: none;
-}
-
-.user-dropdown ul {
-    width: 300px;
-    background-color: #fff;
-    position: absolute;
-    z-index: 2;
-    border-radius: 5px;
-}
-
-    .user-dropdown ul li {
-        transition: all .2s;
+    .bubbly-button:before {
+        display: none;
+        top: -75%;
+        background-image: radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, transparent 20%, #ff0000 20%, transparent 30%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, transparent 10%, #ff0000 15%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%);
+        background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
     }
 
-        .user-dropdown ul li a:link,
-        .user-dropdown ul li a:visited {
-            display: inline-block;
-            padding: 10px 0.8rem;
-            width: 100%;
-            color: #252525;
-        }
+    .bubbly-button:after {
+        display: none;
+        bottom: -75%;
+        background-image: radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, transparent 10%, #ff0000 15%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%), radial-gradient(circle, #ff0000 20%, transparent 20%);
+        background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+    }
 
-        .user-dropdown ul li:first-child:hover a {
-            background-color: darkcyan;
-            color: #fff;
-            border-radius: 5px 5px 0 0;
-        }
+    .bubbly-button:active span {
+        color: red;
+        transform: scale(0.9);
+    }
 
-        .user-dropdown ul li:hover a {
-            background-color: darkcyan;
-            color: #fff;
-        }
+    .bubbly-button.animate:before {
+        display: block;
+        animation: topBubbles ease-in-out 0.75s forwards;
+    }
 
-        .user-dropdown ul li:last-child:hover a {
-            background-color: darkcyan;
-            color: #fff;
-            border-radius: 0 0 5px 5px;
-        }
+    .bubbly-button.animate:after {
+        display: block;
+        animation: bottomBubbles ease-in-out 0.75s forwards;
+    }
 
-.user-dropdown > summary::before {
-    display: none;
+@keyframes topBubbles {
+    0% {
+        background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+    }
+
+    50% {
+        background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+    }
+
+    100% {
+        background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
 }
 
-.user-dropdown[open] > summary::before {
-    content: ' ';
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
+@keyframes bottomBubbles {
+    0% {
+        background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+    }
+
+    50% {
+        background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+    }
+
+    100% {
+        background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
 }
 
 /**/

@@ -15,8 +15,16 @@
 		</div>
 
 		<div class="d-flex justify-content-end align-items-center w-25">
-			<partial name="BeforeRegistration" />
-			@*<partial name="AfterRegistration" />*@
+			@{
+				if (User.Identity.IsAuthenticated)
+				{
+					<partial name="AfterRegistration" />
+				}
+				else
+				{
+					<partial name="BeforeRegistration" />
+				}
+			}
 		</div>
 	</div>
 
@@ -29,10 +37,13 @@
 				 style="border-radius: 20px;">
 
 				<div class="card-div d-flex flex-column justify-content-between align-items-end">
-					<div class="pt-3 px-3">
-						<button class="card-div-btn" id="like" onclick="likeBtnClick()">
-							<span id="heart"><i class="fa-solid fa-heart"></i></span>
+					<div class="d-flex flex-row pt-3 px-3">
+						<button class="card-div-btn bubbly-button mr-2" id="like">
+							<span class="like-span bubbly-button" id="heart" onclick="likeClick(this)">
+								<i class="fa-solid fa-heart"></i>
+							</span>
 						</button>
+
 						<button class="card-div-btn" id="download">
 							<span><i class="fa-solid fa-arrow-down"></i></span>
 						</button>

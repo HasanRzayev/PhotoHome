@@ -1,18 +1,21 @@
-﻿@*<div class="user">*@
-    <summary role="button">
-        <a href="#">A</a>
-    </summary>
-@*</div>*@
+﻿@using System.Security.Claims;
 
-<details class="user-dropdown">
-    <summary role="button">
-        <a class="button"><i class="fa-solid fa-chevron-down"></i></a>
-    </summary>
-    <ul>
-        <li><a href="#">I'm a dropdown.</a></li>
-        <li><a href="#">In Pure CSS</a></li>
-        <li><a href="#">As in...</a></li>
-        <li><a href="#">No JavaScript.</a></li>
-        <li><a href="#">At All.</a></li>
-    </ul>
-</details>
+<div id="user-info">
+	<div id="user-link">
+		@{
+			var claim = (ClaimsIdentity)User.Identity;
+			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+		}
+		<a href="#">@claim.Name.ToUpper().ToCharArray()[0]</a>
+	</div>
+	<div id="suggestions">
+		<input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+		<label class="for-dropdown" for="dropdown"><i class="fa-solid fa-chevron-down"></i></label>
+		<div class="section-dropdown">
+			<a href="#">Account</a>
+			<a href="#">Settings</a>
+			<a href="#">Privacy & Policy</a>
+			<a href="#">Log out</a>
+		</div>
+	</div>
+</div>

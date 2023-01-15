@@ -35,7 +35,8 @@ namespace PhotoHome.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            var list = _base.Images.Include(p => p.catagory).ToList();
+			var list = _base.Images.Include(p => p.catagory).ToList();
+
             return View(list);
         }
         [AllowAnonymous]
