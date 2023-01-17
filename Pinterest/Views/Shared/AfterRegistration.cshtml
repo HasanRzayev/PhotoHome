@@ -12,10 +12,10 @@
 		<input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
 		<label class="for-dropdown" for="dropdown"><i class="fa-solid fa-chevron-down"></i></label>
 		<div class="section-dropdown">
-			<a href="#">Account</a>
+			<a  asp-action="Created" asp-controller="User">Account</a>
 			<a href="#">Settings</a>
 			<a href="#">Privacy & Policy</a>
-			<a href="#">Log out</a>
+			<a asp-action="LogOut" asp-controller="User">Log out   </a>
 		</div>
 	</div>
 </div>

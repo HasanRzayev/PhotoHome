@@ -1,23 +1,28 @@
-﻿<div class="container-fluid p-4">
+﻿
+@model User
+
+
+<div class="container-fluid p-4">
 	<div class="d-flex flex-column align-items-center justify-content-center">
 		<div class="mb-2" id="profile-picture">
-			<a href="#">A</a>
+			<a href="#">@Model.FirstName.ToUpper().ToCharArray()[0]</a>
 		</div>
 		<div class="d-flex align-items-center" id="profile-name">
-			<h1 class="m-0">Adil Abbasov</h1>
+			<h1 class="m-0">@Model.FirstName    @Model.LastName</h1>
 		</div>
 		<div class="mt-2 mb-3 d-flex align-items-center" id="profile-email">
-			<h6 class="m-0">adil.abbasov@gmail.com</h6>
+			<h6 class="m-0">@Model.Email</h6>
 		</div>
 		<div class="my-2" id="profile-options">
 			<a href="#" class="py-2 px-3 mr-1">Share</a>
 			<a href="#" class="py-2 px-3 ml-1">Edit profile</a>
 		</div>
 		<div class="my-5" id="profile-info">
-			<a asp-action="Created" asp-controller="User" class="mr-3">Created</a>
+			<a asp-action="Created" asp-controller="User" class="mr-3 ">Created</a>
 			<a asp-action="Liked" asp-controller="User" class="ml-3 info-active">Liked</a>
 		</div>
 	</div>
+
 
 	<div class="card-columns">
 		<div class="card">

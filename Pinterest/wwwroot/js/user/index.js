@@ -65,15 +65,63 @@ var animateButton = function (e) {
     setTimeout(function () {
         e.target.classList.remove('animate');
     }, 700);
+
+
+
+
 };
 
 var bubblyButtons = document.getElementsByClassName("bubbly-button");
 
+
+
 const likeClick = (obj) => {
+	//var option = obj.target.id;
+
+	//$.ajax({
+	//	type: "POST",
+	//	url: "@Url.Action("Liked","Home")" ,
+	//	data: { Link: String(option) },
+	//	success: function () {
+	//		$("#contact_form").html("<div id='message'></div>");
+	//		$("#message")
+	//			.html("<h2>Contact Form Submitted!</h2>")
+	//			.append("<p>We will be in touch soon.</p>")
+	//			.hide()
+	//			.fadeIn(1500, function () {
+	//				$("#message").append(
+	//					"<img id='checkmark' src='images/check.png' />"
+	//				);
+	//			});
+	//	}
+	//});
     obj.classList.toggle("redHeart")
 }
+
+
 
 for (var i = 0; i < bubblyButtons.length; i++) {
     bubblyButtons[i].addEventListener('click', animateButton, false);
 }
+
+
+
+downloadBtn = document.getElementsByClassName("DownloadButton");
+//if (downloadBtn) {
+//	downloadBtn.addEventListener("click", e => {
+//		e.preventDefault();
+//		downloadBtn.innerText = "Downloading file...";
+//		fetchFile(e.target.id);
+//	});
+//}
+
+ //$(".DownloadButton").click(function (evt) {
+	// alert(evt.target.id);
+	// console.log(evt.target.id);
+	// fetchFile(evt.target.id);
+	//				});
+
+
+
+
 

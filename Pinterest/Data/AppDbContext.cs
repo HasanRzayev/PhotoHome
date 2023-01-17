@@ -14,7 +14,9 @@ namespace PhotoHome.Data
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+
         }
+
 
         public DbSet<Picture> Images { get; set; }
         public DbSet<Catagory> Catagories { get; set; }
@@ -30,8 +32,12 @@ namespace PhotoHome.Data
                 .HasForeignKey(s => s.catagory_id);
             modelBuilder.Entity<Picture>()
                .HasOne(s => s.user)
-               .WithMany(g => g.Images)
+               .WithMany(g => g.Created_Images)
                .HasForeignKey(s => s.user_id);
+            modelBuilder.Entity<Picture>()
+              .HasOne(s => s.user_liked)
+              .WithMany(g => g.Liked_Images)
+              .HasForeignKey(s => s.user_id_liked);
             modelBuilder.ApplyConfiguration(new CatagoryConfigration());
             //modelBuilder.ApplyConfiguration(new UsersConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());

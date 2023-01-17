@@ -833,7 +833,15 @@ textarea {
     .like-span i {
         pointer-events: none
     }
+.download-span {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
 
+    .download-span i {
+        pointer-events: none
+    }
 .redHeart {
     color: red;
 }

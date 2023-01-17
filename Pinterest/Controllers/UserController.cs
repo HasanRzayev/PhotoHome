@@ -26,19 +26,20 @@ using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System;
-
+using System.Net;
 
 namespace PhotoHome.Controllers
 {
 
     public class UserController : Controller
     {
-
+        private AppDbContext _base;
 
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, AppDbContext context)
         {
+            _base = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
@@ -51,7 +52,7 @@ namespace PhotoHome.Controllers
             {
                 Email = usersdata.Email,
                 FirstName = usersdata.FirstName,
-                LastName = usersdata.FirstName,
+                LastName = usersdata.LastName,
                 UserName = option[0]
 
             };
@@ -101,10 +102,20 @@ namespace PhotoHome.Controllers
             return RedirectToAction("LogIn");
         }
 
+        public IActionResult LogOut()
+        {
+            signInManager.SignOutAsync();
 
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Created()
         {
-            return View();
+            var claim = (ClaimsIdentity)User.Identity;
+            var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+            var list = _base.Users.First(a=>a.Id==claims.Value);
+
+            return View(list);
+            
         }
 
         public IActionResult LogIn(string? returnUrl)
@@ -120,7 +131,11 @@ namespace PhotoHome.Controllers
 
         public IActionResult Liked()
         {
-            return View();
+            var claim = (ClaimsIdentity)User.Identity;
+            var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+            var list = _base.Users.First(a => a.Id == claims.Value);
+
+            return View(list);
         }
 
 

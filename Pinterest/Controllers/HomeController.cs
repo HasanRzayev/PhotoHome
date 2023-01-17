@@ -13,6 +13,7 @@ using PhotoHome.Models.Entity;
 using PhotoHome.Models.ViewModels;
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Claims;
 
 namespace PhotoHome.Controllers
@@ -59,6 +60,42 @@ namespace PhotoHome.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Download(string Link)
+        {
+            if (ModelState.IsValid)
+            {
+                Picture option = _base.Images.First(a => a.ImageUrl == Link);
+                option.DownloadCount = option.DownloadCount + 1;
+                _base.SaveChanges();
+            }
+            //WebClient webClient = new WebClient();
+            //string path = @"C:\Users\Hasan\Downloads";
+            //string fileName = Path.GetFileName(Link);
+            //webClient.DownloadFile(Link, path + "\\" + fileName);
+            
+            return RedirectToAction("Index");
+        }
+        public IActionResult Liked(string Link)
+        {
+            if (ModelState.IsValid)
+            {
+                var claim = (ClaimsIdentity)User.Identity;
+                var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+
+
+                Picture option = _base.Images.First(a => a.ImageUrl == Link);
+                option.DownloadCount = option.DownloadCount + 1;
+                _base.SaveChanges();
+            }
+            //WebClient webClient = new WebClient();
+            //string path = @"C:\Users\Hasan\Downloads";
+            //string fileName = Path.GetFileName(Link);
+            //webClient.DownloadFile(Link, path + "\\" + fileName);
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Create()
         {
