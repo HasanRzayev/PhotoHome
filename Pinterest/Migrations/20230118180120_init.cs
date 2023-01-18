@@ -185,6 +185,7 @@ namespace PhotoHome.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     userid = table.Column<string>(name: "user_id", type: "nvarchar(450)", nullable: true),
+                    useridliked = table.Column<string>(name: "user_id_liked", type: "nvarchar(450)", nullable: true),
                     catagoryid = table.Column<int>(name: "catagory_id", type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -193,6 +194,11 @@ namespace PhotoHome.Migrations
                     table.ForeignKey(
                         name: "FK_Images_AspNetUsers_user_id",
                         column: x => x.userid,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Images_AspNetUsers_user_id_liked",
+                        column: x => x.useridliked,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -215,27 +221,27 @@ namespace PhotoHome.Migrations
 
             migrationBuilder.InsertData(
                 table: "Images",
-                columns: new[] { "Id", "Description", "DownloadCount", "ImageUrl", "LikeCount", "Title", "catagory_id", "user_id" },
+                columns: new[] { "Id", "Description", "DownloadCount", "ImageUrl", "LikeCount", "Title", "catagory_id", "user_id", "user_id_liked" },
                 values: new object[,]
                 {
-                    { 1, "Bomba", 24, "https://source.unsplash.com/random/?Wallpapers/683", 24, "Super", 1, null },
-                    { 2, "Bomba", 24, "https://source.unsplash.com/random/?3D Renders/973", 24, "Super", 1, null },
-                    { 3, "Bomba", 24, "https://source.unsplash.com/random/?Travel/357", 24, "Super", 1, null },
-                    { 4, "Bomba", 24, "https://source.unsplash.com/random/?Nature/357", 24, "Super", 1, null },
-                    { 5, "Bomba", 24, "https://source.unsplash.com/random/?Street Photography/830", 24, "Super", 1, null },
-                    { 6, "Bomba", 24, "https://source.unsplash.com/random/?Experimental/6", 24, "Super", 1, null },
-                    { 7, "Bomba", 24, "https://source.unsplash.com/random/?Textures & Patterns/604", 24, "Super", 1, null },
-                    { 8, "Bomba", 24, "https://source.unsplash.com/random/?Architecture & Interiors/860", 24, "Super", 1, null },
-                    { 9, "Bomba", 24, "https://source.unsplash.com/random/?Fashion & Beauty/966", 24, "Super", 1, null },
-                    { 10, "Bomba", 24, "https://source.unsplash.com/random/?Film/896", 24, "Super", 1, null },
-                    { 11, "Bomba", 24, "https://source.unsplash.com/random/?Food & Drink/83", 24, "Super", 1, null },
-                    { 12, "Bomba", 24, "https://source.unsplash.com/random/?People/734", 24, "Super", 1, null },
-                    { 13, "Bomba", 24, "https://source.unsplash.com/random/?Spirituality/479", 24, "Super", 1, null },
-                    { 14, "Bomba", 24, "https://source.unsplash.com/random/?Business & Work/709", 24, "Super", 1, null },
-                    { 15, "Bomba", 24, "https://source.unsplash.com/random/?Athletics/346", 24, "Super", 1, null },
-                    { 16, "Bomba", 24, "https://source.unsplash.com/random/?Health & Wellness/945", 24, "Super", 1, null },
-                    { 17, "Bomba", 24, "https://source.unsplash.com/random/?Current Events/409", 24, "Super", 1, null },
-                    { 18, "Bomba", 24, "https://source.unsplash.com/random/?Arts & Culture/281", 24, "Super", 1, null }
+                    { 1, "Bomba", 24, "https://source.unsplash.com/random/?Wallpapers/695", 24, "Super", 1, null, null },
+                    { 2, "Bomba", 24, "https://source.unsplash.com/random/?3D Renders/982", 24, "Super", 1, null, null },
+                    { 3, "Bomba", 24, "https://source.unsplash.com/random/?Travel/881", 24, "Super", 1, null, null },
+                    { 4, "Bomba", 24, "https://source.unsplash.com/random/?Nature/69", 24, "Super", 1, null, null },
+                    { 5, "Bomba", 24, "https://source.unsplash.com/random/?Street Photography/226", 24, "Super", 1, null, null },
+                    { 6, "Bomba", 24, "https://source.unsplash.com/random/?Experimental/185", 24, "Super", 1, null, null },
+                    { 7, "Bomba", 24, "https://source.unsplash.com/random/?Textures & Patterns/585", 24, "Super", 1, null, null },
+                    { 8, "Bomba", 24, "https://source.unsplash.com/random/?Architecture & Interiors/555", 24, "Super", 1, null, null },
+                    { 9, "Bomba", 24, "https://source.unsplash.com/random/?Fashion & Beauty/917", 24, "Super", 1, null, null },
+                    { 10, "Bomba", 24, "https://source.unsplash.com/random/?Film/95", 24, "Super", 1, null, null },
+                    { 11, "Bomba", 24, "https://source.unsplash.com/random/?Food & Drink/928", 24, "Super", 1, null, null },
+                    { 12, "Bomba", 24, "https://source.unsplash.com/random/?People/268", 24, "Super", 1, null, null },
+                    { 13, "Bomba", 24, "https://source.unsplash.com/random/?Spirituality/180", 24, "Super", 1, null, null },
+                    { 14, "Bomba", 24, "https://source.unsplash.com/random/?Business & Work/164", 24, "Super", 1, null, null },
+                    { 15, "Bomba", 24, "https://source.unsplash.com/random/?Athletics/410", 24, "Super", 1, null, null },
+                    { 16, "Bomba", 24, "https://source.unsplash.com/random/?Health & Wellness/47", 24, "Super", 1, null, null },
+                    { 17, "Bomba", 24, "https://source.unsplash.com/random/?Current Events/177", 24, "Super", 1, null, null },
+                    { 18, "Bomba", 24, "https://source.unsplash.com/random/?Arts & Culture/543", 24, "Super", 1, null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -286,6 +292,11 @@ namespace PhotoHome.Migrations
                 name: "IX_Images_user_id",
                 table: "Images",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_user_id_liked",
+                table: "Images",
+                column: "user_id_liked");
         }
 
         /// <inheritdoc />

@@ -12,8 +12,8 @@ using PhotoHome.Data;
 namespace PhotoHome.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230117123300_initi")]
-    partial class initi
+    [Migration("20230118180120_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,7 +248,7 @@ namespace PhotoHome.Migrations
                             Id = 1,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Wallpapers/647",
+                            ImageUrl = "https://source.unsplash.com/random/?Wallpapers/695",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -258,7 +258,7 @@ namespace PhotoHome.Migrations
                             Id = 2,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?3D Renders/333",
+                            ImageUrl = "https://source.unsplash.com/random/?3D Renders/982",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -268,7 +268,7 @@ namespace PhotoHome.Migrations
                             Id = 3,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Travel/44",
+                            ImageUrl = "https://source.unsplash.com/random/?Travel/881",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -278,7 +278,7 @@ namespace PhotoHome.Migrations
                             Id = 4,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Nature/617",
+                            ImageUrl = "https://source.unsplash.com/random/?Nature/69",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -288,7 +288,7 @@ namespace PhotoHome.Migrations
                             Id = 5,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Street Photography/464",
+                            ImageUrl = "https://source.unsplash.com/random/?Street Photography/226",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -298,7 +298,7 @@ namespace PhotoHome.Migrations
                             Id = 6,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Experimental/378",
+                            ImageUrl = "https://source.unsplash.com/random/?Experimental/185",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -308,7 +308,7 @@ namespace PhotoHome.Migrations
                             Id = 7,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Textures & Patterns/52",
+                            ImageUrl = "https://source.unsplash.com/random/?Textures & Patterns/585",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -318,7 +318,7 @@ namespace PhotoHome.Migrations
                             Id = 8,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Architecture & Interiors/920",
+                            ImageUrl = "https://source.unsplash.com/random/?Architecture & Interiors/555",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -328,7 +328,7 @@ namespace PhotoHome.Migrations
                             Id = 9,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Fashion & Beauty/901",
+                            ImageUrl = "https://source.unsplash.com/random/?Fashion & Beauty/917",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -338,7 +338,7 @@ namespace PhotoHome.Migrations
                             Id = 10,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Film/8",
+                            ImageUrl = "https://source.unsplash.com/random/?Film/95",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -348,7 +348,7 @@ namespace PhotoHome.Migrations
                             Id = 11,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Food & Drink/396",
+                            ImageUrl = "https://source.unsplash.com/random/?Food & Drink/928",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -358,7 +358,7 @@ namespace PhotoHome.Migrations
                             Id = 12,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?People/126",
+                            ImageUrl = "https://source.unsplash.com/random/?People/268",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -368,7 +368,7 @@ namespace PhotoHome.Migrations
                             Id = 13,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Spirituality/193",
+                            ImageUrl = "https://source.unsplash.com/random/?Spirituality/180",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -378,7 +378,7 @@ namespace PhotoHome.Migrations
                             Id = 14,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Business & Work/325",
+                            ImageUrl = "https://source.unsplash.com/random/?Business & Work/164",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -388,7 +388,7 @@ namespace PhotoHome.Migrations
                             Id = 15,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Athletics/343",
+                            ImageUrl = "https://source.unsplash.com/random/?Athletics/410",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -398,7 +398,7 @@ namespace PhotoHome.Migrations
                             Id = 16,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Health & Wellness/586",
+                            ImageUrl = "https://source.unsplash.com/random/?Health & Wellness/47",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -408,7 +408,7 @@ namespace PhotoHome.Migrations
                             Id = 17,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Current Events/36",
+                            ImageUrl = "https://source.unsplash.com/random/?Current Events/177",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -418,7 +418,7 @@ namespace PhotoHome.Migrations
                             Id = 18,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://source.unsplash.com/random/?Arts & Culture/392",
+                            ImageUrl = "https://source.unsplash.com/random/?Arts & Culture/543",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1

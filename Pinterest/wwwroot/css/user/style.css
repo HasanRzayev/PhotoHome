@@ -467,6 +467,7 @@ h5,
 
 .form-control {
     border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
     height: 40px;
     background: none !important;
     color: #000 !important;
@@ -476,6 +477,28 @@ h5,
     .form-control:focus,
     .form-control:active {
         border: 3px solid #1FAD9F;
+    }
+
+.form-group label {
+    font-size: 0.9em;
+    margin-bottom: .25em;
+    color: #252525;
+}
+
+#user-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    background-color: #1FAD9F;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+    #user-image a {
+        color: #fff;
+        font-size: 3em;
     }
 
 textarea {
@@ -833,15 +856,7 @@ textarea {
     .like-span i {
         pointer-events: none
     }
-.download-span {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
 
-    .download-span i {
-        pointer-events: none
-    }
 .redHeart {
     color: red;
 }
@@ -1323,31 +1338,31 @@ input[type=submit] {
 
     #user-link:hover {
         border: 5px solid #e6e6e6;
-        transition: all .3s;
+        transition: all .2s;
     }
 
-#suggestions {
+#options {
     position: relative;
     max-width: 100%;
     text-align: center;
     /*z-index: 200;*/
 }
 
-    #suggestions [type="checkbox"]:checked,
-    #suggestions [type="checkbox"]:not(:checked) {
+    #options [type="checkbox"]:checked,
+    #options [type="checkbox"]:not(:checked) {
         position: absolute;
         left: -9999px;
         opacity: 0;
         pointer-events: none;
     }
 
-    /*#suggestions .dropdown:hover +label {
+    /*#options .dropdown:hover +label {
         background-color: #e6e6e6;
         transition: all .2s;
     }*/
 
-    #suggestions .dropdown:checked + label,
-    #suggestions .dropdown:not(:checked) + label {
+    #options .dropdown:checked + label,
+    #options .dropdown:not(:checked) + label {
         position: relative;
         font-size: 0.7em;
         height: 25px;
@@ -1363,8 +1378,8 @@ input[type=submit] {
         color: #252525;
     }
 
-        #suggestions .dropdown:checked + label:before,
-        #suggestions .dropdown:not(:checked) + label:before {
+        #options .dropdown:checked + label:before,
+        #options .dropdown:not(:checked) + label:before {
             position: fixed;
             top: 0;
             left: 0;
@@ -1376,20 +1391,20 @@ input[type=submit] {
             pointer-events: none;
         }
 
-        #suggestions .dropdown:checked + label:before {
+        #options .dropdown:checked + label:before {
             pointer-events: auto;
         }
 
-        #suggestions .dropdown:not(:checked) + label i {
+        #options .dropdown:not(:checked) + label i {
             transition: transform .2s linear;
         }
 
-        #suggestions .dropdown:checked + label i {
+        #options .dropdown:checked + label i {
             transform: rotate(180deg);
             transition: transform .2s linear;
         }
 
-    #suggestions .section-dropdown {
+    #options .section-dropdown {
         position: absolute;
         padding: 10px;
         background-color: #fff;
@@ -1406,13 +1421,18 @@ input[type=submit] {
         transition: all .2s linear;
     }
 
-    #suggestions .dropdown:checked ~ .section-dropdown {
+        #options .section-dropdown span {
+            color: #252525;
+            font-size: 0.6em;
+        }
+
+    #options .dropdown:checked ~ .section-dropdown {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
     }
 
-    /*#suggestions .section-dropdown:before {
+    /*#options .section-dropdown:before {
         position: absolute;
         right: 0;
         width: 100%;
@@ -1422,7 +1442,7 @@ input[type=submit] {
         z-index: 1;
     }
 
-    #suggestions .section-dropdown:after {
+    #options .section-dropdown:after {
         position: absolute;
         top: -8px;
         right: 5px;
@@ -1437,7 +1457,7 @@ input[type=submit] {
         transition: all .2s linear;
     }*/
 
-    #suggestions a {
+    #options a {
         position: relative;
         color: #252525;
         transition: all 200ms linear;
@@ -1451,9 +1471,42 @@ input[type=submit] {
         justify-content: space-between;
     }
 
-        #suggestions a:hover {
+        #options a:hover {
             background-color: #e6e6e6;
         }
+
+#account, #account-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#account-img {
+    width: 50px;
+    height: 50px;
+    color: #252525;
+    font-size: 1.5em;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+}
+
+#account-info {
+    padding-left: 10px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+    #account-info div:first-child {
+        color: #252525;
+        font-size: 1em;
+    }
+
+    #account-info div:last-child {
+        color: #808080;
+        font-size: 0.8em;
+    }
+
 
 /**/
 
@@ -1544,6 +1597,26 @@ input[type=submit] {
         background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
     }
 }
+
+/**/
+
+#image-info {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+#image-container {
+    height: 500px;
+    /*overflow: hidden;*/
+}
+
+    #image-container img {
+        width: 200px;
+        width: 300px;
+    }
 
 /**/
 

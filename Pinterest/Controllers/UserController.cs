@@ -72,8 +72,6 @@ namespace PhotoHome.Controllers
 
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> Authenticate(LoginViewModel usersdata, string? returnUrl)
         {
@@ -95,9 +93,7 @@ namespace PhotoHome.Controllers
                     }
                     return RedirectToAction("Index", "Home");
                 }
-
             }
-
 
             return RedirectToAction("LogIn");
         }
@@ -117,7 +113,6 @@ namespace PhotoHome.Controllers
             return View(list);
             
         }
-
         public IActionResult LogIn(string? returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -138,9 +133,12 @@ namespace PhotoHome.Controllers
             return View(list);
         }
 
+		public IActionResult Settings()
+		{
+			return View();
+		}
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -6,16 +6,31 @@
 			var claim = (ClaimsIdentity)User.Identity;
 			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
 		}
-		<a href="#">@claim.Name.ToUpper().ToCharArray()[0]</a>
+		<a asp-action="Liked" asp-controller="User">@claim.Name.ToUpper().ToCharArray()[0]</a>
 	</div>
-	<div id="suggestions">
+
+	<div id="options">
 		<input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
-		<label class="for-dropdown" for="dropdown"><i class="fa-solid fa-chevron-down"></i></label>
+
+		<label class="for-dropdown" for="dropdown">
+			<i class="fa-solid fa-chevron-down"></i>
+		</label>
+
 		<div class="section-dropdown">
-			<a  asp-action="Created" asp-controller="User">Account</a>
-			<a href="#">Settings</a>
+			<span>Account</span>
+			<a asp-action="Liked" asp-controller="User" id="account">
+				<div id="account-img">
+					<div>A</div>
+				</div>
+				<div id="account-info">
+					<div>username</div>
+					<div>email</div>
+				</div>
+			</a>
+			<span>Options</span>
+			<a asp-action="Settings" asp-controller="User">Settings</a>
 			<a href="#">Privacy & Policy</a>
-			<a asp-action="LogOut" asp-controller="User">Log out   </a>
+			<a asp-action="LogOut" asp-controller="User">Log out</a>
 		</div>
 	</div>
 </div>
