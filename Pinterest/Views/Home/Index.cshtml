@@ -1,121 +1,55 @@
 ﻿@model List<Picture>
 
 <div class="container-fluid p-4">
-	<div class="d-flex mb-4" id="search-bar">
-		<div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
-			<div class="pl-3 pr-2">
-				<span class="text-primary">
-					<i class="fa fa-search"></i>
-				</span>
-			</div>
+    <div class="d-flex mb-4" id="search-bar">
+        <div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
+            <div class="pl-3 pr-2">
+                <span class="text-primary">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
 
-			<form action="" class="w-100">
-				<input type="search" class="form-control p-0 border-0" placeholder="Search">
-			</form>
-		</div>
+            <form action="" class="w-100">
+                <input type="search" class="form-control p-0 border-0" placeholder="Search">
+            </form>
+        </div>
 
-		<div class="d-flex justify-content-end align-items-center w-25">
-			@{
-				if (User.Identity.IsAuthenticated)
-				{
-					<partial name="AfterRegistration" />
-				}
-				else
-				{
-					<partial name="BeforeRegistration" />
-				}
-			}
-		</div>
-	</div>
+        <div class="d-flex justify-content-end align-items-center w-25">
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                                <partial name="AfterRegistration" />
+                }
+                else
+                {
+                                <partial name="BeforeRegistration" />
+                }
+            }
+        </div>
+    </div>
 
-	<div class="card-columns">
+    <div class="card-columns"  id="divajaxCall"  >
 
-		@foreach (var item in Model)
-		{
-			<div class="card">
-				<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="Card image cap"
-				 style="border-radius: 20px;">
-
-				<div class="card-div d-flex flex-column justify-content-between align-items-end">
-					<div class="d-flex flex-row pt-3 px-3">
-						<button class="card-div-btn bubbly-button mr-2" id="like">
-							<span class="like-span bubbly-button" id="heart" onclick="likeClick(this)">
-								<i class="fa-solid fa-heart"></i>
-							</span>
-
-						</button>
-						<button class="card-div-btn" id="download">
-							<span class="DownloadButton w-100 h-100" id=@item.ImageUrl>
-								<i class="fa-solid fa-download"></i>
-							</span>
-						</button>
-					</div>
-
-					<div class="pb-3 px-3">
-						<a asp-action="ImageInfo" asp-controller="Home" id="more">
-							<span class="py-2 px-3">More</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		}
-
-	</div>
+   
+        @if (Model != null)
+        {  
+            @await Html.PartialAsync("ImageList",Model);
+            
+        }  
+    </div>
+    
 </div>
 
+</div>
+     
 
+@section scripts{  
+   
+  
+          <script src="~/js/user/index.js"></script>  
+        <script type="text/javascript">   
+            var ajaxCallUrl = '@Url.RouteUrl("/Home/ImageList")';   
 
-@section Scripts{
-	<script>
-
-
-
-
-		$(".DownloadButton").click(function (evt) {
-			alert(evt.target.id);
-			console.log(evt.target.id);
-			downloadImage(evt.target.id, "Image");
-			var option = evt.target.id;
-
-			$.ajax({
-				type: "POST",
-				url: "@Url.Action("Download","Home")",
-				data: { Link: String(option) },
-				success: function () {
-					$("#contact_form").html("<div id='message'></div>");
-					$("#message")
-						.html("<h2>Contact Form Submitted!</h2>")
-						.append("<p>We will be in touch soon.</p>")
-						.hide()
-						.fadeIn(1500, function () {
-							$("#message").append(
-								"<img id='checkmark' src='images/check.png' />"
-							);
-						});
-				}
-			});
-		});
-
-
-		function downloadImage(url, name) {
-			fetch(url)
-				.then(resp => resp.blob())
-				.then(blob => {
-					const url = window.URL.createObjectURL(blob);
-					const a = document.createElement('a');
-					a.style.display = 'none';
-					a.href = url;
-					a.download = name;
-					document.body.appendChild(a);
-					a.click();
-					window.URL.revokeObjectURL(url);
-				})
-				.catch(() => alert('An error sorry'));
-		}
-
-
-
-
-
-	</script>
-}
+            $(window).scroll(scrollHandler);  
+        </script>  
+}  

@@ -123,7 +123,7 @@ namespace PhotoHome.Controllers
         {
             return View();
         }
-
+   
         public IActionResult Liked()
         {
             var claim = (ClaimsIdentity)User.Identity;
@@ -133,12 +133,39 @@ namespace PhotoHome.Controllers
             return View(list);
         }
 
-		public IActionResult Settings()
+        public IActionResult Settings()
 		{
-			return View();
-		}
+            var claim = (ClaimsIdentity)User.Identity;
+            var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+            var user = _base.Users.First(a => a.Id == claims.Value);
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+            return View(user);
+        }
+
+
+        [HttpPost]
+
+        public IActionResult Save(User userdata)
+        {
+                var claim = (ClaimsIdentity)User.Identity;
+                var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+                var user = _base.Users.First(a => a.Id == claims.Value);
+                user.FirstName = userdata.FirstName;
+                user.LastName = userdata.LastName;
+                user.UserName = userdata.UserName;
+                user.Email = userdata.Email;
+                user.About = userdata.About;
+                _base.SaveChanges();
+            
+            //WebClient webClient = new WebClient();
+            //string path = @"C:\Users\Hasan\Downloads";
+            //string fileName = Path.GetFileName(Link);
+            //webClient.DownloadFile(Link, path + "\\" + fileName);
+
+            return RedirectToAction("Settings");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

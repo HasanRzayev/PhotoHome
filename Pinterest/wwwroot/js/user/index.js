@@ -1,127 +1,43 @@
-//const draggerArea = document.getElementById('dragger');
-//const inputField = document.getElementById('fileInputField');
-//const dragText = document.getElementById('drag-text');
-//const fileDelete = document.getElementById('fileDelete');
-//const browseFile = document.getElementById('browseFile');
-
-//const inputClick = () => {
-//    inputField.value = ""
-//    inputField.click();
-//};
-
-//inputField.addEventListener('change', function (e) {
-//    file = this.files[0];
-//    fileHandler(file);
-//});
-
-//draggerArea.addEventListener('dragover', (e) => {
-//    e.preventDefault()
-//    dragText.textContent = "Release to upload image"
-//});
-
-//draggerArea.addEventListener('dragleave', () => {
-//    dragText.textContent = "Drag and drop file"
-//});
-
-//draggerArea.addEventListener('drop', (e) => {
-//    e.preventDefault()
-//    file = e.dataTransfer.files[0];
-//    fileHandler(file)
-//});
-
-//const deleteHandler = () => {
-//    const draggerElement = `<div class="icon"><i class="fa-solid fa-images"></i></div><h3 id="drag-text">Drag and drop file</h3><button class="browseFile py-1 px-3" id="browseFile" onclick="inputClick()">Browse</button><input type="file" hidden id="fileInputField"/>`;
-//    draggerArea.innerHTML = draggerElement
-//    draggerArea.classList.remove('active');
-//};
-
-//const fileHandler = (file) => {
-//    const validExt = ["image/jpeg", "image/jpg", "image/png"]
-//    if (validExt.includes(file.type)) {
-//        const fileReader = new FileReader();
-
-//        fileReader.onload = () => {
-//            const fileURL = fileReader.result;
-//            let imgTag = `<img src=${fileURL} alt=""/><div id="fileDelete"><i class="fa-solid fa-trash-can" onclick={deleteHandler()}></i></div>`
-//            draggerArea.innerHTML = imgTag;
-//        }
-
-//        fileReader.readAsDataURL(file);
-//        draggerArea.classList.add('active')
-//    }
-//    else {
-//        draggerArea.classList.remove('active');
-//        dragText.textContent = "Drag drop file"
-//    }
-//};
-
-// ! //
-
-var animateButton = function (e) {
-    e.preventDefault;
-    e.target.classList.remove('animate');
-
-    e.target.classList.add('animate');
-    setTimeout(function () {
-        e.target.classList.remove('animate');
-    }, 700);
 
 
+var ajaxCallUrl = '/Home/ImageList',
+    page = 0,
+    inCallback = false,
+    isReachedScrollEnd = false;
 
 
-};
-
-var bubblyButtons = document.getElementsByClassName("bubbly-button");
-
-
-
-const likeClick = (obj) => {
-	//var option = obj.target.id;
-
-	//$.ajax({
-	//	type: "POST",
-	//	url: "@Url.Action("Liked","Home")" ,
-	//	data: { Link: String(option) },
-	//	success: function () {
-	//		$("#contact_form").html("<div id='message'></div>");
-	//		$("#message")
-	//			.html("<h2>Contact Form Submitted!</h2>")
-	//			.append("<p>We will be in touch soon.</p>")
-	//			.hide()
-	//			.fadeIn(1500, function () {
-	//				$("#message").append(
-	//					"<img id='checkmark' src='images/check.png' />"
-	//				);
-	//			});
-	//	}
-	//});
-    obj.classList.toggle("redHeart")
+var scrollHandler = function () {
+    if (isReachedScrollEnd == false &&
+        ($(document).scrollTop() <= $(document).height() - $(window).height())) {
+        loadProducts(ajaxCallUrl);
+    }
 }
+function loadProducts(ajaxCallUrl) {
+    if (page > -1 && !inCallback) {
+        inCallback = true;
+        page++;
+  
+        $.ajax({
+            type: 'GET',
+            url: ajaxCallUrl,
+            data: "pageNumber=" + page,
+            success: function (data, textstatus) {
+                if (data != '') {
+                    $("divajaxCall").append(data);
+                    alert("bbbb");
+                }
+                else {
+                    page = -1;
+                }
 
-
-
-for (var i = 0; i < bubblyButtons.length; i++) {
-    bubblyButtons[i].addEventListener('click', animateButton, false);
-}
-
-
-
-downloadBtn = document.getElementsByClassName("DownloadButton");
-//if (downloadBtn) {
-//	downloadBtn.addEventListener("click", e => {
-//		e.preventDefault();
-//		downloadBtn.innerText = "Downloading file...";
-//		fetchFile(e.target.id);
-//	});
-//}
-
- //$(".DownloadButton").click(function (evt) {
-	// alert(evt.target.id);
-	// console.log(evt.target.id);
-	// fetchFile(evt.target.id);
-	//				});
-
-
-
+                inCallback = false;
+                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+}  
 
 
