@@ -1,49 +1,69 @@
 ﻿@model List<Picture>
 
-<div class="container-fluid p-4">
-    <div class="d-flex mb-4" id="search-bar">
-        <div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
-            <div class="pl-3 pr-2">
-                <span class="text-primary">
-                    <i class="fa fa-search"></i>
-                </span>
-            </div>
+<div class="container-fluid p-3">
+	<div class="d-flex mb-4" id="search-bar">
+		<div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
+			<div class="pl-3 pr-2">
+				<span class="text-primary">
+					<i class="fa fa-search"></i>
+				</span>
+			</div>
 
-            <form action="" class="w-100">
-                <input type="search" class="form-control p-0 border-0" placeholder="Search">
-            </form>
-        </div>
+			<form action="" class="w-100">
+				<input type="search" class="form-control p-0 border-0" placeholder="Search">
+			</form>
+		</div>
 
-        <div class="d-flex justify-content-end align-items-center w-25">
-            @{
-                if (User.Identity.IsAuthenticated)
-                {
-                                <partial name="AfterRegistration" />
-                }
-                else
-                {
-                                <partial name="BeforeRegistration" />
-                }
-            }
-        </div>
-    </div>
+		<div class="d-flex justify-content-end align-items-center w-25">
+			@{
+				if (User.Identity.IsAuthenticated)
+				{
+					<partial name="AfterRegistration" />
+				}
+				else
+				{
+					<partial name="BeforeRegistration" />
+				}
+			}
+		</div>
+	</div>
 
-    <div class="card-columns"  id="divajaxCall"  >
+	<div class="card-columns">
 
-   
-        @if (Model != null)
-        {  
-            @await Html.PartialAsync("ImageList",Model);
-            
-        }  
-    </div>
-    
+		@foreach (var item in Model)
+		{
+			<div class="card">
+				<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="Card image cap"
+				 style="border-radius: 20px;">
+
+				<div class="card-div d-flex flex-column justify-content-between align-items-end">
+					<div class="d-flex flex-row mt-3 mr-3">
+						<button class="card-div-btn bubbly-button mr-2" id="like">
+							<span class="like-span bubbly-button" id="heart" onclick="likeClick(this)">
+								<i class="fa-solid fa-heart"></i>
+							</span>
+
+						</button>
+						<button class="card-div-btn" id="download">
+							<span class="DownloadButton w-100 h-100" id=@item.ImageUrl>
+								<i class="fa-solid fa-download"></i>
+							</span>
+						</button>
+					</div>
+
+					<div class="mb-3 mr-3 d-flex justify-content-end">
+						<a asp-action="ImageInfo" asp-controller="Home" id="more">
+							<span class="py-2 px-3">More</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
 </div>
 
-</div>
-     
-
-@section scripts{  
+@*@section scripts{  
    
   
           <script src="~/js/user/index.js"></script>  
@@ -52,4 +72,4 @@
 
             $(window).scroll(scrollHandler);  
         </script>  
-}  
+}  *@

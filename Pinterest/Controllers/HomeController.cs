@@ -28,9 +28,7 @@ namespace PhotoHome.Controllers
 		public const string CLOUD_NAME = "dhtcecrpa";
 		public const string API_KEY = "621668164995499";
 		public const string API_SECRET = "iLcKxUn6rR_cq9qWiTOV8e9H2VY";
-        private ImageRepository iamgerepository;
         private readonly UserManager<User> userManager;
-        private const int pageSize = 20;
       
         public HomeController(AppDbContext context, UserManager<User> userManager)
 		{
@@ -38,21 +36,11 @@ namespace PhotoHome.Controllers
 			this.userManager = userManager;
 		}
 
-
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult ImageList(int? pageNumber)
-        {
-            iamgerepository = new ImageRepository(_base);
-            var model = iamgerepository.GetImage(pageNumber);
-            return PartialView("~/Views/Home/ImageList.cshtml", model);
-        }
-
-
         [AllowAnonymous] 
 		public IActionResult Index()
 		{
 			var list = _base.Images.Include(p => p.catagory).ToList();
+			ViewBag.ActiveMenu = "index";
 
 			return View(list);
 		}
@@ -61,24 +49,24 @@ namespace PhotoHome.Controllers
         [AllowAnonymous]
 		public IActionResult About()
 		{
+			ViewBag.ActiveMenu = "about";
+
 			return View();
 		}
 
 		[AllowAnonymous]
 		public IActionResult Contact()
 		{
+			ViewBag.ActiveMenu = "contact";
+
 			return View();
 		}
-
-		[AllowAnonymous]
-		public IActionResult Portfolio()
-		{
-			return View();
-		}
-
+		
 		[AllowAnonymous]
 		public IActionResult Services()
 		{
+			ViewBag.ActiveMenu = "services";
+
 			return View();
 		}
 
@@ -94,7 +82,8 @@ namespace PhotoHome.Controllers
 			if (ModelState.IsValid)
 			{
 				Picture option = _base.Images.First(a => a.ImageUrl == Link);
-				option.DownloadCount = option.DownloadCount + 1;
+				option.DownloadCount++;
+
 				_base.SaveChanges();
 			}
 
@@ -109,8 +98,10 @@ namespace PhotoHome.Controllers
 			{
 				var claim = (ClaimsIdentity)User.Identity;
 				var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+
 				User user= _base.Users.First(a => a.Id == claims.Value);
                 Picture option = _base.Images.First(a => a.ImageUrl == Link);
+
 				if (!user.Liked_Images.Contains(option))
 				{
                     user.Liked_Images.Add(option);
@@ -132,7 +123,6 @@ namespace PhotoHome.Controllers
 			return RedirectToAction("Index");
 		}
 
-
 		public IActionResult Create()
 		{
 			//if ()
@@ -146,6 +136,8 @@ namespace PhotoHome.Controllers
 			//    return RedirectToAction("LogIn");
 			//}
 			ViewBag.Categories = new SelectList(_base.Catagories, "Id", "Name");
+			ViewBag.ActiveMenu = "create";
+
 			//ViewBag.Categories = _base.Catagories.ToList();
 			return View();
 		}
@@ -164,7 +156,9 @@ namespace PhotoHome.Controllers
 
 				var claim = (ClaimsIdentity)User.Identity;
 				var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+
 				Picture _image = new Picture();
+
 				_image.Title = image.Title;
 				_image.Description = image.Description;
 				_image.catagory_id = image.catagory_id;
@@ -172,10 +166,9 @@ namespace PhotoHome.Controllers
 				_image.DownloadCount = image.DownloadCount;
 				_image.user_id = claims.Value;
 				_image.ImageUrl = uploadResult.SecureUri.ToString();
+
 				_base.Images.Add(_image);
 				_base.SaveChanges();
-
-
 			}
 			catch (Exception e)
 			{
@@ -184,12 +177,10 @@ namespace PhotoHome.Controllers
 		}
 
 
-
 		public async Task<IActionResult> AddImage(AddImageViewModel image)
 		{
 
 			var path = await UploadFileHelper.UploadFile(image.ImageUrl);
-
 
 			Account account = new(CLOUD_NAME, API_KEY, API_SECRET);
 
@@ -200,7 +191,6 @@ namespace PhotoHome.Controllers
 			uploadImage(imagePath, image);
 
 			return RedirectToAction("Create");
-
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

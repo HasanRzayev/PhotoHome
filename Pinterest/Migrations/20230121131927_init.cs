@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PhotoHome.Migrations
 {
     /// <inheritdoc />
-    public partial class inininin : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -275,9 +275,9 @@ namespace PhotoHome.Migrations
                     { 48, "Bomba", 24, "https://burst.shopifycdn.com/photos/dinner-salad.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 49, "Bomba", 24, "https://burst.shopifycdn.com/photos/popcicle.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 50, "Bomba", 24, "https://burst.shopifycdn.com/photos/garden-carrots.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
-                    { 51, "Bomba", 24, "https://burst.shopifycdn.com/photos/closeup-iphone-cases.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
-                    { 52, "Bomba", 24, "https://burst.shopifycdn.com/photos/rack-of-blank-tshirts.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
-                    { 53, "Bomba", 24, "https://burst.shopifycdn.com/photos/black-bag-over-the-shoulder.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
+                    { 51, "Bomba", 24, "https://burst.shopifycdn.com/photos/black-hightop-LED-shoes.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
+                    { 52, "Bomba", 24, "https://burst.shopifycdn.com/photos/spa-candle-towel-and-stones.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
+                    { 53, "Bomba", 24, "https://burst.shopifycdn.com/photos/aliexpress-bluetooth-speaker.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
                     { 54, "Bomba", 24, "https://burst.shopifycdn.com/photos/ripe-red-strawberries-in-a-white-bowl.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 55, "Bomba", 24, "https://burst.shopifycdn.com/photos/ripe-red-strawberries-against-pink.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 56, "Bomba", 24, "https://burst.shopifycdn.com/photos/deli-with-cured-meat-on-hooks-and-eggs-on-counter.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
@@ -328,9 +328,9 @@ namespace PhotoHome.Migrations
                     { 101, "Bomba", 24, "https://burst.shopifycdn.com/photos/dinner-salad.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 102, "Bomba", 24, "https://burst.shopifycdn.com/photos/popcicle.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
                     { 103, "Bomba", 24, "https://burst.shopifycdn.com/photos/garden-carrots.jpg?width=1200&amp;format=pjpg&amp;exif=1&amp;iptc=1", 24, "Super", 1, null, null },
-                    { 104, "Bomba", 24, "https://burst.shopifycdn.com/photos/closeup-iphone-cases.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
-                    { 105, "Bomba", 24, "https://burst.shopifycdn.com/photos/rack-of-blank-tshirts.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
-                    { 106, "Bomba", 24, "https://burst.shopifycdn.com/photos/black-bag-over-the-shoulder.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null }
+                    { 104, "Bomba", 24, "https://burst.shopifycdn.com/photos/black-hightop-LED-shoes.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
+                    { 105, "Bomba", 24, "https://burst.shopifycdn.com/photos/spa-candle-towel-and-stones.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null },
+                    { 106, "Bomba", 24, "https://burst.shopifycdn.com/photos/aliexpress-bluetooth-speaker.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0", 24, "Super", 1, null, null }
                 });
 
             migrationBuilder.CreateIndex(

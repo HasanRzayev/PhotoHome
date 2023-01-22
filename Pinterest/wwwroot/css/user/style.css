@@ -35,7 +35,7 @@ h5,
 .h5 {
     line-height: 1.45;
     font-weight: normal;
-    color: #000;
+    color: #252525;
 }
 
 .text-primary {
@@ -44,7 +44,7 @@ h5,
 
 .probootstrap-aside {
     height: 100vh;
-    width: 250px;
+    width: 150px;
     position: fixed;
     top: 0;
     float: left;
@@ -91,7 +91,7 @@ h5,
     }
 
 .probootstrap-aside .probootstrap-site-logo {
-    padding: 30px 30px 30px 30px;
+    padding: 20px;
     position: relative;
 }
 
@@ -103,6 +103,12 @@ h5,
         text-transform: uppercase;
         letter-spacing: .05em;
     }
+
+/* ! */
+.probootstrap-logo img {
+    height: 80px;
+    width: 85px;
+}
 
 .probootstrap-aside .probootstrap-nav {
     padding-left: 30px;
@@ -157,13 +163,14 @@ h5,
 
 .probootstrap-aside .probootstrap-aside-footer {
     font-size: 14px;
-    padding-left: 30px;
+    padding: 10px;
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
 }
 
 .probootstrap-aside-social li {
     display: inline-block;
+    margin: 0 auto;
 }
 
 .probootstrap-aside-social a {
@@ -177,9 +184,9 @@ h5,
     }
 
 .probootstrap-main {
-    width: calc(100% - 250px);
+    width: calc(100% - 150px);
     float: right;
-    padding: 30px;
+    padding: 20px;
     position: relative;
 }
 
@@ -296,8 +303,8 @@ h5,
 .probootstrap-main .card-columns .card {
     background: #e6e6e6;
     border: none;
-    border-radius: 30px !important;
-    margin-bottom: 10px;
+    border-radius: 20px !important;
+    margin-bottom: 15px;
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
@@ -795,6 +802,11 @@ textarea {
         animation: loader-dash 1.5s ease-in-out infinite;
         stroke-linecap: round;
     }
+
+/*#search-bar {
+    position: fixed;
+    z-index: 100;
+}*/
 
 #search-div {
     border-radius: 30px;

@@ -18,6 +18,9 @@ namespace PhotoHome.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -745,7 +748,7 @@ namespace PhotoHome.Migrations
                             Id = 51,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/closeup-iphone-cases.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/black-hightop-LED-shoes.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -755,7 +758,7 @@ namespace PhotoHome.Migrations
                             Id = 52,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/rack-of-blank-tshirts.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/spa-candle-towel-and-stones.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -765,7 +768,7 @@ namespace PhotoHome.Migrations
                             Id = 53,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/black-bag-over-the-shoulder.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/aliexpress-bluetooth-speaker.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -1275,7 +1278,7 @@ namespace PhotoHome.Migrations
                             Id = 104,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/closeup-iphone-cases.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/black-hightop-LED-shoes.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -1285,7 +1288,7 @@ namespace PhotoHome.Migrations
                             Id = 105,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/rack-of-blank-tshirts.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/spa-candle-towel-and-stones.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
@@ -1295,7 +1298,7 @@ namespace PhotoHome.Migrations
                             Id = 106,
                             Description = "Bomba",
                             DownloadCount = 24,
-                            ImageUrl = "https://burst.shopifycdn.com/photos/black-bag-over-the-shoulder.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
+                            ImageUrl = "https://burst.shopifycdn.com/photos/aliexpress-bluetooth-speaker.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",
                             LikeCount = 24,
                             Title = "Super",
                             catagoryid = 1
