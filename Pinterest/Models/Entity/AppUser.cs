@@ -10,6 +10,6 @@ namespace PhotoHome.Models.Entity
         public string LastName { get; set; }
         public string? About { get; set; }
         public virtual ICollection<Picture> Created_Images { get; set; }
-        public virtual ICollection<Picture> Liked_Images { get; set; }
+        public virtual ICollection<Image_Like> Image_Likes { get; set; }
     }
 }

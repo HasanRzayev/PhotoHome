@@ -16,9 +16,11 @@
 
         public virtual User user { get; set; }
         public string? user_id { get; set; }
+        public virtual ICollection<Image_Like> Image_Likes { get; set; }
 
-        public virtual User user_liked { get; set; }
-        public string? user_id_liked { get; set; }
+
+        public virtual ICollection<Image_Tag> Image_Tags { get; set;  }
+   
         public virtual Catagory catagory { get; set; }
         public int? catagory_id { get; set; }
     }

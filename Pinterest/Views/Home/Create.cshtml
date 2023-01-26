@@ -29,6 +29,7 @@
 					<label>Description</label>
 					<textarea asp-for="Description" id="textt" cols="30" rows="5"></textarea>
 				</div>
+				
 				<div class="create-image">
 					<label>Image</label>
 					<input type="file" asp-for="ImageUrl"></input>
@@ -42,6 +43,7 @@
 </div>
 
 @section Scripts{
+
 	<script>
 		$().ready(function () {
 			$('.dropdown').click(function () {

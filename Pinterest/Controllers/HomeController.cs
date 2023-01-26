@@ -23,27 +23,47 @@ namespace PhotoHome.Controllers
 	[Authorize]
 	public class HomeController : Controller
 	{
-		private AppDbContext _base;
-		public static Cloudinary cloudinary;
-		public const string CLOUD_NAME = "dhtcecrpa";
-		public const string API_KEY = "621668164995499";
-		public const string API_SECRET = "iLcKxUn6rR_cq9qWiTOV8e9H2VY";
+        private AppDbContext _base;
+        public static Cloudinary cloudinary;
+        public const string CLOUD_NAME = "dhtcecrpa";
+        public const string API_KEY = "621668164995499";
+        public const string API_SECRET = "iLcKxUn6rR_cq9qWiTOV8e9H2VY";
+        private ImageRepository iamgerepository;
         private readonly UserManager<User> userManager;
-      
+        private const int pageSize = 15;
+
         public HomeController(AppDbContext context, UserManager<User> userManager)
-		{
-			_base = context;
-			this.userManager = userManager;
-		}
+        {
+            _base = context;
+            this.userManager = userManager;
+        }
 
-        [AllowAnonymous] 
-		public IActionResult Index()
-		{
-			var list = _base.Images.Include(p => p.catagory).ToList();
-			ViewBag.ActiveMenu = "index";
 
-			return View(list);
-		}
+
+        [HttpGet]
+        [AllowAnonymous]
+        public List<string> ImageList(int? pageNumber)
+        {
+
+            iamgerepository = new ImageRepository(_base);
+            var model = iamgerepository.GetImages(pageNumber);
+            return model;
+
+        }
+
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Index()
+        {
+            iamgerepository = new ImageRepository(_base);
+            var model = iamgerepository.GetImages(1);
+
+            //var list = _base.Images.Include(p => p.catagory).ToList();
+
+            return View(model);
+        }
 
 
         [AllowAnonymous]
@@ -77,7 +97,8 @@ namespace PhotoHome.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Download(string Link)
+        [AllowAnonymous]
+        public IActionResult Download(string Link)
 		{
 			if (ModelState.IsValid)
 			{
@@ -92,33 +113,36 @@ namespace PhotoHome.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Like(string Link)
 		{
+            var claim = (ClaimsIdentity)User.Identity;
+           
+            if (claim == null)
+			{
+				return RedirectToAction("LogIn","User");
+			}
 			if (ModelState.IsValid)
 			{
-				var claim = (ClaimsIdentity)User.Identity;
-				var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+                var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
 
-				User user= _base.Users.First(a => a.Id == claims.Value);
-                Picture option = _base.Images.First(a => a.ImageUrl == Link);
-
-				if (!user.Liked_Images.Contains(option))
+                User user = _base.Users.First(a => a.Id == claims.Value);
+				Picture option = _base.Images.First(a => a.ImageUrl == Link);
+				var import = new Image_Like{ Image_Id=option.Id,user_id=claims.Value};
+				if (!_base.Image_Likes.Contains(import))
 				{
-                    user.Liked_Images.Add(option);
-					option.LikeCount = option.LikeCount+1;
-                }
+                    _base.Image_Likes.Add(import);
+					option.LikeCount = option.LikeCount + 1;
+				}
 				else
 				{
-                    user.Liked_Images.Remove(option);
+                    _base.Image_Likes.Remove(import);
                     option.LikeCount = option.LikeCount - 1;
-                }
+				}
 
 				_base.SaveChanges();
 			}
-			//WebClient webClient = new WebClient();
-			//string path = @"C:\Users\Hasan\Downloads";
-			//string fileName = Path.GetFileName(Link);
-			//webClient.DownloadFile(Link, path + "\\" + fileName);
+	
 
 			return RedirectToAction("Index");
 		}
