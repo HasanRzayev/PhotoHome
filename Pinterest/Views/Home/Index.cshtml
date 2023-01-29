@@ -27,101 +27,164 @@
 			}
 		</div>
 	</div>
-  <div class="card-columns"  id="divajaxCall" >
-         @await Html.PartialAsync("ImageList",Model)
+
+	<div class="mb-4">
+		<div class="owl-carousel" id="category-carousel">
+			<div class="item">
+				<a href="#">animal</a>
+			</div>
+			<div class="item">
+				<a href="#">walpaper</a>
+			</div>
+			<div class="item">
+				<a href="#">fruit</a>
+			</div>
+			<div class="item">
+				<a href="#">nature</a>
+			</div>
+			<div class="item">
+				<a href="#">human</a>
+			</div>
+			<div class="item">
+				<a href="#">office</a>
+			</div>
+			<div class="item">
+				<a href="#">food</a>
+			</div>
+			<div class="item">
+				<a href="#">technology</a>
+			</div>
+			<div class="item">
+				<a href="#">street</a>
+			</div>
+			<div class="item">
+				<a href="#">mountain</a>
+			</div>
+			<div class="item">
+				<a href="#">car</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-columns" id="divajaxCall">
+		@await Html.PartialAsync("ImageList",Model)
 	</div>
 </div>
 
 
-@section Scripts{  
-        <script src="~/js/user/index.js"></script>  
-        <script type="text/javascript">   
-	
-            $(window).scroll(scrollHandler);  
-        </script>  
+@section Scripts{
+	<script src="~/js/user/index.js"></script>
 
 	<script type="text/javascript">
-		
+		$(window).scroll(scrollHandler);
+	</script>
 
+	<script type="text/javascript">
 
-let get_span = (ele) => {
-    
-    downloadImage(ele.id, "Image");
-    var option = ele.id;
+		let get_span = (ele) => {
 
-   
-    $.ajax({
-        type: "POST",
-           url:"@Url.Action("Download","Home")" ,
-        data: { Link: String(option) },
-        success: function () {
-            alert("good")
-            $("#contact_form").html("<div id='message'></div>");
-            $("#message")
-                .html("<h2>Contact Form Submitted!</h2>")
-                .append("<p>We will be in touch soon.</p>")
-                .hide()
-                .fadeIn(1500, function () {
-                    $("#message").append(
-                        "<img id='checkmark' src='images/check.png' />"
-                    );
-                });
-        }
+			downloadImage(ele.id, "Image");
+			var option = ele.id;
 
-    });
+			$.ajax({
+				type: "POST",
+				url: "@Url.Action("Download","Home")",
+				data: { Link: String(option) },
+				success: function () {
+					alert("good")
+					$("#contact_form").html("<div id='message'></div>");
+					$("#message")
+						.html("<h2>Contact Form Submitted!</h2>")
+						.append("<p>We will be in touch soon.</p>")
+						.hide()
+						.fadeIn(1500, function () {
+							$("#message").append(
+								"<img id='checkmark' src='images/check.png' />"
+							);
+						});
+				}
+			});
 
-    function downloadImage(url, name) {
-        fetch(url)
-            .then(resp => resp.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = name;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(() => alert('An error sorry'));
-    }
+			function downloadImage(url, name) {
+				fetch(url)
+					.then(resp => resp.blob())
+					.then(blob => {
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.style.display = 'none';
+						a.href = url;
+						a.download = name;
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(url);
+					})
+					.catch(() => alert('An error sorry'));
+			}
 
-}
-
-
-
-
-
-const likeClick = (obj) => {
-
-
-	var option = obj.id;
-
-	$.ajax({
-		type: "POST",
-			url: "@Url.Action("Like","Home")" ,
-		data: { Link: String(option) },
-		success: function () {
-			$("#contact_form").html("<div id='message'></div>");
-			$("#message")
-				.html("<h2>Contact Form Submitted!</h2>")
-				.append("<p>We will be in touch soon.</p>")
-				.hide()
-				.fadeIn(1500, function () {
-					$("#message").append(
-						"<img id='checkmark' src='images/check.png' />"
-					);
-				});
 		}
-	});
 
-    obj.classList.toggle("redHeart")
-    alert(obj.target.id)
+		//!
 
+		const likeClick = (obj) => {
+			var option = obj.id;
 
+			$.ajax({
+				type: "POST",
+				url: "@Url.Action("Like","Home")",
+				data: { Link: String(option) },
+				success: function () {
+					$("#contact_form").html("<div id='message'></div>");
+					$("#message")
+						.html("<h2>Contact Form Submitted!</h2>")
+						.append("<p>We will be in touch soon.</p>")
+						.hide()
+						.fadeIn(1500, function () {
+							$("#message").append(
+								"<img id='checkmark' src='images/check.png' />"
+							);
+						});
+				}
+			});
+
+			obj.classList.toggle("redHeart")
+			alert(obj.target.id)
+		}
+
+		//!
+
+		$('.owl-carousel').owlCarousel({
+			autoplay: true,
+			autoplayTimeout: 1750,
+			//autoplayHoverPause: true,
+			loop: true,
+			margin: 10,
+			nav: true,
+			responsive: {
+				0: {
+					items: 6
+				},
+				768: {
+					items: 7
+				},
+				1000: {
+					items: 8
+				}
+			}
+		})
+
+		$('.owl-prev').html('<span><i class="fa-solid fa-chevron-left"></i></span>')
+		$('.owl-next').html('<span><i class="fa-solid fa-chevron-right"></i></span>')
+
+		//different colored category carousel
+		var arr = $('#category-carousel .item').children()
+
+		$.each(arr, (index) => {
+			var colorR = Math.floor((Math.random() * 200));
+			var colorG = Math.floor((Math.random() * 200));
+			var colorB = Math.floor((Math.random() * 200));
+
+			$(arr[index]).css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")
+		})
+
+	</script>
 }
-
-			</script>
-
-
-}  

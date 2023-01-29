@@ -1,15 +1,96 @@
-﻿@*<div class="container-fluid p-4">
-	<div class="col-xl-10 col-lg-12 mx-auto">
+﻿<div class="container-fluid p-4">
+	<div class="col-lg-10 mx-auto">
 		<div class="row">
-			<div class="col-xl-12 col-lg-12" id="image-info">
-				<div class="col-md-9" id="image-container">
-					<img src="~/accessory2.jpg"/>
+			<div class="col-lg-12 col-lg-12" id="image-detail">
+				<div class="col-lg-12" id="image-interaction">
+					<div id="account-actions">
+						<a href="#" class="account-img">A</a>
+						<span>username</span>
+					</div>
+
+					<div id="image-actions">
+						<div id="like-div">
+							<button class="like-btn">
+								<span>
+									<i class="fa-regular fa-heart"></i>
+								</span>
+							</button>
+
+							<span>24</span>
+						</div>
+
+						<button class="download-btn">Download free</button>
+					</div>
 				</div>
-				<div class="col-md-3 d-flex justify-content-center align-items-center flex-column">
-					
+
+				<div class="col-lg-12" id="image-container">
+					<img src="~/images/user/landscape2.jpg" />
+				</div>
+
+				<div class="col-lg-12" id="image-tags">
+					<h4>More related content</h4>
+
+					<div class="owl-carousel" id="tag-carousel">
+						<div class="item">
+							<a href="#">animal</a>
+						</div>
+						<div class="item">
+							<a href="#">walpaper</a>
+						</div>
+						<div class="item">
+							<a href="#">fruit</a>
+						</div>
+						<div class="item">
+							<a href="#">nature</a>
+						</div>
+						<div class="item">
+							<a href="#">human</a>
+						</div>
+						<div class="item">
+							<a href="#">office</a>
+						</div>
+						<div class="item">
+							<a href="#">food</a>
+						</div>
+						<div class="item">
+							<a href="#">technology</a>
+						</div>
+						<div class="item">
+							<a href="#">street</a>
+						</div>
+						<div class="item">
+							<a href="#">mountain</a>
+						</div>
+						<div class="item">
+							<a href="#">car</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>*@
+</div>
 
+@section Scripts{
+	<script>
+		$('.owl-carousel').owlCarousel({
+			//loop: true,
+			margin: 10,
+			nav: true,
+			responsive: {
+				0: {
+					items: 4
+				},
+				768: {
+					items: 5
+				},
+				1000: {
+					items: 6
+				}
+			}
+		})
+
+		$('.owl-prev').html('<span><i class="fa-solid fa-chevron-left"></i></span>')
+		$('.owl-next').html('<span><i class="fa-solid fa-chevron-right"></i></span>')
+	</script>
+}
