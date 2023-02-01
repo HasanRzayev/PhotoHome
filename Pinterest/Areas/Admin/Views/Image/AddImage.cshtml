@@ -1,0 +1,42 @@
+﻿@using PhotoHome.Models.Entity
+
+
+
+@model Picture
+
+
+
+ <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title"> Add Catagory </h3>
+       
+               
+                    <form class="forms-sample" asp-action="AddCatagory" asp-controller="Category" method="post" enctype="multipart/form-data">
+                      <div class="form-group">
+                        <label >Title</label>
+                        <input asp-for="Title" type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <span asp-validation-for=Title></span>
+                                 <label >Description</label>
+                        <input asp-for="Description" type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <span asp-validation-for=Description></span>
+                    <label  >Catagory</label>
+                             <br />
+                         <select asp-for=catagory_id asp-items=@ViewBag.catagories></select>
+                           <br />                  
+                       </div>
+     
+                            <label  >    Image_url</label>
+                                 <br />
+                           <div class="col-md-10">
+                    @Html.EditorFor(model => model.ImageUrl, new { htmlAttributes = new { @class = "form-control", @type="file"} })
+
+                        </div>
+
+
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>

@@ -44,6 +44,7 @@ namespace PhotoHome.Controllers
             this.signInManager = signInManager;
         }
 
+
         [HttpPost]
         public async Task<IActionResult> SignUp(SignupViewModel usersdata)
         {
@@ -72,6 +73,7 @@ namespace PhotoHome.Controllers
 
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Authenticate(LoginViewModel usersdata, string? returnUrl)
         {
@@ -98,6 +100,8 @@ namespace PhotoHome.Controllers
             return RedirectToAction("LogIn");
         }
 
+      
+
         public IActionResult LogOut()
         {
             signInManager.SignOutAsync();
@@ -109,7 +113,8 @@ namespace PhotoHome.Controllers
             var claim = (ClaimsIdentity)User.Identity;
             var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
             var list = _base.Users.First(a=>a.Id==claims.Value);
-
+            var model = _base.Images.ToList().FindAll(a => a.Allow == true && a.user_id == claims.Value);
+            ViewBag.images = model;
             return View(list);
             
         }
@@ -118,7 +123,12 @@ namespace PhotoHome.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult AccessDenied(string? returnUrl)
+        //{
+        //    return Redirect(returnUrl);
+        //}
         public IActionResult SignUp()
         {
             return View();
@@ -130,6 +140,14 @@ namespace PhotoHome.Controllers
             var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
             var list = _base.Users.First(a => a.Id == claims.Value);
 
+            var model = _base.Image_Likes.ToList().FindAll(a => a.user_id == claims.Value);
+            var image_list = new List<string>();
+
+            foreach (var item in model)
+            {
+                image_list.Add(_base.Images.First(a => a.Id == item.Image_Id).ImageUrl);
+            }
+            ViewBag.Images = image_list;
             return View(list);
         }
 
@@ -141,6 +159,7 @@ namespace PhotoHome.Controllers
 
             return View(user);
         }
+
 
 
         [HttpPost]

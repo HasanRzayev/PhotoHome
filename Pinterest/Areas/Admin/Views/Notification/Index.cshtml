@@ -1,12 +1,15 @@
 ﻿@using PhotoHome.Models.Entity
+
+
+
+@model List<Picture>
+
 <!doctype html>
 <html lang="en">
 <head>
  
     
     
-
-    @model List<Catagory>
 
     
     
@@ -28,18 +31,7 @@
 
           <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
 
-        <div class="p-8">
-            <h1 class="h2">5,337</h1>
-            <p class="text-black font-medium">Sales this month</p>
 
-           
-
-            <a href=@Url.Action("AddCategory","category") class="btn-shadow mt-6">Add Catagory</a>
-
-        </div>
-
-       
-    </div>
     <div class="card col-span-2 xl:col-span-1">
         <div class="card-header">Recent Sales</div>
 
@@ -48,22 +40,24 @@
                 <tr>
                     <th class="px-4 py-2 border-r"></th>
                     <th class="px-4 py-2 border-r">Id</th>
-                    <th class="px-4 py-2 border-r">Name</th>
+                    <th class="px-4 py-2 border-r">Image</th>
+                    <th class="px-4 py-2 border-r">User Name</th>
              @*       <th class="px-4 py-2">date</th>*@
                     <th class="px-4 py-2">Edit</th>
                     <th class="px-4 py-2">Delete</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600">
-                        @foreach (var catalogue in Model)
+                            @foreach (var notification in Model)
                         {
                                   <tr>                    
-                  @*      <td class="border border-l-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>*@
-                            <td class="border border-l-0 px-4 py-2">@catalogue.Id</td>
-                       
-                            <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> @catalogue.Name</td>
-                                    <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("UpdateCategory" , "Category" , new {  Id = catalogue.Id })" class="btn-shadow">EDit</a> </td>
-                            <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("DeleteCategory" , "Category" , new {  Id = catalogue.Id })" class="btn-danger">DELETE</a>  </td>
+                                    <td class="border border-l-0 px-4 py-2">@notification.Id</td>
+                                    <td class="border border-l-0 px-4 py-2">@notification.Title</td>
+                        
+                                        <td class="border border-l-0 border-r-0 px-4 py-2"><img class="num-2" src="@notification.ImageUrl"></img> </td>
+                                        <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2" ></span> @notification.user.UserName</td>
+                                <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("Allow","Notification",notification)" class="btn-shadow">Allow</a> </td>
+                                            <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("Not_Allow","Notification",notification)" class="btn-danger">Not Allow</a>  </td>
                     </tr>
                                                       
                         }
@@ -72,18 +66,14 @@
             </tbody>
         </table>
     </div>
-    <!-- End Recent Sales -->
 
 
 </div>
-    <!-- end quick Info -->
 
 
   </div>
-  <!-- end content -->
 
 </div>
-<!-- end wrapper -->
 
 <!-- script -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

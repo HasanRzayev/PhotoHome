@@ -1,11 +1,16 @@
-﻿<div class="container-fluid p-4">
+﻿@model  Picture
+
+
+
+
+<div class="container-fluid p-4">
 	<div class="col-lg-10 mx-auto">
 		<div class="row">
 			<div class="col-lg-12 col-lg-12" id="image-detail">
 				<div class="col-lg-12" id="image-interaction">
 					<div id="account-actions">
 						<a href="#" class="account-img">A</a>
-						<span>username</span>
+						<span>@Model.user.UserName</span>
 					</div>
 
 					<div id="image-actions">
@@ -16,7 +21,7 @@
 								</span>
 							</button>
 
-							<span>24</span>
+							<span >@Model.LikeCount</span>
 						</div>
 
 						<button class="download-btn">Download free</button>
@@ -24,14 +29,22 @@
 				</div>
 
 				<div class="col-lg-12" id="image-container">
-					<img src="~/images/user/landscape2.jpg" />
+					<img src="@Model.ImageUrl" />
 				</div>
 
 				<div class="col-lg-12" id="image-tags">
 					<h4>More related content</h4>
 
 					<div class="owl-carousel" id="tag-carousel">
-						<div class="item">
+						@{
+							foreach (var item in ViewBag.Tags)
+							{
+								<div class="item">
+									<a href="#">@item.Name</a>
+								</div>
+							}
+						}
+						@*<div class="item">
 							<a href="#">animal</a>
 						</div>
 						<div class="item">
@@ -63,7 +76,7 @@
 						</div>
 						<div class="item">
 							<a href="#">car</a>
-						</div>
+						</div>*@
 					</div>
 				</div>
 			</div>

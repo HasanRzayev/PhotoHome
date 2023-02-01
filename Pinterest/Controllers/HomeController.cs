@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Microsoft.VisualBasic;
 using PhotoHome.Data;
 using PhotoHome.Helpers;
 using PhotoHome.Models;
@@ -17,6 +19,8 @@ using System.Diagnostics;
 using System.Net;
 using System.Security.Claims;
 using static System.Net.Mime.MediaTypeNames;
+using PhotoHome.Helpers;
+using System.Linq;
 
 namespace PhotoHome.Controllers
 {
@@ -32,7 +36,9 @@ namespace PhotoHome.Controllers
         private readonly UserManager<User> userManager;
         private const int pageSize = 15;
 
-        public HomeController(AppDbContext context, UserManager<User> userManager)
+
+
+		public HomeController(AppDbContext context, UserManager<User> userManager)
         {
             _base = context;
             this.userManager = userManager;
@@ -40,16 +46,25 @@ namespace PhotoHome.Controllers
 
 
 
-        [HttpGet]
-        [AllowAnonymous]
-        public List<string> ImageList(int? pageNumber)
-        {
 
-            iamgerepository = new ImageRepository(_base);
-            var model = iamgerepository.GetImages(pageNumber);
-            return model;
+   //     [HttpGet]
+   //     [AllowAnonymous]
+   //     public List<string> ImageList(int? pageNumber)
+   //     {
 
-        }
+   //         //iamgerepository = new ImageRepository(_base);
+   //         //var claim = (ClaimsIdentity)User.Identity;
+   //         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+   //         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
+
+
+			//var model=new _base.
+   //         return model;
+
+   //     }
+
+
+
 
 
 
@@ -57,13 +72,34 @@ namespace PhotoHome.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            iamgerepository = new ImageRepository(_base);
-            var model = iamgerepository.GetImages(1);
+        
+          
+			var model = new List<Picture>();
+			var claim = (ClaimsIdentity)User.Identity;
+			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+			if (claims != null)
+			{
+                
+                var list = _base.Images.ToList();
+                
+                foreach (var item in list)
+                {
+					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) continue;
+					model.Add(item);
 
+                }
+             
+            }
+			else
+			{
+				model = _base.Images.ToList();
+            }
             //var list = _base.Images.Include(p => p.catagory).ToList();
 
             return View(model);
         }
+
+
 
 
         [AllowAnonymous]
@@ -90,10 +126,51 @@ namespace PhotoHome.Controllers
 			return View();
 		}
 
-		[AllowAnonymous]
-		public IActionResult ImageInfo()
+
+
+        [HttpGet]
+        [AllowAnonymous]
+		public List<Picture> Search(string? search)
 		{
-			return View();
+            var tag =  _base.Tags.Include(p => p.Image_Tags).Where(p => p.Name.Contains(CapitalizeHelper.CapitalizeText(search))).ToList();
+
+			var model = _base.Image_Tags.Include(p => p.Image).ToList().FindAll(x => x.Tag_Id == tag[0].Id);
+
+			var list = new List<Picture>();
+
+			foreach (var item in model)
+			{
+				list.Add(item.Image);
+			}
+
+			var images = new List<Picture>();
+
+			foreach (var item in list)
+			{
+				images.Add(item);
+			}
+
+			return images;
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+		public IActionResult ImageInfo(string Id)
+		{
+			if (Id.Contains("%2F")) Id=Id.Replace("%2F", "/");
+			//_base.Users.Include(a => a.Id);
+			var option = _base.Images.Include(n=>n.user).FirstOrDefault(n => n.ImageUrl == Id);
+			
+			var id= option.Id;
+			var list = _base.Image_Tags.ToList().FindAll(c => c.Image_Id == id);
+			var model = new List<Tag>();
+			foreach (var item in list)
+			{
+				model.Add(_base.Tags.FirstOrDefault(a => a.Id == item.Tag_Id));
+			}
+            ViewBag.Tags = (model);
+            return View(option);
 		}
 
 		[HttpPost]
@@ -107,7 +184,6 @@ namespace PhotoHome.Controllers
 
 				_base.SaveChanges();
 			}
-
 			return RedirectToAction("Index");
 		}
 
@@ -129,6 +205,7 @@ namespace PhotoHome.Controllers
                 User user = _base.Users.First(a => a.Id == claims.Value);
 				Picture option = _base.Images.First(a => a.ImageUrl == Link);
 				var import = new Image_Like{ Image_Id=option.Id,user_id=claims.Value};
+			
 				if (!_base.Image_Likes.Contains(import))
 				{
                     _base.Image_Likes.Add(import);
@@ -190,9 +267,12 @@ namespace PhotoHome.Controllers
 				_image.DownloadCount = image.DownloadCount;
 				_image.user_id = claims.Value;
 				_image.ImageUrl = uploadResult.SecureUri.ToString();
-
+				_image.Allow = false;
 				_base.Images.Add(_image);
 				_base.SaveChanges();
+
+			
+
 			}
 			catch (Exception e)
 			{

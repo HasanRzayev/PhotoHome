@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<Picture>
 
 <div class="container-fluid p-3">
 	<div class="d-flex mb-4" id="search-bar">
@@ -9,8 +9,8 @@
 				</span>
 			</div>
 
-			<form action="" class="w-100">
-				<input type="search" class="form-control p-0 border-0" placeholder="Search">
+			<form  class="w-100">
+				<input type="search" id="find" class="form-control p-0 border-0" placeholder="Search">
 			</form>
 		</div>
 
@@ -81,110 +81,6 @@
 
 	<script type="text/javascript">
 
-		let get_span = (ele) => {
-
-			downloadImage(ele.id, "Image");
-			var option = ele.id;
-
-			$.ajax({
-				type: "POST",
-				url: "@Url.Action("Download","Home")",
-				data: { Link: String(option) },
-				success: function () {
-					alert("good")
-					$("#contact_form").html("<div id='message'></div>");
-					$("#message")
-						.html("<h2>Contact Form Submitted!</h2>")
-						.append("<p>We will be in touch soon.</p>")
-						.hide()
-						.fadeIn(1500, function () {
-							$("#message").append(
-								"<img id='checkmark' src='images/check.png' />"
-							);
-						});
-				}
-			});
-
-			function downloadImage(url, name) {
-				fetch(url)
-					.then(resp => resp.blob())
-					.then(blob => {
-						const url = window.URL.createObjectURL(blob);
-						const a = document.createElement('a');
-						a.style.display = 'none';
-						a.href = url;
-						a.download = name;
-						document.body.appendChild(a);
-						a.click();
-						window.URL.revokeObjectURL(url);
-					})
-					.catch(() => alert('An error sorry'));
-			}
-
-		}
-
-		//!
-
-		const likeClick = (obj) => {
-			var option = obj.id;
-
-			$.ajax({
-				type: "POST",
-				url: "@Url.Action("Like","Home")",
-				data: { Link: String(option) },
-				success: function () {
-					$("#contact_form").html("<div id='message'></div>");
-					$("#message")
-						.html("<h2>Contact Form Submitted!</h2>")
-						.append("<p>We will be in touch soon.</p>")
-						.hide()
-						.fadeIn(1500, function () {
-							$("#message").append(
-								"<img id='checkmark' src='images/check.png' />"
-							);
-						});
-				}
-			});
-
-			obj.classList.toggle("redHeart")
-			alert(obj.target.id)
-		}
-
-		//!
-
-		$('.owl-carousel').owlCarousel({
-			autoplay: true,
-			autoplayTimeout: 1750,
-			//autoplayHoverPause: true,
-			loop: true,
-			margin: 10,
-			nav: true,
-			responsive: {
-				0: {
-					items: 6
-				},
-				768: {
-					items: 7
-				},
-				1000: {
-					items: 8
-				}
-			}
-		})
-
-		$('.owl-prev').html('<span><i class="fa-solid fa-chevron-left"></i></span>')
-		$('.owl-next').html('<span><i class="fa-solid fa-chevron-right"></i></span>')
-
-		//different colored category carousel
-		var arr = $('#category-carousel .item').children()
-
-		$.each(arr, (index) => {
-			var colorR = Math.floor((Math.random() * 200));
-			var colorG = Math.floor((Math.random() * 200));
-			var colorB = Math.floor((Math.random() * 200));
-
-			$(arr[index]).css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")
-		})
-
+	
 	</script>
 }

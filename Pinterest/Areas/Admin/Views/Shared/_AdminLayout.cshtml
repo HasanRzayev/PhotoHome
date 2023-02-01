@@ -353,21 +353,28 @@
                 <!-- end sidebar toggle -->
 
                 <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
-
-                <!-- link -->
-                <a href="./index.html"
+                 <a href="@Url.Action("Index","Category")"
                    class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
                     <i class="fad fa-chart-pie text-xs mr-2"></i>
-                    Analytics dashboard
+                    Category Configuration
                 </a>
-                <!-- end link -->
-                <!-- link -->
-                <a href="./index-1.html"
+               
+                <a  href="@Url.Action("Index","Tag")"
+                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+                    <i class="fad fa-chart-pie text-xs mr-2"></i>
+                    Tag Configuration
+                </a>
+                
+                <a href="@Url.Action("Index","User")"
                    class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
                     <i class="fad fa-shopping-cart text-xs mr-2"></i>
-                    ecommerce dashboard
+                    User configuration
                 </a>
-                <!-- end link -->
+                  <a href="@Url.Action("Index","Notification")"
+                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+                    <i class="fad fa-shopping-cart text-xs mr-2"></i>
+                    Notifications
+                </a>
 
                 <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>
 

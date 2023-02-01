@@ -25,6 +25,7 @@ namespace PhotoHome.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Image_Tag> Image_Tags { get; set; }
         public DbSet<Image_Like> Image_Likes { get; set; }
+        //public DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,10 +59,19 @@ namespace PhotoHome.Data
                 .HasOne(bc => bc.user)
                 .WithMany(c => c.Image_Likes)
                 .HasForeignKey(bc => bc.user_id);
+            //modelBuilder.Entity<Notification>()
+            //   .HasOne(bc => bc.user)
+            //   .WithMany(b => b.Notifications)
+            //   .HasForeignKey(bc => bc.user_id);
+            //modelBuilder.Entity<Picture>()
+            //  .HasOne(bc => bc.notification)
+            //  .WithOne(b => b.image)
+            //  .HasForeignKey<Notification>(bc => bc.image_id);
             modelBuilder.ApplyConfiguration(new CatagoryConfigration());
-            //modelBuilder.ApplyConfiguration(new UsersConfiguration());
+            modelBuilder.ApplyConfiguration(new UsersConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
-
+            modelBuilder.ApplyConfiguration(new Tag_Configurations());
+            modelBuilder.ApplyConfiguration(new ImageTagsConfigurations());
         }
     }
 

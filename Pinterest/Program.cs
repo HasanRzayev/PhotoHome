@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhotoHome.Data;
 using PhotoHome.Models.Entity;
+using System.ComponentModel;
 using System.Configuration;
+using System.Net.NetworkInformation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +40,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
     options.LoginPath = "/User/LogIn";
-    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    //options.AccessDeniedPath = "/User/AccessDenied";
     //options.SlidingExpiration = true;
 });
 var app = builder.Build();
@@ -51,6 +53,32 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+var container = app.Services.CreateScope();
+var userManager = container.ServiceProvider.GetRequiredService<UserManager<User>>();
+var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+if (!await roleManager.RoleExistsAsync("Admin"))
+{
+    var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
+    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+}
+
+var user = await userManager.FindByEmailAsync("admin@admin.com");
+
+if (user == null)
+{
+    user = new User
+    {
+        UserName = "admin@admin.com",
+        Email = "admin@admin.com",
+        FirstName = "Admin",
+        LastName = "Admin",
+        EmailConfirmed = true
+    };
+    var result = await userManager.CreateAsync(user, "Admin");
+    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+    result = await userManager.AddToRoleAsync(user, "Admin");
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -61,14 +89,16 @@ app.UseAuthorization();
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+ 
 app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 	  name: "areas",
-	  pattern: "{area:exists}/{controller=Image}/{action=Index}/{id?}"
-	);
+	  pattern: "{area:exists}/{controller=Category}/{action=Index}/{id?}"
+    );
 	endpoints.MapDefaultControllerRoute();
 });
+
+
 
 app.Run();
