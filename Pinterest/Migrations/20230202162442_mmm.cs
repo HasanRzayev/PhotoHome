@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PhotoHome.Migrations
 {
     /// <inheritdoc />
-    public partial class adddd : Migration
+    public partial class mmm : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -272,8 +272,8 @@ namespace PhotoHome.Migrations
                 columns: new[] { "Id", "About", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", null, 0, "b6cfdc0f-d363-4635-9373-df9bd3f68868", "hsnrz2002@gmail.com", false, "Hesen", "Rzayev", false, null, null, null, null, null, false, "e20f0363-a2f3-46c4-997d-92c0a8aa3c1c", false, "Hesen_Rzayev" },
-                    { "2", null, 0, "e67025f9-de56-45e1-a669-c9fc5b901e63", "ffff@gmail.com", false, "Adil", "Abbasov", false, null, null, null, null, null, false, "fdd38354-075f-4904-939d-90f99fdd6e0e", false, "Adil_Abbasov" }
+                    { "1", null, 0, "9f585c28-15dd-46dd-9aeb-ed0e52dc7c19", "hsnrz2002@gmail.com", false, "Hesen", "Rzayev", false, null, null, null, null, null, false, "7ea9db12-3d76-4226-9884-bc4547c32bb5", false, "Hesen_Rzayev" },
+                    { "2", null, 0, "c4a4ba66-6523-43f4-9b29-8eeb8662861f", "ffff@gmail.com", false, "Adil", "Abbasov", false, null, null, null, null, null, false, "bf627f14-9770-4d12-9196-208db5ff50a1", false, "Adil_Abbasov" }
                 });
 
             migrationBuilder.InsertData(
@@ -281,10 +281,33 @@ namespace PhotoHome.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Kitab" },
-                    { 2, " Kadin    " },
-                    { 3, " Giyim " },
-                    { 4, "Elbise    " }
+                    { 1, "around - the - world          " },
+                    { 2, "work - from - home            " },
+                    { 3, "mental - health               " },
+                    { 4, "female - photographer         " },
+                    { 5, "fall                          " },
+                    { 6, " coffee                       " },
+                    { 7, "home                          " },
+                    { 8, "beauty                        " },
+                    { 9, "fitness                       " },
+                    { 10, "office                        " },
+                    { 11, "kids                          " },
+                    { 12, "india                         " },
+                    { 13, "wallpapers                    " },
+                    { 14, "sign - language               " },
+                    { 15, "womens - fashion              " },
+                    { 16, "black - and - white           " },
+                    { 17, "technology                    " },
+                    { 18, "mens - fashion                " },
+                    { 19, "textures                      " },
+                    { 20, "background                    " },
+                    { 21, "business                      " },
+                    { 22, "nature                        " },
+                    { 23, "food                          " },
+                    { 24, "product                       " },
+                    { 25, "jewelry                       " },
+                    { 26, "animal                        " },
+                    { 27, "yoga                        " }
                 });
 
             migrationBuilder.InsertData(

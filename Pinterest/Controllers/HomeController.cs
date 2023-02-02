@@ -21,6 +21,7 @@ using System.Security.Claims;
 using static System.Net.Mime.MediaTypeNames;
 using PhotoHome.Helpers;
 using System.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace PhotoHome.Controllers
 {
@@ -48,50 +49,50 @@ namespace PhotoHome.Controllers
 
 
 
-        //     [HttpGet]
-        //     [AllowAnonymous]
-        //     public List<string> ImageList(int? pageNumber)
-        //     {
+		//     [HttpGet]
+		//     [AllowAnonymous]
+		//     public List<string> ImageList(int? pageNumber)
+		//     {
 
-        //         //iamgerepository = new ImageRepository(_base);
-        //         //var claim = (ClaimsIdentity)User.Identity;
-        //         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-        //         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
+		//         //iamgerepository = new ImageRepository(_base);
+		//         //var claim = (ClaimsIdentity)User.Identity;
+		//         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+		//         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
 
 
-        //var model=new _base.
-        //         return model;
+		//var model=new _base.
+		//         return model;
 
-        //     }
+		//     }
 
+	
         [HttpPost]
-        public ActionResult Index(string customerName)
+		  [AllowAnonymous ]
+        public IActionResult Index(string searchPattern)
         {
-            var tag = _base.Tags.Include(p => p.Image_Tags).Where(p => p.Name.Contains(CapitalizeHelper.CapitalizeText(customerName))).ToList();
-
-            var model = _base.Image_Tags.Include(p => p.Image).ToList().FindAll(x => x.Tag_Id == tag[0].Id);
-
-            var list = new List<Picture>();
-
-            foreach (var item in model)
-            {
-                list.Add(item.Image);
-            }
-
-            var images = new List<Picture>();
-
-            foreach (var item in list)
-            {
-                images.Add(item);
-            }
-
-            
-            return View(images);
+            var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
+            ViewBag.Category = _base.Catagories.ToList();
+            return View("Index",model);
         }
 
 
 
+		[AllowAnonymous]
+		public IActionResult SearchPage(string searchPattern)
+		{
+			var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
+            ViewBag.Category = _base.Catagories.ToList();
+            return View("Index", model);
+		}
 
+
+        [AllowAnonymous]
+        public IActionResult SearchCatagory(string searchPattern)
+        {
+            var model = _base.Images.Include(a=>a.catagory).Where(a=>a.catagory.Name==searchPattern).ToList();
+            ViewBag.Category = _base.Catagories.ToList();
+            return View("Index", model);
+        }
         [HttpGet]
 		
         [AllowAnonymous ]
@@ -119,8 +120,8 @@ namespace PhotoHome.Controllers
 			{
 				model = _base.Images.ToList();
             }
-            //var list = _base.Images.Include(p => p.catagory).ToList();
-
+			//var list = _base.Images.Include(p => p.catagory).ToList();
+			ViewBag.Category = _base.Catagories.ToList();
             return View(model);
         }
 

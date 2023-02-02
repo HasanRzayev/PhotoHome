@@ -175,22 +175,137 @@ namespace PhotoHome.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Kitab"
+                            Name = "around - the - world          "
                         },
                         new
                         {
                             Id = 2,
-                            Name = " Kadin    "
+                            Name = "work - from - home            "
                         },
                         new
                         {
                             Id = 3,
-                            Name = " Giyim "
+                            Name = "mental - health               "
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Elbise    "
+                            Name = "female - photographer         "
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "fall                          "
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = " coffee                       "
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "home                          "
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "beauty                        "
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "fitness                       "
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "office                        "
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "kids                          "
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "india                         "
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "wallpapers                    "
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "sign - language               "
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "womens - fashion              "
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "black - and - white           "
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "technology                    "
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "mens - fashion                "
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "textures                      "
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "background                    "
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "business                      "
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "nature                        "
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "food                          "
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "product                       "
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "jewelry                       "
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "animal                        "
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "yoga                        "
                         });
                 });
 
@@ -16781,14 +16896,14 @@ namespace PhotoHome.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b6cfdc0f-d363-4635-9373-df9bd3f68868",
+                            ConcurrencyStamp = "9f585c28-15dd-46dd-9aeb-ed0e52dc7c19",
                             Email = "hsnrz2002@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Hesen",
                             LastName = "Rzayev",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e20f0363-a2f3-46c4-997d-92c0a8aa3c1c",
+                            SecurityStamp = "7ea9db12-3d76-4226-9884-bc4547c32bb5",
                             TwoFactorEnabled = false,
                             UserName = "Hesen_Rzayev"
                         },
@@ -16796,14 +16911,14 @@ namespace PhotoHome.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e67025f9-de56-45e1-a669-c9fc5b901e63",
+                            ConcurrencyStamp = "c4a4ba66-6523-43f4-9b29-8eeb8662861f",
                             Email = "ffff@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Adil",
                             LastName = "Abbasov",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fdd38354-075f-4904-939d-90f99fdd6e0e",
+                            SecurityStamp = "bf627f14-9770-4d12-9196-208db5ff50a1",
                             TwoFactorEnabled = false,
                             UserName = "Adil_Abbasov"
                         });

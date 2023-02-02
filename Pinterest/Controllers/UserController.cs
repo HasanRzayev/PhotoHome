@@ -27,6 +27,9 @@ using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
+using System.Net.Mail;
+using EASendMail;
+using SmtpClient = EASendMail.SmtpClient;
 
 namespace PhotoHome.Controllers
 {
@@ -68,8 +71,45 @@ namespace PhotoHome.Controllers
             var boss = await userManager.AddToRoleAsync(user, "Client");
             if (result.Succeeded)
             {
-
                 await signInManager.SignInAsync(user, true);
+                var t = Task.Run(async delegate
+                {
+                    await Task.Delay(1000);
+
+                    SmtpMail oMail = new SmtpMail("TryIt");
+
+                    oMail.From = "photohome2023@gmail.com";
+                    oMail.To = usersdata.Email;
+
+                 
+                    oMail.Subject = "Thanks for filling out our form! " +
+                              "\nPhotoHome";
+
+               
+                    oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
+                         "~\\images\\user", 
+                         ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+
+                 
+                    SmtpServer oServer = new SmtpServer("smtp.outlook.com");
+                    oServer.Port = 587;
+
+                    oServer.User = "photohome2023@gmail.com";
+                    oServer.Password = "Photo_Home_2023";
+
+                   
+                    oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
+
+                  
+
+                    Console.WriteLine("start to send email with embedded image...");
+
+                    SmtpClient oSmtp = new SmtpClient();
+                    oSmtp.SendMail(oServer, oMail);
+
+                });
+                t.Wait();
+              
                 return RedirectToAction("Index", "Home");
             }
             else

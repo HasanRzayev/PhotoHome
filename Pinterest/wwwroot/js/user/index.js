@@ -114,7 +114,10 @@ let get_span = (ele) => {
 
 }
 
-//!
+
+
+
+
 
 const likeClick = (obj) => {
     var option = obj.id;
@@ -143,9 +146,11 @@ const likeClick = (obj) => {
 
 
 
+
+
 const RemoveClick = (obj) => {
     var option = obj.id;
-
+    $(".card-columns").children().remove($(".card-columns").children().find(option))
     $.ajax({
         type: "POST",
         url: "/Home/RemoveImage",
