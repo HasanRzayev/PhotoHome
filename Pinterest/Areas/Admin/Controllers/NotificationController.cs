@@ -47,7 +47,7 @@ namespace PhotoHome.Areas.Admin.Controllers
                 Picture notification = _base.Images.FirstOrDefault(a => a.Id == noti.Id);
 
                 notification.Allow = false;
-
+                _base.Images.Remove(notification);
                 _base.SaveChanges();
 
             

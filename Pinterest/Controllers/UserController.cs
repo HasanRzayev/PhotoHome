@@ -27,21 +27,26 @@ using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
+using System.Net.Mail;
+using EASendMail;
+using SmtpClient = EASendMail.SmtpClient;
 
 namespace PhotoHome.Controllers
 {
-
+    
     public class UserController : Controller
     {
         private AppDbContext _base;
 
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, AppDbContext context)
+        private readonly RoleManager<IdentityRole> rolemanager;
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> rolemanager, AppDbContext context)
         {
             _base = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.rolemanager = rolemanager;
         }
 
 
@@ -54,13 +59,57 @@ namespace PhotoHome.Controllers
                 Email = usersdata.Email,
                 FirstName = usersdata.FirstName,
                 LastName = usersdata.LastName,
-                UserName = option[0]
-
+                UserName = option[0],
+                   
             };
+            if (!await rolemanager.RoleExistsAsync("Client"))
+            {
+                await rolemanager.CreateAsync(new IdentityRole { Name = "Client" });
+            }
+  
             var result = await userManager.CreateAsync(user, usersdata.Password);
+            var boss = await userManager.AddToRoleAsync(user, "Client");
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, true);
+                var t = Task.Run(async delegate
+                {
+                    await Task.Delay(1000);
+
+                    SmtpMail oMail = new SmtpMail("TryIt");
+
+                    oMail.From = "photohome2023@gmail.com";
+                    oMail.To = usersdata.Email;
+
+                 
+                    oMail.Subject = "Thanks for filling out our form! " +
+                              "\nPhotoHome";
+
+               
+                    oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
+                         "~\\images\\user", 
+                         ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+
+                 
+                    SmtpServer oServer = new SmtpServer("smtp.outlook.com");
+                    oServer.Port = 587;
+
+                    oServer.User = "photohome2023@gmail.com";
+                    oServer.Password = "Photo_Home_2023";
+
+                   
+                    oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
+
+                  
+
+                    Console.WriteLine("start to send email with embedded image...");
+
+                    SmtpClient oSmtp = new SmtpClient();
+                    oSmtp.SendMail(oServer, oMail);
+
+                });
+                t.Wait();
+              
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -123,12 +172,12 @@ namespace PhotoHome.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult AccessDenied(string? returnUrl)
-        //{
-        //    return Redirect(returnUrl);
-        //}
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied(string? returnUrl)
+        {
+            return RedirectToAction("LogIn", "User", returnUrl);
+        }
         public IActionResult SignUp()
         {
             return View();

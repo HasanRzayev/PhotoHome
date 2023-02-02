@@ -21,10 +21,10 @@
 								</span>
 							</button>
 
-							<span >@Model.LikeCount</span>
+							<span   >@Model.LikeCount</span>
 						</div>
 
-						<button class="download-btn">Download free</button>
+						<button  class="download-btn">Download free</button>
 					</div>
 				</div>
 
@@ -36,13 +36,18 @@
 					<h4>More related content</h4>
 
 					<div class="owl-carousel" id="tag-carousel">
+					
 						@{
+
 							foreach (var item in ViewBag.Tags)
 							{
+
 								<div class="item">
-									<a href="#">@item.Name</a>
+													 <a href="@Url.Action("SearchPage" ,"Home" ,new { searchPattern = item.Name })" > @item.Name </a>
 								</div>
+
 							}
+
 						}
 						@*<div class="item">
 							<a href="#">animal</a>

@@ -6,7 +6,7 @@ namespace PhotoHome.Models.Entity
 {
     public class User : IdentityUser
     {
-        //public string UserRoles { get; set; }
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? About { get; set; }
