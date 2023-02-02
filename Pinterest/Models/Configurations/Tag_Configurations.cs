@@ -17,6 +17,7 @@ using PhotoHome.Models.Configurations;
 
 namespace UltraWebsite.Models.Configurations
 {
+    
     public class Tag_Configurations : IEntityTypeConfiguration<Tag>
     {
         public int index { get; set; }

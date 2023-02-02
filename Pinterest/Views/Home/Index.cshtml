@@ -10,6 +10,11 @@
 			</div>
 
 			<form  class="w-100">
+				
+			<br/>
+			<br/>
+			@*<input type="submit" value="Submit"/>*@
+				
 				<input type="search" id="find" class="form-control p-0 border-0" placeholder="Search">
 			</form>
 		</div>
@@ -18,11 +23,11 @@
 			@{
 				if (User.Identity.IsAuthenticated)
 				{
-					<partial name="AfterRegistration" />
+						<partial name="AfterRegistration" />
 				}
 				else
 				{
-					<partial name="BeforeRegistration" />
+						<partial name="BeforeRegistration" />
 				}
 			}
 		</div>

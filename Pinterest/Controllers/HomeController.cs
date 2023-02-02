@@ -24,7 +24,8 @@ using System.Linq;
 
 namespace PhotoHome.Controllers
 {
-	[Authorize]
+	[Authorize(Roles="Client")]
+
 	public class HomeController : Controller
 	{
         private AppDbContext _base;
@@ -47,29 +48,53 @@ namespace PhotoHome.Controllers
 
 
 
-   //     [HttpGet]
-   //     [AllowAnonymous]
-   //     public List<string> ImageList(int? pageNumber)
-   //     {
+        //     [HttpGet]
+        //     [AllowAnonymous]
+        //     public List<string> ImageList(int? pageNumber)
+        //     {
 
-   //         //iamgerepository = new ImageRepository(_base);
-   //         //var claim = (ClaimsIdentity)User.Identity;
-   //         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-   //         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
-
-
-			//var model=new _base.
-   //         return model;
-
-   //     }
+        //         //iamgerepository = new ImageRepository(_base);
+        //         //var claim = (ClaimsIdentity)User.Identity;
+        //         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+        //         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
 
 
+        //var model=new _base.
+        //         return model;
+
+        //     }
+
+        [HttpPost]
+        public ActionResult Index(string customerName)
+        {
+            var tag = _base.Tags.Include(p => p.Image_Tags).Where(p => p.Name.Contains(CapitalizeHelper.CapitalizeText(customerName))).ToList();
+
+            var model = _base.Image_Tags.Include(p => p.Image).ToList().FindAll(x => x.Tag_Id == tag[0].Id);
+
+            var list = new List<Picture>();
+
+            foreach (var item in model)
+            {
+                list.Add(item.Image);
+            }
+
+            var images = new List<Picture>();
+
+            foreach (var item in list)
+            {
+                images.Add(item);
+            }
+
+            
+            return View(images);
+        }
 
 
 
 
         [HttpGet]
-        [AllowAnonymous]
+		
+        [AllowAnonymous ]
         public IActionResult Index()
         {
         
@@ -84,8 +109,8 @@ namespace PhotoHome.Controllers
                 
                 foreach (var item in list)
                 {
-					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) continue;
-					model.Add(item);
+					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) model.Add(item); 
+				
 
                 }
              
@@ -128,31 +153,31 @@ namespace PhotoHome.Controllers
 
 
 
-        [HttpGet]
-        [AllowAnonymous]
-		public List<Picture> Search(string? search)
-		{
-            var tag =  _base.Tags.Include(p => p.Image_Tags).Where(p => p.Name.Contains(CapitalizeHelper.CapitalizeText(search))).ToList();
+  //      [HttpGet]
+  //      [AllowAnonymous]
+		//public List<Picture> Search(string? search)
+		//{
+  // //         var tag =  _base.Tags.Include(p => p.Image_Tags).Where(p => p.Name.Contains(CapitalizeHelper.CapitalizeText(search))).ToList();
 
-			var model = _base.Image_Tags.Include(p => p.Image).ToList().FindAll(x => x.Tag_Id == tag[0].Id);
+		//	//var model = _base.Image_Tags.Include(p => p.Image).ToList().FindAll(x => x.Tag_Id == tag[0].Id);
 
-			var list = new List<Picture>();
+		//	//var list = new List<Picture>();
 
-			foreach (var item in model)
-			{
-				list.Add(item.Image);
-			}
+		//	//foreach (var item in model)
+		//	//{
+		//	//	list.Add(item.Image);
+		//	//}
 
-			var images = new List<Picture>();
+		//	//var images = new List<Picture>();
 
-			foreach (var item in list)
-			{
-				images.Add(item);
-			}
+		//	//foreach (var item in list)
+		//	//{
+		//	//	images.Add(item);
+		//	//}
 
-			return images;
+		//	//return images;
 
-        }
+  //      }
 
         [HttpGet]
         [AllowAnonymous]
@@ -224,7 +249,36 @@ namespace PhotoHome.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult Create()
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult RemoveImage(string Link)
+        {
+            var claim = (ClaimsIdentity)User.Identity;
+
+            if (claim == null)
+            {
+                return RedirectToAction("LogIn", "User");
+            }
+            if (ModelState.IsValid)
+            {
+                var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+
+                User user = _base.Users.First(a => a.Id == claims.Value);
+                Picture option = _base.Images.First(a => a.ImageUrl == Link);
+				var import = _base.Images.FirstOrDefault(a => a.user_id == user.Id && a.Id == option.Id);
+				_base.Images.Remove(option);
+
+              
+
+                _base.SaveChanges();
+            }
+
+
+            return RedirectToAction("Created");
+        }
+
+        public IActionResult Create()
 		{
 			//if ()
 			//{
@@ -270,8 +324,6 @@ namespace PhotoHome.Controllers
 				_image.Allow = false;
 				_base.Images.Add(_image);
 				_base.SaveChanges();
-
-			
 
 			}
 			catch (Exception e)

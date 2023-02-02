@@ -30,18 +30,20 @@ using System.Net;
 
 namespace PhotoHome.Controllers
 {
-
+    
     public class UserController : Controller
     {
         private AppDbContext _base;
 
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, AppDbContext context)
+        private readonly RoleManager<IdentityRole> rolemanager;
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> rolemanager, AppDbContext context)
         {
             _base = context;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.rolemanager = rolemanager;
         }
 
 
@@ -54,12 +56,19 @@ namespace PhotoHome.Controllers
                 Email = usersdata.Email,
                 FirstName = usersdata.FirstName,
                 LastName = usersdata.LastName,
-                UserName = option[0]
-
+                UserName = option[0],
+                   
             };
+            if (!await rolemanager.RoleExistsAsync("Client"))
+            {
+                await rolemanager.CreateAsync(new IdentityRole { Name = "Client" });
+            }
+  
             var result = await userManager.CreateAsync(user, usersdata.Password);
+            var boss = await userManager.AddToRoleAsync(user, "Client");
             if (result.Succeeded)
             {
+
                 await signInManager.SignInAsync(user, true);
                 return RedirectToAction("Index", "Home");
             }
@@ -123,12 +132,12 @@ namespace PhotoHome.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult AccessDenied(string? returnUrl)
-        //{
-        //    return Redirect(returnUrl);
-        //}
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied(string? returnUrl)
+        {
+            return RedirectToAction("LogIn", "User", returnUrl);
+        }
         public IActionResult SignUp()
         {
             return View();

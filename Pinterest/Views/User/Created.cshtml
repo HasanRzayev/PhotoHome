@@ -25,7 +25,7 @@
 				@foreach (var item in ViewBag.images)
 				{
 		<div class="card">
-			<img class="card-img-top probootstrap-animate" src="@item" alt="Card image cap"
+			<img class="card-img-top probootstrap-animate" src="@item.ImageUrl" alt="Card image cap"
 				 style="border-radius: 20px;">
 
 			<div class="card-div d-flex flex-column justify-content-between align-items-end">
@@ -44,8 +44,8 @@
 				</div>
 
 				<div class="details pb-3 px-3">
-					<button class="card-div-btn" id="delete">
-						<span>
+									<button class="card-div-btn"   id="@item.ImageUrl"    onclick="RemoveClick(this)">
+							<span   id="@item.ImageUrl"    onclick="@Url.Action("RemoveImage","Home")">
 							<i class="fa-solid fa-trash"></i>
 						</span>
 					</button>
