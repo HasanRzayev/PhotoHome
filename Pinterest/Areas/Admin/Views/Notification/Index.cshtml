@@ -1,83 +1,78 @@
-﻿@using PhotoHome.Models.Entity
+﻿@model List<Picture>
 
+@{
+	int count = 1;
+}
 
+<div class="flex flex-row bg-white py-4 px-16 border-b border-gray-300 overflow-scroll" style="width: 100%">
+	<div class="flex flex-col" style="width: 100%">
+		<h4 class="h4 mb-4">Notifications</h4>
 
-@model List<Picture>
+		<div class="card col-span-2 xl:col-span-1">
+			<table class="table-auto w-full text-center">
+				<thead>
+					<tr>
+						<th class="px-4 py-2 border-r"></th>
+						<th class="px-4 py-2 border-r">Title</th>
+						<th class="px-4 py-2 border-r">Description</th>
+						<th class="px-4 py-2 border-r">Image</th>
+						<th class="px-4 py-2 border-r">User Name</th>
+						<th class="px-4 py-2 border-r"></th>
+						<th class="px-4 py-2"></th>
+					</tr>
+				</thead>
 
-<!doctype html>
-<html lang="en">
-<head>
- 
-    
-    
+				<tbody class="text-gray-600">
+					@foreach (var notification in Model)
+					{
+						<tr>
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								@count
+							</td>
 
-    
-    
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">  
-  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">  
-  <title>Welcome To Cleopatra</title>
-</head>
-<body class="bg-gray-100">
+							@if (notification.Title.Length > 12)
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.Title.Substring(0, 9)...</td>
+							}
+							else
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.Title</td>
+							}
 
+							@if (notification.Description.Length > 12)
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.Description.Substring(0, 9)...</td>
+							}
+							else
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.Description</td>
+							}
 
-<!-- start navbar -->
-<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								<img class="num-2" src="@notification.ImageUrl" style="width:250px"></img>
+							</td>
 
-  
-      <div class="flex-none  flex flex-row items-center">
+							@if (notification.user.UserName.Length > 12)
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.user.UserName.Substring(0, 9)...</td>
+							}
+							else
+							{
+								<td class="border border-l-0 border-b-0 px-4 py-2">@notification.user.UserName</td>
+							}
 
-          <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								<a href="@Url.Action("Allow","Notification",notification)" class="btn-shadow">Allow</a>
+							</td>
 
-
-    <div class="card col-span-2 xl:col-span-1">
-        <div class="card-header">Recent Sales</div>
-
-        <table class="table-auto w-full text-left">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 border-r"></th>
-                    <th class="px-4 py-2 border-r">Id</th>
-                    <th class="px-4 py-2 border-r">Image</th>
-                    <th class="px-4 py-2 border-r">User Name</th>
-             @*       <th class="px-4 py-2">date</th>*@
-                    <th class="px-4 py-2">Edit</th>
-                    <th class="px-4 py-2">Delete</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600">
-                            @foreach (var notification in Model)
-                        {
-                                  <tr>                    
-                                    <td class="border border-l-0 px-4 py-2">@notification.Id</td>
-                                    <td class="border border-l-0 px-4 py-2">@notification.Title</td
-                                    <td class="border border-l-0 border-r-0 px-4 py-2"><img class="num-2" src="@notification.ImageUrl"></img> </td>
-                                    <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2" ></span> @notification.user.UserName</td>
-                                    <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("Allow","Notification",notification)" class="btn-shadow">Allow</a> </td>
-                                    <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("Not_Allow","Notification",notification)" class="btn-danger">Not Allow</a>  </td>
-                    </tr>
-                                                      
-                        }
-          
-
-            </tbody>
-        </table>
-    </div>
-
-
+							<td class="border border-l-0 border-r-0 border-b-0 px-4 py-2">
+								<a href="@Url.Action("Not_Allow","Notification",notification)" class="btn-danger">Deny</a>
+							</td>
+						</tr>
+						count++;
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
-
-
-  </div>
-
-</div>
-
-<!-- script -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="js/scripts.js"></script>
-<!-- end script -->
-
-</body>
-</html>

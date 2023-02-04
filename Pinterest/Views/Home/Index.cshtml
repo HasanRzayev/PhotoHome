@@ -3,26 +3,27 @@
 <div class="container-fluid p-3">
 	<div class="d-flex mb-4" id="search-bar">
 		<div class=" d-flex align-items-center border w-75 mr-5" id="search-div" tabindex="0">
-			<div class="pl-3 pr-2">
+			<div class="pl-3 pr-2" style="display:flex; align-items:center; justify-content:center;">
 				<span class="text-primary">
 					<i class="fa fa-search"></i>
 				</span>
+
+				@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+				{
+					@Html.TextBox("searchPattern", null, new { style="width: 100%; margin-left:10px; border: none; background-color: #e6e6e6; outline:none"} )
+				}
 			</div>
-			@using(Html.BeginForm("Index","Home",FormMethod.Post)){
-				@Html.TextBox("searchPattern")<input type="submit" id="find" class="form-control p-0 border-0" placeholder="Search">
-			}
-		
 		</div>
 
 		<div class="d-flex justify-content-end align-items-center w-25">
 			@{
 				if (User.Identity.IsAuthenticated)
 				{
-						<partial name="AfterRegistration" />
+					<partial name="AfterRegistration" />
 				}
 				else
 				{
-						<partial name="BeforeRegistration" />
+					<partial name="BeforeRegistration" />
 				}
 			}
 		</div>
@@ -32,41 +33,10 @@
 		<div class="owl-carousel" id="category-carousel">
 			@foreach (var item in ViewBag.Category)
 			{
-						<div class="item">
-								<a href="@Url.Action("SearchCatagory" ,"Home" ,new { searchPattern = item.Name })">@item.Name</a>
+				<div class="item">
+					<a href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name.Substring(0, 10)</a>
 				</div>
 			}
-		@*
-			<div class="item">
-				<a href="#">walpaper</a>
-			</div>
-			<div class="item">
-				<a href="#">fruit</a>
-			</div>
-			<div class="item">
-				<a href="#">nature</a>
-			</div>
-			<div class="item">
-				<a href="#">human</a>
-			</div>
-			<div class="item">
-				<a href="#">office</a>
-			</div>
-			<div class="item">
-				<a href="#">food</a>
-			</div>
-			<div class="item">
-				<a href="#">technology</a>
-			</div>
-			<div class="item">
-				<a href="#">street</a>
-			</div>
-			<div class="item">
-				<a href="#">mountain</a>
-			</div>
-			<div class="item">
-				<a href="#">car</a>
-			</div>*@
 		</div>
 	</div>
 
@@ -79,12 +49,39 @@
 @section Scripts{
 	<script src="~/js/user/index.js"></script>
 
-	<script type="text/javascript">
-		$(window).scroll(scrollHandler);
-	</script>
+	<script>
+		$('.owl-carousel').owlCarousel({
+			autoplay: true,
+			autoplayTimeout: 1750,
+			//autoplayHoverPause: true,
+			loop: true,
+			margin: 10,
+			nav: true,
+			responsive: {
+				0: {
+					items: 6
+				},
+				768: {
+					items: 7
+				},
+				1000: {
+					items: 8
+				}
+			}
+		})
 
-	<script type="text/javascript">
+		$('.owl-prev').html('<span><i class="fa-solid fa-chevron-left"></i></span>')
+		$('.owl-next').html('<span><i class="fa-solid fa-chevron-right"></i></span>')
 
-	
+		//different colored category carousel
+		var arr = $('#category-carousel .item').children()
+
+		$.each(arr, (index) => {
+			var colorR = Math.floor((Math.random() * 200));
+			var colorG = Math.floor((Math.random() * 200));
+			var colorB = Math.floor((Math.random() * 200));
+
+			$(arr[index]).css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")
+		})
 	</script>
 }

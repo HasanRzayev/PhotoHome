@@ -1,94 +1,58 @@
-﻿@using PhotoHome.Models.Entity
-<!doctype html>
-<html lang="en">
-<head>
+﻿@model List<Tag>
 
+@{
+	int count = 1;
+}
 
+<div class="flex flex-row bg-white py-4 px-32 border-b border-gray-300 overflow-scroll" style="width: 100%">
 
+	<div class="flex flex-col" style="width: 100%">
+		<div class="flex flex-col justify-center my-3" style="width: 100%">
+			<h4 class="h4">Tags</h4>
 
-    @model List<Tag>
+			<a href=@Url.Action("AddTag", "Tag") class="btn-shadow mt-6" style="display:flex; align-items:center; justify-content:center; width: 60px;">Add</a>
+		</div>
 
+		<div class="card col-span-2 xl:col-span-1">
+			<table class="table-auto w-full text-center">
+				<thead>
+					<tr>
+						<th class="px-4 py-2 border-r"></th>
+						<th class="px-4 py-2 border-r">Id</th>
+						<th class="px-4 py-2 border-r">Name</th>
+						<th class="px-4 py-2 border-r">Edit</th>
+						<th class="px-4 py-2">Delete</th>
+					</tr>
+				</thead>
 
+				<tbody class="text-gray-600">
+					@foreach (var tag in Model)
+					{
+						<tr>
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								@count
+							</td>
 
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-  <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">  
-  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">  
-  <title>Welcome To Cleopatra</title>
-</head>
-<body class="bg-gray-100">
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								@tag.Id
+							</td>
 
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								@tag.Name
+							</td>
 
-<!-- start navbar -->
-<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+							<td class="border border-l-0 border-b-0 px-4 py-2">
+								<a href="@Url.Action("UpdateTag", "Tag" , new {  Id = tag.Id })" class="btn-shadow">Edit</a>
+							</td>
 
-
-      <div class="flex-none  flex flex-row items-center">
-
-          <div class="card-body grid grid-cols-2 gap-6 lg:grid-cols-1">
-
-        <div class="p-8">
-            <h1 class="h2">5,337</h1>
-            <p class="text-black font-medium">Sales this month</p>
-
-
-
-            <a href=@Url.Action("AddTag","Tag") class="btn-shadow mt-6">Add Tag</a>
-
-        </div>
-
-
-    </div>
-    <div class="card col-span-2 xl:col-span-1">
-        <div class="card-header">Recent Sales</div>
-
-        <table class="table-auto w-full text-left">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 border-r"></th>
-                    <th class="px-4 py-2 border-r">Id</th>
-                    <th class="px-4 py-2 border-r">Name</th>
-                            @*       <th class="px-4 py-2">date</th>*@
-                    <th class="px-4 py-2">Edit</th>
-                    <th class="px-4 py-2">Delete</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600">
-                        @foreach (var catalogue in Model)
-                        {
-                                      <tr>                    
-                                @*      <td class="border border-l-0 px-4 py-2 text-center text-green-500"><i class="fad fa-circle"></i></td>*@
-                                <td class="border border-l-0 px-4 py-2">@catalogue.Id</td>
-
-                                <td class="border border-l-0 border-r-0 px-4 py-2"><span class="num-2"></span> @catalogue.Name</td>
-                                                <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("UpdateTag" , "Tag" , new {  Id = catalogue.Id })" class="btn-shadow">EDit</a> </td>
-                                         <td class="border border-l-0 border-r-0 px-4 py-2"><a href="@Url.Action("DeleteTag" , "Tag" , new {  Id = catalogue.Id })" class="btn-danger">DELETE</a>  </td>
-                        </tr>
-
-                        }
-
-
-            </tbody>
-        </table>
-    </div>
-    <!-- End Recent Sales -->
-
-
+							<td class="border border-l-0 border-r-0 border-b-0 px-4 py-2">
+								<a href="@Url.Action("DeleteTag", "Tag" , new {  Id = tag.Id })" class="btn-danger btn-shadow">Delete</a>
+							</td>
+						</tr>
+						count++;
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
-    <!-- end quick Info -->
-
-
-  </div>
-  <!-- end content -->
-
-</div>
-<!-- end wrapper -->
-
-<!-- script -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="js/scripts.js"></script>
-<!-- end script -->
-
-</body>
-</html>

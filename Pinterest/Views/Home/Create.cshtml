@@ -1,7 +1,7 @@
 ﻿@model AddImageViewModel
 
 <div class="container-fluid">
-	<div class="col-xl-10 p-0 mx-auto" id="dragger_wrapper">
+	<div class="col-xl-10 mx-auto" id="dragger_wrapper">
 		<form asp-action="AddImage" asp-controller="Home" class="w-100 h-100 d-flex flex-row" enctype="multipart/form-data">
 			@*<div class="col-xl-5 p-2">
 			<div id="dragger">
@@ -32,7 +32,7 @@
 				
 				<div class="create-image">
 					<label>Image</label>
-					<input type="file" asp-for="ImageUrl"></input>
+					<input type="file" asp-for="ImageUrl" placeholder="Select file">
 				</div>
 				<div class="col-xl-6 mx-auto">
 					<input type="submit" value="Create">

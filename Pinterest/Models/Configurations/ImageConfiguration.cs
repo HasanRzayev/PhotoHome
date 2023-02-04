@@ -55,9 +55,13 @@ namespace PhotoHome.Models.Configurations
             var lazim = fake.GetDescription();
             int  Max(int number)
             {
-                if (number % 10 == 0) return cata++;
-                return cata;
-                number++;
+                if (number % 10 == 0) {
+					number++;
+                    cata++;
+                    return cata; }
+				number++;
+				return cata;
+           
             }
             Random rnd = new Random();
 

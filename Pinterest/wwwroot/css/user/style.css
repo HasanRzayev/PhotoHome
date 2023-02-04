@@ -49,7 +49,7 @@ h5,
     top: 0;
     float: left;
     min-height: 500px;
-    border-right: 2px solid #1FAD9F; /*!color*/
+    border-right: 1px solid #ccc; /*!color*/
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
@@ -1128,10 +1128,14 @@ input[type=submit] {
 /**/
 
 .registration {
-    width: 380px;
+    width: 350px;
     background: #fff;
     border-radius: 20px;
     border: 1px solid #252525;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     /*box-shadow: 0 0 5px 5px rgba(0, 0, 0, .5);*/
 }
 
@@ -1139,12 +1143,14 @@ input[type=submit] {
         color: #252525;
         padding: 15px 0;
         text-align: center;
+        width: 100%;
         border-bottom: 1px solid silver;
     }
 
     .registration form {
         padding: 0 25px;
         box-sizing: border-box;
+        width: 100%;
     }
 
 .registration-field {
@@ -1152,7 +1158,7 @@ input[type=submit] {
     display: flex;
     flex-direction: column;
     border-bottom: 2px solid #adadad;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .registration input {
@@ -1298,19 +1304,24 @@ input[type=submit] {
 /**/
 
 .registration-page {
-    width: 100vw;
+    /*width: 100vw;*/
     height: 100vh;
+    /*height: 100%;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
 }
 
 .registration-page-bg {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -1361,15 +1372,15 @@ input[type=submit] {
         transition: all .2s;
     }
 
-#options {
+.options {
     position: relative;
     max-width: 100%;
     text-align: center;
     /*z-index: 200;*/
 }
 
-    #options [type="checkbox"]:checked,
-    #options [type="checkbox"]:not(:checked) {
+    .options [type="checkbox"]:checked,
+    .options [type="checkbox"]:not(:checked) {
         position: absolute;
         left: -9999px;
         opacity: 0;
@@ -1381,8 +1392,8 @@ input[type=submit] {
         transition: all .2s;
     }*/
 
-    #options .dropdown:checked + label,
-    #options .dropdown:not(:checked) + label {
+    .options .dropdown:checked + label,
+    .options .dropdown:not(:checked) + label {
         position: relative;
         font-size: 0.7em;
         height: 25px;
@@ -1398,8 +1409,8 @@ input[type=submit] {
         color: #252525;
     }
 
-        #options .dropdown:checked + label:before,
-        #options .dropdown:not(:checked) + label:before {
+        .options .dropdown:checked + label:before,
+        .options .dropdown:not(:checked) + label:before {
             position: fixed;
             top: 0;
             left: 0;
@@ -1411,20 +1422,20 @@ input[type=submit] {
             pointer-events: none;
         }
 
-        #options .dropdown:checked + label:before {
+        .options .dropdown:checked + label:before {
             pointer-events: auto;
         }
 
-        #options .dropdown:not(:checked) + label i {
+        .options .dropdown:not(:checked) + label i {
             transition: transform .2s linear;
         }
 
-        #options .dropdown:checked + label i {
+        .options .dropdown:checked + label i {
             transform: rotate(180deg);
             transition: transform .2s linear;
         }
 
-    #options .section-dropdown {
+    .options .section-dropdown {
         position: absolute;
         padding: 10px;
         background-color: #fff;
@@ -1441,12 +1452,12 @@ input[type=submit] {
         transition: all .2s linear;
     }
 
-        #options .section-dropdown span {
+        .options .section-dropdown span {
             color: #252525;
             font-size: 0.6em;
         }
 
-    #options .dropdown:checked ~ .section-dropdown {
+    .options .dropdown:checked ~ .section-dropdown {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
@@ -1477,7 +1488,7 @@ input[type=submit] {
         transition: all .2s linear;
     }*/
 
-    #options a {
+    .options a {
         position: relative;
         color: #252525;
         transition: all 200ms linear;
@@ -1491,7 +1502,7 @@ input[type=submit] {
         justify-content: space-between;
     }
 
-        #options a:hover {
+        .options a:hover {
             background-color: #e6e6e6;
         }
 
@@ -1606,16 +1617,15 @@ input[type=submit] {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /*border: 1px solid;*/
 }
 
 #image-interaction {
-    padding: 30px 15px;
+    padding: 25px 10px 30px 10px;
 }
 
 #account-actions .account-img {
-    width: 40px !important;
-    height: 40px !important;
+    width: 45px !important;
+    height: 45px !important;
     margin-right: 15px;
 }
 
@@ -1624,7 +1634,8 @@ input[type=submit] {
     align-items: center;
     border: 1px solid #252525;
     border-radius: 5px;
-    padding: 5px 15px;
+    height: 45px;
+    padding: 0 15px;
 }
 
 .like-btn {
@@ -1647,40 +1658,80 @@ input[type=submit] {
             pointer-events: none
         }
 
-.download-btn {
+#image-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #1FAD9F;
-    color: #fff;
-    border: none;
     border-radius: 5px;
-    padding: 5px 15px;
-    margin-left: 20px;
-    cursor: pointer
+    height: 45px;
+    margin-left: 20px
 }
+
+    #image-download .for-dropdown {
+        color: #fff;
+        background-color: #1FAD9F;
+        border-radius: 0;
+        border-radius: 0 5px 5px 0px;
+        height: 45px;
+        padding: 0 20px;
+    }
+
+    #image-download .download-btn {
+        background-color: #1FAD9F;
+        color: #fff !important;
+        border-radius: 5px 0 0 5px;
+        padding: 0 15px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer
+    }
+
+        #image-download .for-dropdown:hover, #image-download .download-btn:hover {
+            background-color: #1b988b
+        }
 
 #image-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
     #image-container img {
         max-height: 500px;
-        /*max-height: 400px;*/
         max-width: 650px;
-        /*max-width: 520px;*/
         cursor: zoom-in;
         transition: transform .2s;
     }
 
         #image-container img:hover {
-            transform: scale(1.05)
+            /*transform: scale(1.05)*/
         }
 
-#image-tags {
+#image-tags, #image-info, #recommended-images {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px 15px 30px 15px;
+    padding: 20px 10px 0px 10px;
+}
+
+#recommended-images {
+    margin: 10px 0;
+}
+
+/*#image-info {
+    border-bottom: 1px dotted #252525;
+}*/
+
+#image-info h2, #image-info h5 {
+    color: #1FAD9F;
+}
+
+#image-info h5 {
+    margin: 0;
+    overflow: hidden;
 }
 
 #tag-carousel .item {
@@ -1708,7 +1759,6 @@ input[type=submit] {
     height: 100%;
     display: flex;
     border-radius: 20px;
-    /*background-color:aqua;*/
 }
 
     #category-carousel .item a {
@@ -1802,3 +1852,42 @@ input[type=submit] {
 
 /* ! */
 
+@media screen and (max-width: 1140px) {
+    #recommended-images .card-columns {
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        columns: 2;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    #recommended-images .card-columns {
+        -webkit-columns: 1;
+        -moz-columns: 1;
+        columns: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #recommended-images .card-columns {
+        -webkit-columns: 1;
+        -moz-columns: 1;
+        columns: 1;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #recommended-images .card-columns {
+        -webkit-columns: 1;
+        -moz-columns: 1;
+        columns: 1;
+    }
+}
+
+/* ! */
+
+@media screen and (max-width: 768px) {
+    .registration {
+        margin-top: 80px;
+    }
+}

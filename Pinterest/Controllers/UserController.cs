@@ -86,9 +86,9 @@ namespace PhotoHome.Controllers
                               "\nPhotoHome";
 
                
-                    oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
-                         "~\\images\\user", 
-                         ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+                    //oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
+                    //     "~\\images\\user", 
+                    //     ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
 
                  
                     SmtpServer oServer = new SmtpServer("smtp.outlook.com");

@@ -23,10 +23,15 @@ namespace UltraWebsite.Models.Configurations
     public class CatagoryConfigration : IEntityTypeConfiguration<Catagory>
     {
         public int index { get; set; }
+        public int number { get; set; }
+        public int cata { get; set; }
 
-
-
-
+        int Max(int number)
+        {
+            if (number % 10 == 0) return cata++;
+            number++;
+            return cata;
+        }
         public void Configure(EntityTypeBuilder<Catagory> builder)
         {
             index = 1;

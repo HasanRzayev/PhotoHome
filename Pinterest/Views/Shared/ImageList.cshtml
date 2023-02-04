@@ -10,23 +10,23 @@
 				@if (User?.Identity?.IsAuthenticated ?? false)
 				{
 					<button class="card-div-btn bubbly-button mr-2" @* id="like" *@>
-								<span class="like-span bubbly-button" id="@item.ImageUrl" name="heart" onclick="likeClick(this)">
+						<span class="like-span bubbly-button" id="@item.ImageUrl" name="heart" onclick="likeClick(this)">
 							<i class="fa-solid fa-heart"></i>
 						</span>
 					</button>
 				}
 
 				<button class="card-div-btn" id="download">
-						<span class="DownloadButton" id="@item.ImageUrl" onclick="get_span(this)">
+					<span class="DownloadButton" id="@item.ImageUrl" onclick="get_span(this)">
 						<i class="fa-solid fa-download"></i>
 					</span>
 				</button>
 			</div>
 
 			<div class="mb-3 mr-3 d-flex justify-content-end">
-									<a  href="@Url.Action(  "ImageInfo" , "Home" , new {  Id = item.ImageUrl })" id="more"   >
-					
-								<span   class="py-2 px-3">More</span>
+				<a href="@Url.Action(  "ImageInfo" , "Home" , new {  Id = item.ImageUrl })" id="more">
+
+					<span class="py-2 px-3">More</span>
 				</a>
 			</div>
 		</div>

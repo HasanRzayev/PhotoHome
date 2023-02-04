@@ -14,7 +14,6 @@ namespace PhotoHome.Areas.Admin.Controllers
         public UserController(AppDbContext context)
         {
             _base = context;
-
         }
 
         public IActionResult Index()
@@ -26,6 +25,7 @@ namespace PhotoHome.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddUser(User userdata)
         {
@@ -41,44 +41,43 @@ namespace PhotoHome.Areas.Admin.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View();
 
+            return View();
         }
+
         [HttpGet]
         public IActionResult UpdateUser(string Id)
         {
             var lazim = (_base.Users.ToList().Find(p => p.Id == Id));
             ViewBag.nomre = Id;
+        
             return View(lazim);
         }
+
         [HttpPost, ActionName("UpdateCategory")]
         public IActionResult UpdateUser(User userdata)
         {
-            
             if (userdata.FirstName != null)
             {
-
                 User user = _base.Users.Find(userdata.Id);
+
                 user.LastName = userdata.LastName;
                 user.FirstName = userdata.FirstName;
                 user.Email = userdata.Email;
                 user.UserName = userdata.UserName;
+                
                 _base.SaveChanges();
             }
+
             return RedirectToAction("Index");
         }
 
 
-
         public ActionResult DeleteUser(string Id)
         {
-            //var lazim = baza.Products.ToList().Find(p => p.catalogue_id == Id);
-            //if (baza.Products.First())
-            //{
-
-            //}
             _base.Users.Remove(_base.Users.ToList().Find(p => p.Id == Id));
             _base.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }

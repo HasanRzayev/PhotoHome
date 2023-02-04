@@ -14,12 +14,12 @@
 
 
     <!-- start navbar -->
-    <div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+    <div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-5 border-b border-gray-300">
 
         <!-- logo -->
         <div class="flex-none w-56 flex flex-row items-center">
-            <img src="img/logo.png" class="w-10 flex-none">
-            <strong class="capitalize ml-1 flex-1">cleopatra</strong>
+            <img src="~/images/user/PH.png" class="w-10 flex-none">
+            <strong class="capitalize ml-3 flex-1 text-2xl">photo home</strong>
 
             <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
                 <i class="fad fa-list-ul"></i>
@@ -33,9 +33,9 @@
         <!-- end navbar content toggle -->
         <!-- navbar content -->
         <div id="navbar"
-             class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
+             class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-end items-center md:flex-col md:items-center">
             <!-- left -->
-            <div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
+            @*<div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
                 <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email">
                     <i class="fad fa-envelope-open-text"></i>
                 </a>
@@ -48,7 +48,7 @@
                 <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email">
                     <i class="fad fa-calendar-exclamation"></i>
                 </a>
-            </div>
+            </div>*@
             <!-- end left -->
             <!-- right -->
             <div class="flex flex-row-reverse items-center">
@@ -57,13 +57,13 @@
                 <div class="dropdown relative md:static">
 
                     <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
-                        <div class="w-8 h-8 overflow-hidden rounded-full">
+                       @* <div class="w-8 h-8 overflow-hidden rounded-full">
                             <img class="w-full h-full object-cover" src="img/user.svg">
                         </div>
-
-                        <div class="ml-2 capitalize flex ">
-                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">moeSaid</h1>
-                            <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+*@
+                        <div class="ml-2 capitalize flex items-center">
+                            <h1 class="text-gray-800 font-semibold m-0 p-2 leading-none">Admin</h1>
+                            <i class="fad fa-chevron-down ml-1 text-sm leading-none"></i>
                         </div>
                     </button>
 
@@ -334,12 +334,11 @@
     </div>
     <!-- end navbar -->
     <!-- strat wrapper -->
-    <div class="h-screen flex flex-row flex-wrap">
+    <div class="h-screen flex flex-row">
 
         <!-- start sidebar -->
         <div id="sideBar"
-             class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
-
+             class="relative flex flex-col flex-wrap items-center p-3 pt-24 bg-white border-r border-gray-300 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
 
             <!-- sidebar content -->
             <div class="flex flex-col">
@@ -352,31 +351,32 @@
                 </div>
                 <!-- end sidebar toggle -->
 
-                <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
+                <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">interactions</p>
+
                  <a href="@Url.Action("Index","Category")"
-                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-                    <i class="fad fa-chart-pie text-xs mr-2"></i>
-                    Category Configuration
+                   class="mb-3 capitalize font-medium hover:text-teal-600 transition ease-in-out duration-500">
+                    @*<i class="fa-solid fa-n text-xs mr-2"></i>*@
+                    Categories
                 </a>
                
                 <a  href="@Url.Action("Index","Tag")"
-                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-                    <i class="fad fa-chart-pie text-xs mr-2"></i>
-                    Tag Configuration
+                   class="mb-3 capitalize font-medium hover:text-teal-600 transition ease-in-out duration-500">
+                    @*<i class="fad fa-chart-pie text-xs mr-2"></i>*@
+                    Tags
                 </a>
                 
                 <a href="@Url.Action("Index","User")"
-                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-                    <i class="fad fa-shopping-cart text-xs mr-2"></i>
-                    User configuration
+                   class="mb-3 capitalize font-medium hover:text-teal-600 transition ease-in-out duration-500">
+                    @*<i class="fad fa-shopping-cart text-xs mr-2"></i>*@
+                    Users
                 </a>
                   <a href="@Url.Action("Index","Notification")"
-                   class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
-                    <i class="fad fa-shopping-cart text-xs mr-2"></i>
+                   class="mb-3 capitalize font-medium hover:text-teal-600 transition ease-in-out duration-500">
+                    @*<i class="fad fa-shopping-cart text-xs mr-2"></i>*@
                     Notifications
                 </a>
 
-                <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>
+                @*<p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">apps</p>
 
                 <!-- link -->
                 <a href="./email.html"
@@ -414,10 +414,9 @@
                     <i class="fad fa-folder-open text-xs mr-2"></i>
                     file manager
                 </a>
-                <!-- end link -->
+                <!-- end link -->*@
 
-
-                <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">UI Elements</p>
+               @* <p class="uppercase text-xs text-gray-600 mb-4 mt-4 tracking-wider">UI Elements</p>
 
                 <!-- link -->
                 <a href="./typography.html"
@@ -475,9 +474,7 @@
                     <i class="fad fa-computer-classic text-xs mr-2"></i>
                     Components
                 </a>
-                <!-- end link -->
-
-
+                <!-- end link -->*@
 
             </div>
             <!-- end sidebar content -->

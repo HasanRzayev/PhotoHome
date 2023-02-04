@@ -17227,22 +17227,30 @@ namespace PhotoHome.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "290dcdf6-e3b4-4863-90a5-a9e7c09591b3",
 =======
                             ConcurrencyStamp = "9f585c28-15dd-46dd-9aeb-ed0e52dc7c19",
 >>>>>>> master
+=======
+                            ConcurrencyStamp = "6351113d-9e4b-485e-9e14-f23c99f59595",
+>>>>>>> Stashed changes
                             Email = "hsnrz2002@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Hesen",
                             LastName = "Rzayev",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "c36eee64-5f6c-43d1-8e15-e9e80364ca8f",
 =======
                             SecurityStamp = "7ea9db12-3d76-4226-9884-bc4547c32bb5",
 >>>>>>> master
+=======
+                            SecurityStamp = "feefd3e0-4e96-4570-87fe-e84b1ea1a659",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "Hesen_Rzayev"
                         },
@@ -17250,17 +17258,22 @@ namespace PhotoHome.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             ConcurrencyStamp = "1c5eb934-89c9-4441-8132-e532d4cfce33",
 =======
                             ConcurrencyStamp = "c4a4ba66-6523-43f4-9b29-8eeb8662861f",
 >>>>>>> master
+=======
+                            ConcurrencyStamp = "7ff2afa5-a71d-4da0-a262-75dfac2e0c96",
+>>>>>>> Stashed changes
                             Email = "ffff@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Adil",
                             LastName = "Abbasov",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                             SecurityStamp = "28ff0de4-5631-4e0a-ab09-a7dd3a6c69de",
                             TwoFactorEnabled = false,
@@ -17312,6 +17325,9 @@ namespace PhotoHome.Migrations
                             UserName = "Ilyas_Cakirbeyli"
 =======
                             SecurityStamp = "bf627f14-9770-4d12-9196-208db5ff50a1",
+=======
+                            SecurityStamp = "ceac4423-fa40-42a9-9d14-bc43bdf53c37",
+>>>>>>> Stashed changes
                             TwoFactorEnabled = false,
                             UserName = "Adil_Abbasov"
 >>>>>>> master

@@ -7,7 +7,7 @@ using PhotoHome.Models.Entity;
 namespace PhotoHome.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-    [Authorize(Roles ="Admin")]
+
 	public class CategoryController : Controller
 	{
         private AppDbContext _base;
