@@ -6,7 +6,7 @@ using PhotoHome.Models.Entity;
 namespace PhotoHome.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-    [Authorize]
+  
 
     public class UserController : Controller
 	{
@@ -50,7 +50,6 @@ namespace PhotoHome.Areas.Admin.Controllers
         {
             var lazim = (_base.Users.ToList().Find(p => p.Id == Id));
             ViewBag.nomre = Id;
-        
             return View(lazim);
         }
 
@@ -60,15 +59,12 @@ namespace PhotoHome.Areas.Admin.Controllers
             if (userdata.FirstName != null)
             {
                 User user = _base.Users.Find(userdata.Id);
-
                 user.LastName = userdata.LastName;
                 user.FirstName = userdata.FirstName;
                 user.Email = userdata.Email;
                 user.UserName = userdata.UserName;
-                
                 _base.SaveChanges();
             }
-
             return RedirectToAction("Index");
         }
 
@@ -77,7 +73,6 @@ namespace PhotoHome.Areas.Admin.Controllers
         {
             _base.Users.Remove(_base.Users.ToList().Find(p => p.Id == Id));
             _base.SaveChanges();
-
             return RedirectToAction("Index");
         }
     }

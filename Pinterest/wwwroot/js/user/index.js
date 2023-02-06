@@ -1,53 +1,5 @@
 
-var animateButton = function (e) {
-    e.preventDefault;
-    e.target.classList.remove('animate');
-
-    e.target.classList.add('animate');
-    setTimeout(function () {
-        e.target.classList.remove('animate');
-    }, 700);
-};
-
-var bubblyButtons = document.getElementsByClassName("bubbly-button");
-
-//!
-
-$("#find").click(function () {
-    var option = $(this).val();
-
-    if (option.length === 0) {
-        $.ajax({
-            type: "GET",
-            url: "/Home/Search",
-            data: { search: String(option) },
-            success: function (data) {
-                if (data != '' && option != "") {
-                    const list = document.getElementById("divajaxCall");
-
-                    for (var i = 0; i < $("#divajaxCall").children().length - 2; i++) {
-                        list.removeChild(list.firstChild);
-                    }
-
-                    for (var i = 0; i < data.length; i++) {
-                        console.log(data[i])
-                        var clone = $("#image_card:last-child").clone();
-
-                        clone.children("img").attr('src', data[i]);
-                        clone.find('span[class="DownloadButton"]').attr('id', data[i]);
-                        clone.insertAfter("#image_card");
-                    }
-                    list.removeChild(list.firstElementChild);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#divajaxCall").empty();
-            }
-        });
-    }
-});
-
-let get_span = (ele) => {
+var get_span = (ele) => {
     downloadImage(ele.id, "Image");
     var option = ele.id;
 
@@ -86,7 +38,21 @@ let get_span = (ele) => {
 
 }
 
-const likeClick = (obj) => {
+
+var animateButton = function (e) {
+    e.preventDefault;
+    e.target.classList.remove('animate');
+
+    e.target.classList.add('animate');
+    setTimeout(function () {
+        e.target.classList.remove('animate');
+    }, 700);
+};
+
+var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+
+var likeClick = (obj) => {
     var option = obj.id;
 
     $.ajax({
@@ -111,7 +77,7 @@ const likeClick = (obj) => {
 }
 
 
-const RemoveClick = (obj) => {
+var RemoveClick = (obj) => {
     var option = obj.id;
     $(".card-columns").children().remove($(".card-columns").children().find(option))
     $.ajax({
@@ -154,63 +120,63 @@ var ajaxCallUrl = '/Home/ImageList',
 
 
 
-//var url = '/Home/Download',
-//    page = 0,
-//    inCallback = false,
-//    isReachedScrollEnd = false;
+var url = '/Home/Download',
+    page = 0,
+    inCallback = false,
+    isReachedScrollEnd = false;
 
 
 
 
 
-//var scrollHandler = function () {
+var scrollHandler = function () {
 
-//    var height = $(Window).scrollTop();
-//    if (isReachedScrollEnd == false &&
-//        (height >= $(document).height() -1000)) {
-//        loadProducts(ajaxCallUrl);
-//    }
-//}
-
-
+    var height = $(Window).scrollTop();
+    if (isReachedScrollEnd == false &&
+        (height >= $(document).height() -1000)) {
+        loadProducts(ajaxCallUrl);
+    }
+}
 
 
 
-//function loadProducts(ajaxCallUrl) {
-//    if (page > -1 && !inCallback) {
-//        inCallback = true;
-//        page++;
 
-//        $.ajax({
-//            type: 'GET',
-//            url: ajaxCallUrl,
-//            data: "pageNumber=" + page,
-//            success: function (data, textstatus) {
-//                if (data != '') {
-//                    console.log(data);
-//                    for (var i = 0; i < data.length; i++) {
-//                        console.log(data[i])
-//                        var clone = $("#image_card:last-child").clone();
-//                        clone.children("img").attr('src', data[i]);
-//                        clone.find('span[class="DownloadButton"]').attr('id', data[i]);
 
-//                        clone.appendTo("#divajaxCall");
-//                    }
+function loadProducts(ajaxCallUrl) {
+    if (page > -1 && !inCallback) {
+        inCallback = true;
+        page++;
 
-//                }
-//                else {
-//                    page = -1;
-//                }
+        $.ajax({
+            type: 'GET',
+            url: ajaxCallUrl,
+            data: "pageNumber=" + page,
+            success: function (data, textstatus) {
+                if (data != '') {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i])
+                        var clone = $("#image_card:last-child").clone();
+                        clone.children("img").attr('src', data[i]);
+                        clone.find('span[class="DownloadButton"]').attr('id', data[i]);
 
-//                inCallback = false;
+                        clone.appendTo("#divajaxCall");
+                    }
 
-//            },
-//            error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                alert(errorThrown);
-//            }
-//        });
-//    }
-//}  
+                }
+                else {
+                    page = -1;
+                }
+
+                inCallback = false;
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+}  
 
 
 
@@ -296,45 +262,45 @@ var ajaxCallUrl = '/Home/ImageList',
 
 
 
-$(".DownloadButton").click(function (evt) {
+//$(".DownloadButton").click(function (evt) {
 
-    downloadImage(evt.target.id, "Image");
-    var option = evt.target.id;
+//    downloadImage(evt.target.id, "Image");
+//    var option = evt.target.id;
 
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: { Link: String(option) },
-        success: function () {
-            $("#contact_form").html("<div id='message'></div>");
-            $("#message")
-                .html("<h2>Contact Form Submitted!</h2>")
-                .append("<p>We will be in touch soon.</p>")
-                .hide()
-                .fadeIn(1500, function () {
-                    $("#message").append(
-                        "<img id='checkmark' src='images/check.png' />"
-                    );
-                });
-        }
+//    $.ajax({
+//        type: "POST",
+//        url: url,
+//        data: { Link: String(option) },
+//        success: function () {
+//            $("#contact_form").html("<div id='message'></div>");
+//            $("#message")
+//                .html("<h2>Contact Form Submitted!</h2>")
+//                .append("<p>We will be in touch soon.</p>")
+//                .hide()
+//                .fadeIn(1500, function () {
+//                    $("#message").append(
+//                        "<img id='checkmark' src='images/check.png' />"
+//                    );
+//                });
+//        }
 
-    });
+//    });
 
-    function downloadImage(url, name) {
-        fetch(url)
-            .then(resp => resp.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                a.download = name;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            })
-    }
-});
+//    function downloadImage(url, name) {
+//        fetch(url)
+//            .then(resp => resp.blob())
+//            .then(blob => {
+//                const url = window.URL.createObjectURL(blob);
+//                const a = document.createElement('a');
+//                a.style.display = 'none';
+//                a.href = url;
+//                a.download = name;
+//                document.body.appendChild(a);
+//                a.click();
+//                window.URL.revokeObjectURL(url);
+//            })
+//    }
+//});
 
 
 

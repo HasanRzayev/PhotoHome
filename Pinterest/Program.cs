@@ -40,7 +40,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
     options.LoginPath = "/User/LogIn";
-    options.AccessDeniedPath = "/User/AccessDenied";
+    options.AccessDeniedPath = "/User/LogIn";
     //options.SlidingExpiration = true;
 });
 
@@ -76,7 +76,7 @@ if (user == null)
         EmailConfirmed = true
     };
 
-    var result = await userManager.CreateAsync(user, "Admdin");
+    var result = await userManager.CreateAsync(user, "Admin");
     if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
     result = await userManager.AddToRoleAsync(user, "Admin");
 }

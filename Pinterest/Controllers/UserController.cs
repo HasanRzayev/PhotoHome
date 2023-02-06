@@ -72,43 +72,43 @@ namespace PhotoHome.Controllers
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, true);
-                var t = Task.Run(async delegate
-                {
-                    await Task.Delay(1000);
+                //var t = Task.Run(async delegate
+                //{
+                //    await Task.Delay(1000);
 
-                    SmtpMail oMail = new SmtpMail("TryIt");
+                //    SmtpMail oMail = new SmtpMail("TryIt");
 
-                    oMail.From = "photohome2023@gmail.com";
-                    oMail.To = usersdata.Email;
+                //    oMail.From = "photohome2023@gmail.com";
+                //    oMail.To = usersdata.Email;
 
                  
-                    oMail.Subject = "Thanks for filling out our form! " +
-                              "\nPhotoHome";
+                //    oMail.Subject = "Thanks for filling out our form! " +
+                //              "\nPhotoHome";
 
                
-                    //oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
-                    //     "~\\images\\user", 
-                    //     ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+                //    //oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
+                //    //     "~\\images\\user", 
+                //    //     ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
 
                  
-                    SmtpServer oServer = new SmtpServer("smtp.outlook.com");
-                    oServer.Port = 587;
+                //    SmtpServer oServer = new SmtpServer("smtp.outlook.com");
+                //    oServer.Port = 587;
 
-                    oServer.User = "photohome2023@gmail.com";
-                    oServer.Password = "Photo_Home_2023";
+                //    oServer.User = "photohome2023@gmail.com";
+                //    oServer.Password = "Photo_Home_2023";
 
                    
-                    oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
+                //    oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
 
                   
 
-                    Console.WriteLine("start to send email with embedded image...");
+                //    Console.WriteLine("start to send email with embedded image...");
 
-                    SmtpClient oSmtp = new SmtpClient();
-                    oSmtp.SendMail(oServer, oMail);
+                //    SmtpClient oSmtp = new SmtpClient();
+                //    oSmtp.SendMail(oServer, oMail);
 
-                });
-                t.Wait();
+                //});
+                //t.Wait();
               
                 return RedirectToAction("Index", "Home");
             }
@@ -145,7 +145,10 @@ namespace PhotoHome.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-
+            if (returnUrl == "/admin")
+            {
+                return RedirectToAction("Index", "AdminLogin", returnUrl);
+            }
             return RedirectToAction("LogIn");
         }
 
@@ -170,6 +173,10 @@ namespace PhotoHome.Controllers
         public IActionResult LogIn(string? returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            if (returnUrl=="/admin")
+            {
+                return RedirectToAction("Index","AdminLogin", returnUrl);
+            }
             return View();
         }
         [HttpGet]

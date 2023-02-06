@@ -1,4 +1,4 @@
-﻿@model List<Picture>
+﻿@model List<string>
 
 <div class="container-fluid p-3">
 	<div class="d-flex mb-4" id="search-bar">
@@ -7,19 +7,24 @@
 				<span class="text-primary">
 					<i class="fa fa-search"></i>
 				</span>
-
 				@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 				{
 					@Html.TextBox("searchPattern", null, new { style="width: 100%; margin-left:10px; border: none; background-color: #e6e6e6; outline:none"} )
 				}
 			</div>
 		</div>
-
 		<div class="d-flex justify-content-end align-items-center w-25">
 			@{
+				
 				if (User.Identity.IsAuthenticated)
 				{
-					<partial name="AfterRegistration" />
+					if (User.IsInRole("Admin"))
+					{
+						<partial name="BeforeRegistration" />
+					}
+					else{
+						<partial name="AfterRegistration" />
+					}
 				}
 				else
 				{

@@ -44,21 +44,31 @@ namespace PhotoHome.Controllers
 			this.userManager = userManager;
 		}
 
-		//     [HttpGet]
-		//     [AllowAnonymous]
-		//     public List<string> ImageList(int? pageNumber)
-		//     {
+		[HttpGet]
+		[AllowAnonymous]
+		public List<string> ImageList(int? pageNumber)
+		{
 
-		//         //iamgerepository = new ImageRepository(_base);
-		//         //var claim = (ClaimsIdentity)User.Identity;
-		//         //var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-		//         //var model = iamgerepository.GetImages(pageNumber, claims.Value);
+			iamgerepository = new ImageRepository(_base);
+			var claim = (ClaimsIdentity)User.Identity;
+			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+			var model = new List<string>();
+			if (claims != null)
+			{
+                 model = iamgerepository.GetImages(pageNumber, claims.Value);
+            }
+			else
+			{
+                model = iamgerepository.GetImages(pageNumber);
+            }
 
 
-		//var model=new _base.
-		//         return model;
+		
+				 return model;
 
-		//     }
+		}
+
+
 
 
 		[HttpPost]
@@ -66,10 +76,8 @@ namespace PhotoHome.Controllers
 		public IActionResult Index(string searchPattern)
 		{
 			var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
-
-			ViewBag.Category = _base.Catagories.ToList();
+            ViewBag.Category = _base.Catagories.ToList();
 			ViewBag.ActiveMenu = "index";
-
 			return View("Index", model);
 		}
 
@@ -79,9 +87,7 @@ namespace PhotoHome.Controllers
 		public IActionResult SearchPage(string searchPattern)
 		{
 			var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
-
 			ViewBag.Category = _base.Catagories.ToList();
-
 			return View("Index", model);
 		}
 
@@ -98,26 +104,20 @@ namespace PhotoHome.Controllers
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
-			var model = new List<Picture>();
-			var claim = (ClaimsIdentity)User.Identity;
-			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
 
-			if (claims != null)
-			{
-				var list = _base.Images.ToList();
-
-				foreach (var item in list)
-				{
-					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) model.Add(item);
-				}
-			}
-			else
-			{
-				model = _base.Images.ToList();
-			}
-			//var list = _base.Images.Include(p => p.catagory).ToList();
-
-			ViewBag.Category = _base.Catagories.ToList();
+            iamgerepository = new ImageRepository(_base);
+            var claim = (ClaimsIdentity)User.Identity;
+            var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+            var model = new List<string>();
+            if (claims != null)
+            {
+                model = iamgerepository.GetImages(1, claims.Value);
+            }
+            else
+            {
+                model = iamgerepository.GetImages(1);
+            }
+            ViewBag.Category = _base.Catagories.ToList();
 			ViewBag.ActiveMenu = "index";
 
 			return View(model);
@@ -176,6 +176,8 @@ namespace PhotoHome.Controllers
 
 		//      }
 
+
+
 		[HttpGet]
 		[AllowAnonymous]
 		public IActionResult ImageInfo(string Id)
@@ -201,6 +203,9 @@ namespace PhotoHome.Controllers
 			return View(option);
 		}
 
+
+
+
 		[HttpPost]
 		[AllowAnonymous]
 		public IActionResult Download(string Link)
@@ -214,6 +219,8 @@ namespace PhotoHome.Controllers
 			}
 			return RedirectToAction("Index");
 		}
+
+
 
 
 		[HttpPost]
@@ -253,6 +260,8 @@ namespace PhotoHome.Controllers
 		}
 
 
+
+
 		[HttpPost]
 		[AllowAnonymous]
 		public IActionResult RemoveImage(string Link)
@@ -281,6 +290,8 @@ namespace PhotoHome.Controllers
 			return RedirectToAction("Created");
 		}
 
+
+
 		public IActionResult Create()
 		{
 			//if ()
@@ -299,6 +310,9 @@ namespace PhotoHome.Controllers
 			//ViewBag.Categories = _base.Catagories.ToList();
 			return View();
 		}
+
+
+
 
 		public void uploadImage(string imagePath, AddImageViewModel image)
 		{
@@ -336,6 +350,7 @@ namespace PhotoHome.Controllers
 		}
 
 
+
 		public async Task<IActionResult> AddImage(AddImageViewModel image)
 		{
 
@@ -351,6 +366,7 @@ namespace PhotoHome.Controllers
 
 			return RedirectToAction("Create");
 		}
+
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
