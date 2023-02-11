@@ -3771,7 +3771,7 @@ tbody.collapse.show {
     margin-bottom: .75rem
 }
 
-@media (min-width:576px) {
+/*@media (min-width:576px) {
     .probootstrap-main .card-columns {
         -webkit-column-count: 3;
         column-count: 3;
@@ -3783,9 +3783,9 @@ tbody.collapse.show {
             display: inline-block;
             width: 100%
         }
-}
+}*/
 
-@media (min-width:768px) {
+/*@media (min-width:768px) {
     #recommended-images .card-columns {
         -webkit-column-count: 2;
         column-count: 2;
@@ -3797,7 +3797,7 @@ tbody.collapse.show {
             display: inline-block;
             width: 100%
         }
-}
+}*/
 
 /*@media (min-width:576px) {
     #recommended-images .card-columns {
@@ -3807,7 +3807,6 @@ tbody.collapse.show {
         column-gap: 1.25rem
     }
 }*/
-
 
 .breadcrumb {
     padding: .75rem 1rem;

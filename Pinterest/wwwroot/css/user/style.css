@@ -272,7 +272,7 @@ h5,
     }
 }
 
-@media screen and (max-width: 1140px) {
+/*@media screen and (max-width: 1140px) {
     .probootstrap-main .card-columns {
         -webkit-columns: 3;
         -moz-columns: 3;
@@ -302,6 +302,54 @@ h5,
         -moz-columns: 1;
         columns: 1;
     }
+}
+*/
+
+.probootstrap-main .card-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+@media screen and (min-width: 568px) {
+    .probootstrap-main .card-columns .image-column {
+        flex: 32.3%;
+        max-width: 32.3%;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    .probootstrap-main .card-columns .image-column {
+        flex: 32.3%;
+        max-width: 32.3%;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .probootstrap-main .card-columns .image-column {
+        flex: 49%;
+        max-width: 49%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .probootstrap-main .card-columns .image-column {
+        flex: 49%;
+        max-width: 49%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .probootstrap-main .card-columns {
+        justify-content: center;
+    }
+
+        .probootstrap-main .card-columns .image-column {
+            flex: 99%;
+            max-width: 99%;
+        }
 }
 
 .probootstrap-main .card-columns .card {
@@ -897,6 +945,7 @@ textarea {
     transition: all 0.3s;
     overflow: hidden;
     cursor: pointer;
+    padding: 3px;
     box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .7);
 }
 
@@ -909,12 +958,12 @@ textarea {
     }
 
     #more:hover {
-        padding-right: 15px;
+        padding-right: 20px;
     }
 
         #more:hover:after {
             opacity: 1;
-            right: 10px;
+            right: 15px;
         }
 
 .radius20 {
@@ -922,7 +971,7 @@ textarea {
 }
 
 #dragger_wrapper {
-    height: 500px;
+    min-height: 500px;
     display: flex;
     flex-direction: row;
     background: #e6e6e6;
@@ -932,7 +981,8 @@ textarea {
 #dragger {
     width: 100%;
     height: 100%;
-    min-width: 250px;
+    /*min-width: 250px;*/
+    height: 480px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1002,6 +1052,14 @@ textarea {
     box-shadow: 0 5px 10px -4px rgba(0, 0, 0, .7);
 }
 
+/* ! */
+.create-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .create-image {
     width: 100%;
     padding: 10px;
@@ -1011,21 +1069,21 @@ textarea {
     .create-image textarea,
     .create-image select {
         width: 100%;
-        padding: 5px 15px;
+        padding: 10px 15px;
         outline: none;
         border: none;
         border-radius: 20px;
         font-size: 16px;
     }
 
-    .create-image label {
+    /*.create-image label {
         font-size: 18px;
         font-weight: bold;
         color: #252525;
         padding-left: 15px;
-    }
+    }*/
 
-input[type=submit] {
+.image-form input[type=submit] {
     width: 100%;
     background-color: #fff;
     color: #1FAD9F;
@@ -1037,10 +1095,17 @@ input[type=submit] {
     cursor: pointer;
 }
 
-    input[type=submit]:hover {
+    .image-form input[type=submit]:hover {
         background-color: #1FAD9F;
         color: #fff;
     }
+
+@media screen and (max-width: 960px) {
+    #dragger_wrapper {
+        flex-direction: column;
+        width: 500px;
+    }
+}
 
 /**/
 
@@ -1306,14 +1371,12 @@ input[type=submit] {
 .registration-page {
     /*width: 100vw;*/
     height: 100vh;
-    /*height: 100%;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    /*background-color: rgba(0, 0, 0, 0.5);*/
 }
 
 .registration-page-bg {
@@ -1362,9 +1425,10 @@ input[type=submit] {
 }
 
     #user-link a {
-        text-decoration: none;
         font-size: 16px;
         color: #fff;
+        width: 100%;
+        text-align: center;
     }
 
     #user-link:hover {
@@ -1512,28 +1576,31 @@ input[type=submit] {
     justify-content: center;
 }
 
-.account-img {
-    width: 50px;
-    height: 50px;
-    color: #252525;
-    font-size: 1.5em;
-    border-radius: 50%;
-    background-color: #e6e6e6;
-}
+    #account .account-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #e6e6e6;
+    }
+
+        #account .account-img span {
+            color: #252525;
+            font-size: 1.5em;
+        }
 
 #account-info {
     padding-left: 10px;
-    width: 70%;
+    width: 68%;
     display: flex;
     flex-direction: column;
 }
 
-    #account-info div:first-child {
+    #account-info span:first-child {
         color: #252525;
         font-size: 1em;
     }
 
-    #account-info div:last-child {
+    #account-info span:last-child {
         color: #808080;
         font-size: 0.8em;
     }
@@ -1623,10 +1690,16 @@ input[type=submit] {
     padding: 25px 10px 30px 10px;
 }
 
+/* !copy */
 #account-actions .account-img {
-    width: 45px !important;
-    height: 45px !important;
+    width: 45px;
+    height: 45px;
     margin-right: 15px;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #like-div {
@@ -1852,7 +1925,63 @@ input[type=submit] {
 
 /* ! */
 
+#recommended-images .card-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+@media screen and (min-width: 568px) {
+    #recommended-images .card-columns .image-column {
+        flex: 49%;
+        max-width: 49%;
+    }
+}
+
 @media screen and (max-width: 1140px) {
+    #recommended-images .card-columns .image-column {
+        flex: 49%;
+        max-width: 49%;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    #recommended-images .card-columns {
+        justify-content: center;
+    }
+
+        #recommended-images .card-columns .image-column {
+            flex: 99%;
+            max-width: 99%;
+        }
+}
+
+@media screen and (max-width: 768px) {
+    #recommended-images .card-columns {
+        justify-content: center;
+    }
+
+        #recommended-images .card-columns .image-column {
+            flex: 99%;
+            max-width: 99%;
+        }
+}
+
+@media screen and (max-width: 576px) {
+    #recommended-images .card-columns {
+        justify-content: center;
+    }
+
+        #recommended-images .card-columns .image-column {
+            flex: 99%;
+            max-width: 99%;
+        }
+}
+
+/**/
+/*@media screen and (max-width: 1140px) {
     #recommended-images .card-columns {
         -webkit-columns: 2;
         -moz-columns: 2;
@@ -1882,7 +2011,7 @@ input[type=submit] {
         -moz-columns: 1;
         columns: 1;
     }
-}
+}*/
 
 /* ! */
 

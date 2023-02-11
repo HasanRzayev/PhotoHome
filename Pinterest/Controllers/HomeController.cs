@@ -1,5 +1,4 @@
-﻿
-using CloudinaryDotNet;
+﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +33,7 @@ namespace PhotoHome.Controllers
 		public const string CLOUD_NAME = "dhtcecrpa";
 		public const string API_KEY = "621668164995499";
 		public const string API_SECRET = "iLcKxUn6rR_cq9qWiTOV8e9H2VY";
-		private ImageRepository iamgerepository;
+		private ImageRepository imageRepository;
 		private readonly UserManager<User> userManager;
 		private const int pageSize = 15;
 
@@ -48,46 +47,42 @@ namespace PhotoHome.Controllers
 		[AllowAnonymous]
 		public List<string> ImageList(int? pageNumber)
 		{
-
-			iamgerepository = new ImageRepository(_base);
+			imageRepository = new ImageRepository(_base);
 			var claim = (ClaimsIdentity)User.Identity;
 			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
 			var model = new List<string>();
+
 			if (claims != null)
 			{
-                 model = iamgerepository.GetImages(pageNumber, claims.Value);
-            }
+				model = imageRepository.GetImages(pageNumber, claims.Value);
+			}
 			else
 			{
-                model = iamgerepository.GetImages(pageNumber);
-            }
+				model = imageRepository.GetImages(pageNumber);
+			}
 
-
-		
-				 return model;
-
+			return model;
 		}
-
-
-
 
 		[HttpPost]
 		[AllowAnonymous]
 		public IActionResult Index(string searchPattern)
 		{
 			var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
-            ViewBag.Category = _base.Catagories.ToList();
+
+			ViewBag.Category = _base.Catagories.ToList();
 			ViewBag.ActiveMenu = "index";
+
 			return View("Index", model);
 		}
-
-
 
 		[AllowAnonymous]
 		public IActionResult SearchPage(string searchPattern)
 		{
 			var model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.Contains(CapitalizeHelper.CapitalizeText(searchPattern))).Select(it => it.Image).ToList();
+
 			ViewBag.Category = _base.Catagories.ToList();
+
 			return View("Index", model);
 		}
 
@@ -96,33 +91,61 @@ namespace PhotoHome.Controllers
 		public IActionResult SearchCatagory(string searchPattern)
 		{
 			var model = _base.Images.Include(a => a.catagory).Where(a => a.catagory.Name == searchPattern).ToList();
+
 			ViewBag.Category = _base.Catagories.ToList();
+
 			return View("Index", model);
 		}
-		[HttpGet]
 
+		[HttpGet]
 		[AllowAnonymous]
 		public IActionResult Index()
 		{
+			//imageRepository = new ImageRepository(_base);
 
-            iamgerepository = new ImageRepository(_base);
-            var claim = (ClaimsIdentity)User.Identity;
-            var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-            var model = new List<string>();
-            if (claims != null)
-            {
-                model = iamgerepository.GetImages(1, claims.Value);
-            }
-            else
-            {
-                model = iamgerepository.GetImages(1);
-            }
-            ViewBag.Category = _base.Catagories.ToList();
+			//var claim = (ClaimsIdentity)User.Identity;
+			//var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+			//var model = new List<string>();
+
+			//if (claims != null)
+			//{
+			//	model = imageRepository.GetImages(1, claims.Value);
+			//}
+			//else
+			//{
+			//	model = imageRepository.GetImages(1);
+			//}
+
+			//ViewBag.Category = _base.Catagories.ToList();
+			//ViewBag.ActiveMenu = "index";
+
+			//return View(model);
+
+			//___________________________________________________
+
+			var model = new List<Picture>();
+			var claim = (ClaimsIdentity)User.Identity;
+			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+
+			if (claims != null)
+			{
+				var list = _base.Images.ToList();
+
+				foreach (var item in list)
+				{
+					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) model.Add(item);
+				}
+			}
+			else
+			{
+				model = _base.Images.ToList();
+			}
+
+			ViewBag.Category = _base.Catagories.ToList();
 			ViewBag.ActiveMenu = "index";
 
 			return View(model);
 		}
-
 
 		[AllowAnonymous]
 		public IActionResult About()
@@ -147,8 +170,6 @@ namespace PhotoHome.Controllers
 
 			return View();
 		}
-
-
 
 		//      [HttpGet]
 		//      [AllowAnonymous]
@@ -176,18 +197,16 @@ namespace PhotoHome.Controllers
 
 		//      }
 
-
-
 		[HttpGet]
 		[AllowAnonymous]
 		public IActionResult ImageInfo(string Id)
 		{
 			if (Id.Contains("%2F")) Id = Id.Replace("%2F", "/");
-			
+
 			var option = _base.Images.Include(n => n.user).Include(n => n.catagory).FirstOrDefault(n => n.ImageUrl == Id);
 			var id = option.Id;
 
-			var relatedImages = _base.Images.Include(i => i.catagory).Where(i => i.catagory_id == option.catagory_id).ToList();
+			var relatedImages = _base.Images.Include(i => i.catagory).Where(i => i.catagory_id == option.catagory_id && i.Id != id).ToList();
 
 			var list = _base.Image_Tags.ToList().FindAll(c => c.Image_Id == id);
 			var model = new List<Tag>();
@@ -196,15 +215,12 @@ namespace PhotoHome.Controllers
 			{
 				model.Add(_base.Tags.FirstOrDefault(a => a.Id == item.Tag_Id));
 			}
-			
+
 			ViewBag.Tags = (model);
 			ViewBag.RelatedImages = relatedImages;
 
 			return View(option);
 		}
-
-
-
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -219,9 +235,6 @@ namespace PhotoHome.Controllers
 			}
 			return RedirectToAction("Index");
 		}
-
-
-
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -255,12 +268,8 @@ namespace PhotoHome.Controllers
 				_base.SaveChanges();
 			}
 
-
 			return RedirectToAction("Index");
 		}
-
-
-
 
 		[HttpPost]
 		[AllowAnonymous]
@@ -278,45 +287,31 @@ namespace PhotoHome.Controllers
 
 				User user = _base.Users.First(a => a.Id == claims.Value);
 				Picture option = _base.Images.First(a => a.ImageUrl == Link);
+
 				var import = _base.Images.FirstOrDefault(a => a.user_id == user.Id && a.Id == option.Id);
+
 				_base.Images.Remove(option);
-
-
-
 				_base.SaveChanges();
 			}
-
 
 			return RedirectToAction("Created");
 		}
 
-
-
+		//!allow anonymus yazmisam ki login e helelik ehtiyac qalmasin
+		[AllowAnonymous]
 		public IActionResult Create()
 		{
-			//if ()
-			//{
-
-			//    return RedirectToAction("LogIn");
-			//}
-			//var identity = HttpContext.User.Identity as ClaimsIdentity;
-			//if (identity == null)
-			//{
-			//    return RedirectToAction("LogIn");
-			//}
 			ViewBag.Categories = new SelectList(_base.Catagories, "Id", "Name");
+
+
 			ViewBag.ActiveMenu = "create";
 
-			//ViewBag.Categories = _base.Catagories.ToList();
 			return View();
 		}
 
 
-
-
-		public void uploadImage(string imagePath, AddImageViewModel image)
+		public void UploadImage(string imagePath, AddImageViewModel image)
 		{
-
 			try
 			{
 				var uploadParams = new ImageUploadParams()
@@ -339,9 +334,9 @@ namespace PhotoHome.Controllers
 				_image.user_id = claims.Value;
 				_image.ImageUrl = uploadResult.SecureUri.ToString();
 				_image.Allow = false;
+
 				_base.Images.Add(_image);
 				_base.SaveChanges();
-
 			}
 			catch (Exception e)
 			{
@@ -349,11 +344,8 @@ namespace PhotoHome.Controllers
 			}
 		}
 
-
-
 		public async Task<IActionResult> AddImage(AddImageViewModel image)
 		{
-
 			var path = await UploadFileHelper.UploadFile(image.ImageUrl);
 
 			Account account = new(CLOUD_NAME, API_KEY, API_SECRET);
@@ -362,7 +354,7 @@ namespace PhotoHome.Controllers
 
 			string imagePath = path;
 
-			uploadImage(imagePath, image);
+			UploadImage(imagePath, image);
 
 			return RedirectToAction("Create");
 		}

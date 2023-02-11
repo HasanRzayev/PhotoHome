@@ -1,30 +1,31 @@
-﻿@using System.Security.Claims;
+﻿@{
+	var claim = (ClaimsIdentity)User.Identity;
+	var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+}
 
 <div id="user-info">
 	<div id="user-link">
-		@{
-			var claim = (ClaimsIdentity)User.Identity;
-			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-		}
-		<a asp-action="Liked" asp-controller="User">@claim.Name.ToUpper().ToCharArray()[0]</a>
+		<a asp-action="Liked" asp-controller="User" title="Your profile">@claim.Name.ToUpper().ToCharArray()[0]</a>
 	</div>
 
 	<div class="options">
 		<input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
 
-		<label class="for-dropdown" for="dropdown">
+		<label class="for-dropdown" for="dropdown" title="More options">
 			<i class="fa-solid fa-chevron-down"></i>
 		</label>
 
 		<div class="section-dropdown">
 			<span>Account</span>
 			<a asp-action="Liked" asp-controller="User" id="account">
-				<div id="account-img">
-					<div>A</div>
+				<div class="account-img">
+					<span>@claim.Name.ToUpper().ToCharArray()[0]</span>
 				</div>
+
 				<div id="account-info">
-					<div>username</div>
-					<div>email</div>
+					@*substring*@
+					<span>username</span>
+					<span>email</span>
 				</div>
 			</a>
 			<span>Options</span>
