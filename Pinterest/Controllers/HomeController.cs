@@ -21,6 +21,9 @@ using static System.Net.Mime.MediaTypeNames;
 using PhotoHome.Helpers;
 using System.Linq;
 using Microsoft.AspNetCore.Routing;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using EASendMail;
 
 namespace PhotoHome.Controllers
 {
@@ -36,32 +39,36 @@ namespace PhotoHome.Controllers
 		private ImageRepository imageRepository;
 		private readonly UserManager<User> userManager;
 		private const int pageSize = 15;
+		private static List<string> image_tags;
+		public const int ImageMinimumBytes = 512;
+		public List<string> Image_Tags
+		{
+			get { return image_tags; }
+			set { image_tags = value; }
+		}
 
 		public HomeController(AppDbContext context, UserManager<User> userManager)
 		{
 			_base = context;
 			this.userManager = userManager;
+			Image_Tags = new List<string>();
+
 		}
+
 
 		[HttpGet]
 		[AllowAnonymous]
-		public List<string> ImageList(int? pageNumber)
+		public ActionResult ImageList(int? pageNumber, string? search, string? search_type)
 		{
+
 			imageRepository = new ImageRepository(_base);
 			var claim = (ClaimsIdentity)User.Identity;
 			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-			var model = new List<string>();
+			var model = new List<Picture>();
 
-			if (claims != null)
-			{
-				model = imageRepository.GetImages(pageNumber, claims.Value);
-			}
-			else
-			{
-				model = imageRepository.GetImages(pageNumber);
-			}
+			model = imageRepository.GetImage(pageNumber, search, search_type);
+			return PartialView("ImageList", model);
 
-			return model;
 		}
 
 		[HttpPost]
@@ -122,28 +129,19 @@ namespace PhotoHome.Controllers
 			//return View(model);
 
 			//___________________________________________________
-
+			imageRepository = new ImageRepository(_base);
 			var model = new List<Picture>();
 			var claim = (ClaimsIdentity)User.Identity;
 			var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-
-			if (claims != null)
-			{
-				var list = _base.Images.ToList();
-
-				foreach (var item in list)
-				{
-					if (_base.Image_Likes.FirstOrDefault(a => a.user_id == claims.Value && a.Image_Id == item.Id) == null) model.Add(item);
-				}
-			}
-			else
-			{
-				model = _base.Images.ToList();
-			}
+			model = imageRepository.GetImage(0, null, null);
 
 			ViewBag.Category = _base.Catagories.ToList();
 			ViewBag.ActiveMenu = "index";
 
+			if (claims != null)
+			{
+				ViewBag.user = _base.Users.First(a => a.Id == claims.Value);
+			}
 			return View(model);
 		}
 
@@ -159,11 +157,70 @@ namespace PhotoHome.Controllers
 		public IActionResult Contact()
 		{
 			ViewBag.ActiveMenu = "contact";
+			//var claim = (ClaimsIdentity)User.Identity;
+			//var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
+			//var model = _base.Users.FirstOrDefault(n => n.Id == claims.Value);
 
 			return View();
 		}
 
-		[AllowAnonymous]
+		//[AllowAnonymous]
+		//[HttpPost]
+  //      public IActionResult SendData(User usersdata)
+  //      {
+  //          var t = Task.Run(async delegate
+  //          {
+  //              try
+  //              {
+  //                  await Task.Delay(1000);
+
+  //                  SmtpMail oMail = new SmtpMail("TryIt");
+
+  //                  oMail.From = "photohome2023@gmail.com";
+  //                  oMail.To = usersdata.Email;
+
+  //                  var imgUrl = "https://www.yourSite.com/Images/cp-map.jpg";
+
+  //                  oMail.Subject = $"Thank you '{usersdata.FirstName}' for filling out our form! " +
+  //                            "\nPhotoHome";
+					
+
+  //                  //oMail.ImportHtml("<html><body> <img  src='https://www.yourSite.com/Images/cp-map.jpg' /> </body></html>",
+  //                  //	 "~\\images\\user",
+  //                  //	 ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+  //                  //oMail.HtmlBody = $"<html><body> <p> '{usersdata.Message}' </p> </body></html>";
+
+  //                  SmtpServer oServer = new SmtpServer("smtp.outlook.com");
+  //                  oServer.Port = 587;
+
+  //                  oServer.User = "photohome2023@gmail.com";
+  //                  //oServer.Password = "Photo_Home_2023";
+
+
+  //                  oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
+
+
+
+  //                  Console.WriteLine("start to send email with embedded image...");
+
+  //                  SmtpClient oSmtp = new SmtpClient();
+  //                  oSmtp.SendMail(oServer, oMail);
+  //              }
+  //              catch (Exception)
+  //              {
+
+  //                  throw;
+  //              }
+
+
+  //          });
+  //          t.Wait();
+
+  //          return RedirectToAction("Contact");
+  //      }
+
+
+        [AllowAnonymous]
 		public IActionResult Services()
 		{
 			ViewBag.ActiveMenu = "services";
@@ -273,6 +330,25 @@ namespace PhotoHome.Controllers
 
 		[HttpPost]
 		[AllowAnonymous]
+		//[ValidateAntiForgeryToken]
+		public async Task AddTag(List<string> list)
+		{
+			var t = Task.Run(async delegate
+			{
+
+				Image_Tags = new List<string>();
+				foreach (var item in list)
+				{
+					Image_Tags.Add(item);
+				}
+			});
+			t.Wait(); // Wait for the task to finish
+
+
+		}
+
+		[HttpPost]
+		[AllowAnonymous]
 		public IActionResult RemoveImage(string Link)
 		{
 			var claim = (ClaimsIdentity)User.Identity;
@@ -335,8 +411,29 @@ namespace PhotoHome.Controllers
 				_image.ImageUrl = uploadResult.SecureUri.ToString();
 				_image.Allow = false;
 
+
+
+
 				_base.Images.Add(_image);
 				_base.SaveChanges();
+
+				foreach (var item in Image_Tags)
+				{
+					if (_base.Tags.FirstOrDefault(a => a.Name == item) == null)
+					{
+						_base.Tags.Add(new Tag { Name = item });
+					}
+					_base.SaveChanges();
+					int tag_id = _base.Tags.FirstOrDefault(a => a.Name == item).Id;
+					int image_id = _base.Images.FirstOrDefault(a => a.ImageUrl == _image.ImageUrl).Id;
+					_base.Image_Tags.Add(new Image_Tag { Image_Id = image_id, Tag_Id = tag_id });
+				}
+
+
+				_base.SaveChanges();
+
+
+
 			}
 			catch (Exception e)
 			{
@@ -365,5 +462,9 @@ namespace PhotoHome.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
+
+
+
 	}
+
 }

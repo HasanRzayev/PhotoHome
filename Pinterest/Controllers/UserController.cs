@@ -29,6 +29,9 @@ using System.Net;
 using System.Net.Mail;
 using EASendMail;
 using SmtpClient = EASendMail.SmtpClient;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 
 namespace PhotoHome.Controllers
 {
@@ -47,7 +50,34 @@ namespace PhotoHome.Controllers
 			this.rolemanager = rolemanager;
 		}
 
-		[HttpPost]
+        //[Route("signin-google")]
+        public async Task Google_Login()
+        {
+            await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties()
+            {
+                RedirectUri = Url.Action("GoogleResponse")
+            });
+        }
+
+        //[Route("google-response")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (result == null || result.Principal == null || result.Principal.Identities == null || !result.Principal.Identities.Any())
+            {
+                return BadRequest("Unable to retrieve claims");
+            }
+
+            var claims = result.Principal.Identities.First().Claims.Select(claim => new {
+                claim.Issuer,
+                claim.OriginalIssuer,
+                claim.Type,
+                claim.Value
+            });
+            return Json(claims);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> SignUp(SignupViewModel usersdata)
 		{
 			string[] option = usersdata.Email.Split("@");
@@ -71,43 +101,53 @@ namespace PhotoHome.Controllers
 			if (result.Succeeded)
 			{
 				await signInManager.SignInAsync(user, true);
-				//var t = Task.Run(async delegate
-				//{
-				//    await Task.Delay(1000);
+				var t = Task.Run(async delegate
+				{
+					try
+					{
+                        await Task.Delay(1000);
 
-				//    SmtpMail oMail = new SmtpMail("TryIt");
+                        SmtpMail oMail = new SmtpMail("TryIt");
 
-				//    oMail.From = "photohome2023@gmail.com";
-				//    oMail.To = usersdata.Email;
+                        oMail.From = "photohome2023@gmail.com";
+                        oMail.To = usersdata.Email;
 
+                        var imgUrl = "https://www.yourSite.com/Images/cp-map.jpg";
 
-				//    oMail.Subject = "Thanks for filling out our form! " +
-				//              "\nPhotoHome";
-
-
-				//    //oMail.ImportHtml("<html><body> <img  src=\"Thank.png\"> </body></html>",
-				//    //     "~\\images\\user", 
-				//    //     ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+                        oMail.Subject = $"Thank you '{usersdata.FirstName}' for filling out our form! " +
+                                  "\nPhotoHome";
 
 
-				//    SmtpServer oServer = new SmtpServer("smtp.outlook.com");
-				//    oServer.Port = 587;
+                        //oMail.ImportHtml("<html><body> <img  src='https://www.yourSite.com/Images/cp-map.jpg' /> </body></html>",
+                        //	 "~\\images\\user",
+                        //	 ImportHtmlBodyOptions.ImportLocalPictures | ImportHtmlBodyOptions.ImportCss);
+                        oMail.HtmlBody = "<html><body> <img  src='https://i.pinimg.com/564x/85/ac/9d/85ac9d284995da771bd36153a7c84107.jpg' /> </body></html>";
 
-				//    oServer.User = "photohome2023@gmail.com";
-				//    oServer.Password = "Photo_Home_2023";
+                        SmtpServer oServer = new SmtpServer("smtp.outlook.com");
+                        oServer.Port = 587;
+
+                        oServer.User = "photohome2023@gmail.com";
+                        oServer.Password = "Photo_Home_2023";
 
 
-				//    oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
+                        oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
 
 
 
-				//    Console.WriteLine("start to send email with embedded image...");
+                        Console.WriteLine("start to send email with embedded image...");
 
-				//    SmtpClient oSmtp = new SmtpClient();
-				//    oSmtp.SendMail(oServer, oMail);
+                        SmtpClient oSmtp = new SmtpClient();
+                        oSmtp.SendMail(oServer, oMail);
+                    }
+					catch (Exception)
+					{
 
-				//});
-				//t.Wait();
+						throw;
+					}
+					
+
+				});
+				t.Wait();
 
 				return RedirectToAction("Index", "Home");
 			}
@@ -234,7 +274,7 @@ namespace PhotoHome.Controllers
 			user.LastName = userdata.LastName;
 			user.UserName = userdata.UserName;
 			user.Email = userdata.Email;
-			user.About = userdata.About;
+			//user.About = userdata.About;
 
 			_base.SaveChanges();
 

@@ -59,6 +59,7 @@ namespace PhotoHome.Areas.Admin.Controllers
                 lazim.Name = catalogue.Name;
                 _base.SaveChanges();
             }
+
             return RedirectToAction("Index");
         }
 

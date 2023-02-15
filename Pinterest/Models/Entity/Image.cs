@@ -20,7 +20,7 @@
         public virtual ICollection<Image_Like> Image_Likes { get; set; }
         public bool? Allow { get; set; }
 
-
+ 
         public virtual ICollection<Image_Tag> Image_Tags { get; set;  }
    
         public virtual Catagory catagory { get; set; }

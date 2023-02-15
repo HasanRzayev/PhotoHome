@@ -23,7 +23,7 @@
 						<partial name="BeforeRegistration" />
 					}
 					else{
-						<partial name="AfterRegistration" />
+					    <partial name="AfterRegistration" model="@ViewBag.user" />
 					}
 				}
 				else
@@ -39,7 +39,7 @@
 			@foreach (var item in ViewBag.Category)
 			{
 				<div class="item">
-					<a href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name.Substring(0, 10)</a>
+						<a  id="link1" class="@item.Name"    href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name</a>
 				</div>
 			}
 		</div>
@@ -52,9 +52,27 @@
 
 
 @section Scripts{
-	<script src="~/js/user/index.js"></script>
+		<script type="text/javascript">
 
-	<script>
+			 $('#link1').click(function () {
+					search_type = "category";
+					category = $(this).attr('class')
+					alert(category);
+
+				 });
+	</script>
+
+	<script src="~/js/user/index.js"></script>
+	<script type="text/javascript">
+		
+		$(window).scroll(scrollHandler);
+	
+			  
+		
+	   
+	</script>
+
+	<script type="text/javascript">
 		$('.owl-carousel').owlCarousel({
 			autoplay: true,
 			autoplayTimeout: 1750,

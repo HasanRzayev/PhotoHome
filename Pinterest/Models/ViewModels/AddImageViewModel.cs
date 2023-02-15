@@ -14,7 +14,7 @@ namespace PhotoHome.Models.ViewModels
         public int user_id { get; set; }
         public int catagory_id { get; set; }
 
-
+        public string[] Tags { get; set; }
         public AddImageViewModel()
         {
 

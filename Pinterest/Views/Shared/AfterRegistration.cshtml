@@ -1,11 +1,9 @@
-﻿@{
-	var claim = (ClaimsIdentity)User.Identity;
-	var claims = claim.FindFirst(ClaimTypes.NameIdentifier);
-}
+﻿@model User
 
 <div id="user-info">
 	<div id="user-link">
-		<a asp-action="Liked" asp-controller="User" title="Your profile">@claim.Name.ToUpper().ToCharArray()[0]</a>
+
+		<a asp-action="Liked" asp-controller="User" title="Your profile">@Model.FirstName.ToUpper().ToCharArray()[0]</a>
 	</div>
 
 	<div class="options">
@@ -18,14 +16,14 @@
 		<div class="section-dropdown">
 			<span>Account</span>
 			<a asp-action="Liked" asp-controller="User" id="account">
-				<div class="account-img">
-					<span>@claim.Name.ToUpper().ToCharArray()[0]</span>
+				<div id="account-img">
+					<span>@Model.FirstName.ToUpper().ToCharArray()[0]</span>
 				</div>
 
 				<div id="account-info">
 					@*substring*@
-					<span>username</span>
-					<span>email</span>
+					<span>@Model.UserName</span>
+					<span>@Model.Email</span>
 				</div>
 			</a>
 			<span>Options</span>

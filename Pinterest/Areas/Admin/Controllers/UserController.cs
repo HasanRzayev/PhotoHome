@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PhotoHome.Data;
 using PhotoHome.Models.Entity;
@@ -15,6 +16,7 @@ namespace PhotoHome.Areas.Admin.Controllers
         {
             _base = context;
         }
+       
 
         public IActionResult Index()
         {

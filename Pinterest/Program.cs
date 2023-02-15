@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PhotoHome.Data;
 using PhotoHome.Models.Entity;
 using System.ComponentModel;
@@ -20,9 +23,37 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+.AddDefaultTokenProviders();
 
 
+
+//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+//}).AddCookie("Cookies", options => {
+//    options.LoginPath = "/User/LogIn";
+//}); ;
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+    options.Cookie.Name = ".Cookies.NetCoreSocialLogin";
+    options.LoginPath = new PathString("/User/LogIn");
+
+})
+.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+           {
+               options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+               options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+               options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+           });
+
+builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -33,15 +64,14 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 });
 
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    //// Cookie settings
-    //options.Cookie.HttpOnly = true;
-    //options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+ 
 
     options.LoginPath = "/User/LogIn";
     options.AccessDeniedPath = "/User/LogIn";
-    //options.SlidingExpiration = true;
+ 
 });
 
 var app = builder.Build();
@@ -91,7 +121,7 @@ app.UseAuthorization();
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
- 
+
 app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
