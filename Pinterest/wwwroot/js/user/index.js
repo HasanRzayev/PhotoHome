@@ -119,16 +119,8 @@ var RemoveClick = (obj) => {
     obj.classList.toggle("redHeart")
 }
 
-$('select').bsSelectDrop({
-    btnWidth: 'fit-content',
-    btnEmptyText: 'Select An Option...',
-    btnClass: 'btn btn-outline-secondary',
-});
-
 
 //Home page  lazy loading code
-
-
 
 var ajaxCallUrl = '/Home/ImageList',
     page = 0,
@@ -221,28 +213,26 @@ function sendData() {
 }
         
 
+//Create page tag input
+
 var ul = document.getElementById("tagUl");
 var input = document.getElementById("tagInput");
-var tags = ["salam"];
-
+var tags = [];
 
 createTag();
-
 
 function createTag() {
     ul.querySelectorAll("li").forEach(li => li.remove());
     tags.slice().reverse().forEach(tag => {
-        let liTag = `<li>${tag} <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>`;
+        let liTag = `<li>${tag} <i class="fa-solid fa-xmark" onclick="remove(this, '${tag}')"></i></li>`;
         ul.insertAdjacentHTML("afterbegin", liTag);
     });
-   
 }
 
 function remove(element, tag) {
     let index = tags.indexOf(tag);
     tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
     element.parentElement.remove();
-   
 }
 
 function addTag(e) {
@@ -253,25 +243,20 @@ function addTag(e) {
             tag.split(',').forEach(tag => {
                 tags.push(tag);
                 createTag();
-                
             });
         }
-        e.target.value = "";
 
+        e.target.value = "";
     }
 }
 
-input.addEventListener("keypress", addTag);
-
-
-
+input.addEventListener("keydown", addTag);
 
 
 //Sekillerin yuklenmesi
 
 
 $(".DownloadButton").click(function (evt) {
-
     downloadImage(evt.target.id, "Image");
     var option = evt.target.id;
 

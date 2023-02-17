@@ -1,5 +1,6 @@
 html {
     overflow-x: hidden;
+    min-width: 576px;
 }
 
 body {
@@ -10,6 +11,29 @@ body {
     /*color: #859196;*/
     outline: none;
 }
+
+/* ! */
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #999;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #bfbfbf;
+    }
 
 a {
     -webkit-transition: .3s all ease;
@@ -91,7 +115,7 @@ h5,
     }
 
 .probootstrap-aside .probootstrap-site-logo {
-    padding: 20px;
+    padding: 15px;
     position: relative;
 }
 
@@ -106,8 +130,8 @@ h5,
 
 /* ! */
 .probootstrap-logo img {
-    height: 80px;
-    width: 85px;
+    height: 90px;
+    /*width: 85px;*/
 }
 
 .probootstrap-aside .probootstrap-nav {
@@ -313,7 +337,7 @@ h5,
     width: 100%;
 }
 
-@media screen and (min-width: 568px) {
+@media screen and (min-width: 576px) {
     .probootstrap-main .card-columns .image-column {
         flex: 32.3%;
         max-width: 32.3%;
@@ -864,15 +888,22 @@ textarea {
     z-index: 100;
 }*/
 
-#search-div {
+#searchDiv {
+    /*border: 1px solid;*/
     border-radius: 30px;
-    background-color: #e6e6e6;
+    background-color: #f2f2f2;
+    padding: 4px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+    margin-right: 48px;
 }
 
-    #search-div:focus,
-    #search-div:active {
+/*#searchDiv:focus,
+    #searchDiv:active {
         border: 3px solid #178277;
-    }
+    }*/
 
 .signin {
     border-radius: 20px;
@@ -1076,14 +1107,7 @@ textarea {
         font-size: 16px;
     }
 
-    /*.create-image label {
-        font-size: 18px;
-        font-weight: bold;
-        color: #252525;
-        padding-left: 15px;
-    }*/
-
-.image-form input[type=submit] {
+#createImageForm input[type=submit] {
     width: 100%;
     background-color: #fff;
     color: #1FAD9F;
@@ -1095,10 +1119,93 @@ textarea {
     cursor: pointer;
 }
 
-    .image-form input[type=submit]:hover {
+    #createImageForm input[type=submit]:hover {
         background-color: #1FAD9F;
         color: #fff;
     }
+
+/* ! */
+
+.create-image .wrapper {
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+    .create-image .wrapper :where(li, li i, .details) {
+        display: flex;
+        align-items: center;
+    }
+
+.create-image .content p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.create-image .content span {
+    color: #1FAD9F;
+}
+
+.create-image .content ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid #a6a6a6;
+    max-height: 64px;
+    overflow: auto;
+}
+
+    .create-image .content ul li {
+        color: #333;
+        margin: 4px 3px;
+        list-style: none;
+        border-radius: 5px;
+        background: #F2F2F2;
+        padding: 5px 8px 5px 10px;
+        border: 1px solid #e3e1e1;
+    }
+
+        .create-image .content ul li i {
+            height: 20px;
+            width: 20px;
+            color: #808080;
+            margin-left: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            background: #dfdfdf;
+            justify-content: center;
+        }
+
+    .create-image .content ul input {
+        flex: 1;
+        padding: 5px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+    }
+
+/*.wrapper .details {
+    justify-content: space-between;
+}
+
+.details button {
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 9px 15px;
+    border-radius: 5px;
+    background: #5372F0;
+    transition: background 0.3s ease;
+}
+
+    .details button:hover {
+        background: #2c52ed;
+    }*/
 
 @media screen and (max-width: 960px) {
     #dragger_wrapper {
@@ -1933,7 +2040,7 @@ textarea {
     width: 100%;
 }
 
-@media screen and (min-width: 568px) {
+@media screen and (min-width: 576px) {
     #recommended-images .card-columns .image-column {
         flex: 49%;
         max-width: 49%;
@@ -2021,63 +2128,64 @@ textarea {
     }
 }
 
+/* ! */
 
-.create-image .wrapper {
-    width: 496px;
-    background: #fff;
-    border-radius: 10px;
-    padding: 18px 25px 20px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.06);
+.categoryClass {
+    height: 200px;
+    width: 100%;
+    border-radius: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-    .create-image .wrapper :where(li, li i, .details) {
+    .categoryClass a {
+        text-transform: capitalize;
+        background: rgba(0, 0, 0, 0.3);
+        font-size: 1.3em;
+        font-weight: bold;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
-    .create-image .wrapper .content {
-        margin: 10px 0;
+    .categoryClass:hover {
+        transition: all .7s;
+        transform: scale(1.1);
     }
 
-.create-image .content p {
-    font-size: 15px;
+/* ! */
+
+#searchSuggestions {
+    display: none;
+    position: absolute;
+    top: 54px;
+    left: 31px;
+    z-index: 100;
 }
 
-.create-image .content ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 7px;
-    margin: 12px 0;
-    border-radius: 5px;
-    border: 1px solid #a6a6a6;
+#suggestionsUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-    .create-image .content ul li {
-        color: #333;
-        margin: 4px 3px;
-        list-style: none;
-        border-radius: 5px;
-        background: #F2F2F2;
-        padding: 5px 8px 5px 10px;
-        border: 1px solid #e3e1e1;
+    #suggestionsUL li a {
+        background-color: #f2f2f2;
+        padding: 5px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        display: block;
+        color: #000;
     }
 
-        .create-image .content ul li i {
-            height: 20px;
-            width: 20px;
-            color: #808080;
-            margin-left: 8px;
-            font-size: 12px;
-            cursor: pointer;
-            border-radius: 50%;
-            background: #dfdfdf;
-            justify-content: center;
+        #suggestionsUL li a:hover:not(.header) {
+            background-color: #e6e6e6;
         }
 
-    .create-image .content ul input {
-        flex: 1;
-        padding: 5px;
-        border: none;
-        outline: none;
-        font-size: 16px;
+    #suggestionsUL li:last-child a {
+        border-radius: 0 0 10px 10px;
     }

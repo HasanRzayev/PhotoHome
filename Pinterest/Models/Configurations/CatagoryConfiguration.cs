@@ -36,7 +36,7 @@ namespace UltraWebsite.Models.Configurations
         {
             index = 1;
 
-            builder.HasData(new Catagory { Id = index++, ImageUrl="https://burst.shopifycdn.com/photos/bustling-city-street-in-india.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",  Name = "around the orld          " });
+            builder.HasData(new Catagory { Id = index++, ImageUrl="https://burst.shopifycdn.com/photos/bustling-city-street-in-india.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",  Name = "around the world          " });
             builder.HasData(new Catagory { Id = index++, ImageUrl="https://burst.shopifycdn.com/photos/office-flat-lay-on-wooden-desk-with-catch-tray.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",  Name = "work from home            " });
             builder.HasData(new Catagory { Id = index++, ImageUrl="https://burst.shopifycdn.com/photos/a-note-just-to-say-you-are-enough.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",  Name = "mental health               " });
             builder.HasData(new Catagory { Id = index++, ImageUrl="https://burst.shopifycdn.com/photos/autumn-photographer-taking-picture.jpg?width=1200&amp;format=pjpg&amp;exif=0&amp;iptc=0",  Name = "female photographer         " });
