@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhotoHome.Data;
+using PhotoHome.Helpers;
 using PhotoHome.Models.Entity;
 using System.Security.Claims;
 using static System.Net.Mime.MediaTypeNames;
@@ -15,7 +16,7 @@ namespace PhotoHome.Repository
             _base = context;
         }
         private const int pageSize = 18;
-        public List<Picture> GetImage(int? pageNumber,string? search,string? search_type)
+        public async Task<List<Picture>> GetImage(int? pageNumber,string? search,string? search_type)
         {
             var model=new List<Picture>();  
             var numberOfRecordToskip = pageNumber * pageSize;
@@ -23,9 +24,15 @@ namespace PhotoHome.Repository
             {
                 model = _base.Images.Include(a => a.catagory).Where(a => a.catagory.Name == search).Skip(Convert.ToInt32(numberOfRecordToskip)).Take(pageSize).ToList<Picture>();
             }
+            else if (search_type == "tag")
+            {
+                 model = _base.Image_Tags.Include(p => p.Image).Where(it => it.Tag.Name.ToLower().StartsWith(search.ToLower())).Select(it => it.Image).ToList();
+            }
             else
             {
+                
                 model = _base.Images.OrderBy(x => x.Id).Skip(Convert.ToInt32(numberOfRecordToskip)).Take(pageSize).ToList<Picture>();
+             
             }
             return model;
 

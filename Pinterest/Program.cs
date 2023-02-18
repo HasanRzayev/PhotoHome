@@ -27,33 +27,9 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 
 
-//builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-//    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-//}).AddCookie("Cookies", options => {
-//    options.LoginPath = "/User/LogIn";
-//}); ;
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-})
-.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-{
-    options.Cookie.Name = ".Cookies.NetCoreSocialLogin";
-    options.LoginPath = new PathString("/User/LogIn");
 
-})
-.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
-           {
-               options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-               options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-               options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
-           });
 
-builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -76,6 +52,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -83,33 +60,34 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-var container = app.Services.CreateScope();
-var userManager = container.ServiceProvider.GetRequiredService<UserManager<User>>();
-var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-if (!await roleManager.RoleExistsAsync("Admin"))
-{
-    var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
-    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
-}
+//var container = app.Services.CreateScope();
+//var userManager = container.ServiceProvider.GetRequiredService<UserManager<User>>();
+//var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-var user = await userManager.FindByEmailAsync("admin@admin.com");
+//if (!await roleManager.RoleExistsAsync("Admin"))
+//{
+//    var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
+//    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+//}
 
-if (user == null)
-{
-    user = new User
-    {
-        UserName = "admin@admin.com",
-        Email = "admin@admin.com",
-        FirstName = "Admin",
-        LastName = "Admin",
-        EmailConfirmed = true
-    };
+//var user = await userManager.FindByEmailAsync("admin@admin.com");
 
-    var result = await userManager.CreateAsync(user, "Admin");
-    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
-    result = await userManager.AddToRoleAsync(user, "Admin");
-}
+//if (user == null)
+//{
+//    user = new User
+//    {
+//        UserName = "admin@admin.com",
+//        Email = "admin@admin.com",
+//        FirstName = "Admin",
+//        LastName = "Admin",
+//        EmailConfirmed = true
+//    };
+
+//    var result = await userManager.CreateAsync(user, "Admin");
+//    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+//    result = await userManager.AddToRoleAsync(user, "Admin");
+//}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

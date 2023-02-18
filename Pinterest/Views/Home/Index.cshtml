@@ -10,6 +10,7 @@
 			{
 				@Html.TextBox("searchPattern", null, new { style="width: 100%; margin-left: 10px; border: none; background-color: transparent; outline: none; border-radius: 20px", placeholder="Search", id="searchTxtBx"} )
 			}
+
 		</div>
 		<div class="d-flex justify-content-end align-items-center w-25">
 			@{
@@ -35,7 +36,7 @@
 
 	<div id="searchSuggestions">
 		<ul id="suggestionsUL">
-			<li><a href="#">Adele</a></li>
+			@*<li><a href="#">Adele</a></li>
 			<li><a href="#">Agnes</a></li>
 
 			<li><a href="#">Billy</a></li>
@@ -43,7 +44,7 @@
 
 			<li><a href="#">Calvin</a></li>
 			<li><a href="#">Christina</a></li>
-			<li><a href="#">Cindy</a></li>
+			<li><a href="#">Cindy</a></li>*@
 		</ul>
 	</div>
 
@@ -54,7 +55,7 @@
 				<div style="width: 100%; overflow: hidden; border-radius: 20px;">
 					<div class="item">
 						<div class="categoryClass" style="background-image: url('@item.ImageUrl');">
-							<a id="link1" class="@item.Name" href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name</a>
+							<a id="@item.Name" class="link1" href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name</a>
 						</div>
 					</div>
 				</div>
@@ -69,13 +70,14 @@
 
 
 @section Scripts{
-	<script type="text/javascript">
-		$('#link1').click(function () {
-			search_type = "category";
-			category = $(this).attr('class')
-			alert(category);
-		});
-	</script>
+	@*<script type="text/javascript">
+		//$('#link1').click(function () {
+		//	search_type = "category";
+		//	category = $(this).attr('class')
+		//	alert(category);
+		//});
+
+	</script>*@
 
 	<script src="~/js/user/index.js"></script>
 

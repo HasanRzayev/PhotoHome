@@ -12,6 +12,8 @@ namespace PhotoHome.Models.Entity
 
         public string? Message { get; set; }
         public string? About { get; set; }
+
+        public string? ImageUrl { get; set; }
         public virtual ICollection<Picture> Created_Images { get; set; }
         public virtual ICollection<Image_Like> Image_Likes { get; set; }
 
