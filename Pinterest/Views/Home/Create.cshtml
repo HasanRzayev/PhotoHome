@@ -1,103 +1,79 @@
 ﻿@model AddImageViewModel
 
-<div class="container-fluid">
-	<div class="col-xl-10 mx-auto p-0" id="dragger_wrapper">
-		<div class="col-xl-5 p-2 add-image">
-			<div id="dragger">
-				<div class="icon">
-					<i class="fa-solid fa-images"></i>
+<div class="container-fluid centerDiv">
+	<div class="col-xl-6 mx-auto p-3" id="dragger_wrapper">
+		@*<div class="col-xl-6 p-2 add-image">*@
+		@*<div id="dragger">
+		<div class="icon">
+		<i class="fa-solid fa-images"></i>
+		</div>
+		<h3 id="drag-text">Drag and drop file</h3>
+		<button class="py-1 px-3" id="browseFile" onclick="inputClick()">Browse</button>
+		<input type="file" hidden id="fileInputField" asp-for="@Model.ImageUrl" />
+		</div>*@
+		@*<div style="background: #fff; border-radius: 20px; border: 3px dotted #252525; height: 240px; display: flex; align-items: center; justify-content: center; padding-left: 50px">
+		<input type="file" asp-for="ImageUrl" required />
+		</div>*@
+		@*</div>*@
+		@*<div class="col-xl-6 p-2 add-details">*@
+		<form method="post" asp-action="AddImage" asp-controller="Home" id="createImageForm" class="w-100 h-100 d-flex flex-row" enctype="multipart/form-data">
+			<div class="col-xl-12 p-0">
+				<div style="background: #fff; border-radius: 20px; border: 3px dotted #252525; height: 100px; display: flex; align-items: center; justify-content: center; padding-left: 50px; margin-bottom: 10px;">
+					<input type="file" asp-for="ImageUrl" accept="image/png,image/jpeg,image/gif" required />
 				</div>
-				<h3 id="drag-text">Drag and drop file</h3>
-				<button class="py-1 px-3" id="browseFile" onclick="inputClick()">Browse</button>
-				<input type="file" hidden id="fileInputField" asp-for="@Model.ImageUrl" />
-				<input type="file" hidden id="zapas" asp-for="@Model.ImageUrl" />
+
+				<h3 style="text-align: center; margin: 0; padding-top: 5px;">Add Image</h3>
+
+				<div class="create-image pb-0">
+					<div class="dropdown">
+						<select asp-for=catagory_id asp-items=@ViewBag.Categories id="categorySelect" required>
+							@*<option value="" disabled selected>Category</option>*@
+						</select>
+					</div>
+				</div>
+
+				<div class="create-image">
+					<input type="text" id="categoryTitle" asp-for="Title" placeholder="Title" required />
+				</div>
+
+				<div class="create-image pb-0">
+					<textarea asp-for="Description" cols="30" rows="3" placeholder="Description"></textarea>
+				</div>
+
+				<div class="create-image">
+					<div class="wrapper">
+						<div class="content">
+							<p>Press <span>space</span> after each tag</p>
+							<ul id="tagUl">
+								<input id="tagInput" type="text" spellcheck="false" required>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="d-flex align-items-center justify-content-center mt-1">
+					<input class="submitBtn" type="submit" value="Create">
+				</div>
 			</div>
-		</div>
-		<div class="col-xl-7 p-2 add-details">
-			<form method="post" asp-action="AddImage" asp-controller="Home" id="createImageForm" class="w-100 h-100 d-flex flex-row" enctype="multipart/form-data">
-				<div class="col-xl-12">
-					<div class="create-image">
-						<div class="dropdown">
-							<select asp-for=catagory_id asp-items=@ViewBag.Categories id="categorySelect" required></select><br />
-						</div>
-					</div>
-					<div class="create-image">
-						<input type="text" asp-for="Title" placeholder="Title" required />
-					</div>
-					<div class="create-image">
-						<textarea asp-for="Description" cols="30" rows="3" placeholder="Description"></textarea>
-					</div>
-
-					<div class="create-image">
-						<div class="wrapper">
-							<div class="content">
-								<p>Press <span>space</span> after each tag</p>
-								<ul id="tagUl">
-									<input id="tagInput" type="text" spellcheck="false" required>
-								</ul>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xl-6 mx-auto create-image">
-						<input type="submit"  id="Submit" value="Create">
-					</div>
-				</div>
-			</form>
-		</div>
+		</form>
 	</div>
+	@*</div>*@
 </div>
 
 @section Scripts{
-	<script>
-
-		var ul = document.getElementById("tagUl");
-		var input = document.getElementById("tagInput");
-		var tags = [];
-
-		createTag();
-
-		function createTag() {
-			ul.querySelectorAll("li").forEach(li => li.remove());
-			tags.slice().reverse().forEach(tag => {
-				let liTag = `<li>${tag} <i class="fa-solid fa-xmark" onclick="remove(this, '${tag}')"></i></li>`;
-				ul.insertAdjacentHTML("afterbegin", liTag);
-			});
-		}
-
-		function remove(element, tag) {
-			let index = tags.indexOf(tag);
-			tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
-			element.parentElement.remove();
-		}
-
-		function addTag(e) {
-			if (e.keyCode === 32) {
-				let tag = e.target.value.replace(/\s+/g, ' ');
-
-				if (tag.length > 1 && !tags.includes(tag)) {
-					tag.split(',').forEach(tag => {
-						tags.push(tag);
-						createTag();
-					});
-				}
-
-				e.target.value = "";
-			}
-		}
-
-		input.addEventListener("keydown", addTag);
-
-
-
-	</script>
-
-
 	<link rel="stylesheet" href="~/css/user/tinyselect.css">
 	<script src="~/js/user/tinyselect.min.js"></script>
 
 	<script>
 		$("#categorySelect").tinyselect();
 		$(".searchicon").html('<i class="fa-solid fa-magnifying-glass"></i>')
+	</script>
+
+	<script>
+		$(window).resize(() => {
+			$('.tinyselect').css({
+				"width": "100%"
+			})
+		})
 	</script>
 }

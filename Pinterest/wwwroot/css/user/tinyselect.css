@@ -1,6 +1,5 @@
 .tinyselect {
     display: inline-block;
-    /*min-width: 200px;*/
     position: relative;
 }
 
@@ -45,9 +44,12 @@
         z-index: 100;
         box-sizing: border-box;
         max-height: 200px;
-        overflow-x: hidden;
-        overflow-y: scroll;
+        overflow: auto;
     }
+
+        .tinyselect .dropdown::-webkit-scrollbar {
+            display: none;
+        }
 
         .tinyselect .dropdown .searchcontainer {
             padding: 5px;

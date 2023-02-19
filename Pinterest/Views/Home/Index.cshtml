@@ -10,7 +10,6 @@
 			{
 				@Html.TextBox("searchPattern", null, new { style="width: 100%; margin-left: 10px; border: none; background-color: transparent; outline: none; border-radius: 20px", placeholder="Search", id="searchTxtBx"} )
 			}
-
 		</div>
 		<div class="d-flex justify-content-end align-items-center w-25">
 			@{
@@ -35,17 +34,7 @@
 	</div>
 
 	<div id="searchSuggestions">
-		<ul id="suggestionsUL">
-			@*<li><a href="#">Adele</a></li>
-			<li><a href="#">Agnes</a></li>
-
-			<li><a href="#">Billy</a></li>
-			<li><a href="#">Bob</a></li>
-
-			<li><a href="#">Calvin</a></li>
-			<li><a href="#">Christina</a></li>
-			<li><a href="#">Cindy</a></li>*@
-		</ul>
+		<ul id="suggestionsUL"></ul>
 	</div>
 
 	<div class="mb-4">
@@ -55,7 +44,7 @@
 				<div style="width: 100%; overflow: hidden; border-radius: 20px;">
 					<div class="item">
 						<div class="categoryClass" style="background-image: url('@item.ImageUrl');">
-							<a id="@item.Name" class="link1" href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name</a>
+							<a id="link1" class="@item.Name" href="@Url.Action("SearchCatagory", "Home", new { searchPattern = item.Name })">@item.Name</a>
 						</div>
 					</div>
 				</div>
@@ -71,12 +60,11 @@
 
 @section Scripts{
 	@*<script type="text/javascript">
-		//$('#link1').click(function () {
-		//	search_type = "category";
-		//	category = $(this).attr('class')
-		//	alert(category);
-		//});
-
+		$('#link1').click(function () {
+			search_type = "category";
+			category = $(this).attr('class')
+			alert(category);
+		});
 	</script>*@
 
 	<script src="~/js/user/index.js"></script>
@@ -111,17 +99,6 @@
 
 		$('.owl-prev').html('<span><i class="fa-solid fa-chevron-left"></i></span>')
 		$('.owl-next').html('<span><i class="fa-solid fa-chevron-right"></i></span>')
-
-		//different colored category carousel
-		//var arr = $('#category-carousel .item').children()
-
-		//$.each(arr, (index) => {
-		//	var colorR = Math.floor((Math.random() * 200));
-		//	var colorG = Math.floor((Math.random() * 200));
-		//	var colorB = Math.floor((Math.random() * 200));
-
-		//	$(arr[index]).css("background-color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")
-		//})
 	</script>
 
 	<script>
@@ -130,14 +107,15 @@
 		})
 
 		$(window).resize(() => {
-			//$('#searchSuggestions').css({
-			//	"width": $('#searchDiv').width()
-			//}),
-			//alert($(window).width())
-			
 			if ($(window).width() <= 768 && $('#searchSuggestions').css('display') == 'block') {
 				$("#searchSuggestions").fadeOut(150)
 			}
+		})
+
+		$(window).resize(() => {
+			$('#searchSuggestions').css({
+				"width": $('#searchDiv').width()
+			})
 		})
 
 		$('#searchTxtBx').focus(() => {

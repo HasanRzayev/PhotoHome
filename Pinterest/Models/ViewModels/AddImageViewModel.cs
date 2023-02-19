@@ -4,7 +4,6 @@ namespace PhotoHome.Models.ViewModels
 {
     public class AddImageViewModel
     {
-
         public string Description { get; set; }
         public string Title { get; set; }
 
@@ -15,10 +14,6 @@ namespace PhotoHome.Models.ViewModels
         public int catagory_id { get; set; }
 
         public string[] Tags { get; set; }
-        public AddImageViewModel()
-        {
-
-        }
 
 
         //public static implicit operator Picture(AddImageViewModel model)

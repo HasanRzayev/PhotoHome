@@ -1,28 +1,46 @@
-﻿
-@{
-    Layout=null;
+﻿@{
+	Layout = null;
 }
 
-
 @model LoginViewModel
-<div class="login-form-bd">
-  <div class="form-wrapper">
-    <div class="form-container">
-      <h1> Please Login</h1>
-    <form method="post" asp-action="Authenticate" asp-controller="User">
-         <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" class="form-control" />
-        <div class="form-control">
-          <input asp-for="Email"  type="text" required>
-          <label> Email</label>
-        </div>
 
-        <div class="form-control">
-          <input  asp-for="Password"type="password" required>
-          <label> Password</label>
-        </div>
-        <button class="login-btn">Login</button>
-        <p class="text">Don't have an account? <a href="register.html"> Register</a></p>
-      </form>
-    </div>
-  </div>
-</div>
+<head>
+	<title>PhotoHome</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	@*<meta name="keywords"
+	content="free bootstrap 4, free bootstrap 4 template, free website templates, free html5, free template, free website template, html5, css3, mobile first, responsive" />*@
+
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+	<link rel="stylesheet" href="~/css/user/bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/user/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/user/style.css">
+</head>
+
+<body>
+	<div class="container-fluid registration-page p-0">
+		<div class="container-fluid registration-page-bg">
+			<div class="registration">
+				<h1>Login</h1>
+
+				<form method="post" asp-action="Authenticate" asp-controller="User">
+					<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" class="form-control" />
+					<div class="registration-field">
+						<input asp-for="Email" type="text" required>
+						<label>Email</label>
+					</div>
+					<span asp-validation-for="Email"></span>
+
+					<div class="registration-field">
+						<input asp-for="Password" type="password" required>
+						<label>Password</label>
+					</div>
+					<span it="password_span" asp-validation-for="Password"></span>
+
+					<input class="mt-3" type="submit" value="Login">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
