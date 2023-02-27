@@ -18,11 +18,12 @@
 		@*<div class="col-xl-6 p-2 add-details">*@
 		<form method="post" asp-action="AddImage" asp-controller="Home" id="createImageForm" class="w-100 h-100 d-flex flex-row" enctype="multipart/form-data">
 			<div class="col-xl-12 p-0">
+				<h3 style="text-align: center; margin: 0; padding-top: 5px;">Add Image</h3>
 				<div style="background: #fff; border-radius: 20px; border: 3px dotted #252525; height: 100px; display: flex; align-items: center; justify-content: center; padding-left: 50px; margin-bottom: 10px;">
 					<input type="file" asp-for="ImageUrl" accept="image/png,image/jpeg,image/gif" required />
 				</div>
 
-				<h3 style="text-align: center; margin: 0; padding-top: 5px;">Add Image</h3>
+				
 
 				<div class="create-image pb-0">
 					<div class="dropdown">

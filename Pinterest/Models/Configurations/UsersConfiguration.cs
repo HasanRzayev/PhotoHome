@@ -16,7 +16,7 @@ namespace PhotoHome.Models.Configurations
         {
             index = 1;
 
-            builder.HasData(new User { Id = "1", UserName= "Hesen_Rzayev", FirstName = "Hesen", Email = "hsnrz2002@gmail.com", LastName = "Rzayev" , ImageUrl= "~\\images\\user\\adilabbasov.png" });
+            builder.HasData(new User { Id = "1", UserName= "Hesen_Rzayev", FirstName = "Hesen", Email = "hsnrz2002@gmail.com", LastName = "Rzayev"  });
             builder.HasData(new User { Id = "2",  UserName= "Adil_Abbasov", FirstName = "Adil", Email = "ffff@gmail.com", LastName = "Abbasov"});
         
         }

@@ -132,12 +132,14 @@ var DeleteImage = (obj) => {
 }
 
 
+
 //Home page  lazy loading code
 
 var ajaxCallUrl = '/Home/ImageList',
     page = 0,
     inCallback = false,
     isReachedScrollEnd = false;
+
 
 $('.link1').click(function (event) {
     myVariable = event.target.id;
@@ -146,10 +148,11 @@ $('.link1').click(function (event) {
     localStorage.setItem("Search_Type", "category");
 });
 
+
 var scrollHandler = function () {
     var height = $(Window).scrollTop();
     if (isReachedScrollEnd == false &&
-        (height >= $(document).height() - 1000)) {
+        (height >= $(document).height() /2)) {
         loadProducts(ajaxCallUrl);
     }
 
@@ -205,7 +208,6 @@ function loadProducts(ajaxCallUrl) {
 
 var myVariable;
 var Search_Type;
-
 
 //Taglarin  gonderilmesi
 

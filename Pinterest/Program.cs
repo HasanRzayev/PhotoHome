@@ -61,33 +61,33 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-//var container = app.Services.CreateScope();
-//var userManager = container.ServiceProvider.GetRequiredService<UserManager<User>>();
-//var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+var container = app.Services.CreateScope();
+var userManager = container.ServiceProvider.GetRequiredService<UserManager<User>>();
+var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-//if (!await roleManager.RoleExistsAsync("Admin"))
-//{
-//    var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
-//    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
-//}
+if (!await roleManager.RoleExistsAsync("Admin"))
+{
+    var result = await roleManager.CreateAsync(new IdentityRole("Admin"));
+    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+}
 
-//var user = await userManager.FindByEmailAsync("admin@admin.com");
+var user = await userManager.FindByEmailAsync("admin@admin.com");
 
-//if (user == null)
-//{
-//    user = new User
-//    {
-//        UserName = "admin@admin.com",
-//        Email = "admin@admin.com",
-//        FirstName = "Admin",
-//        LastName = "Admin",
-//        EmailConfirmed = true
-//    };
+if (user == null)
+{
+    user = new User
+    {
+        UserName = "admin@admin.com",
+        Email = "admin@admin.com",
+        FirstName = "Admin",
+        LastName = "Admin",
+        EmailConfirmed = true
+    };
 
-//    var result = await userManager.CreateAsync(user, "Admin");
-//    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
-//    result = await userManager.AddToRoleAsync(user, "Admin");
-//}
+    var result = await userManager.CreateAsync(user, "Admin");
+    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+    result = await userManager.AddToRoleAsync(user, "Admin");
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
